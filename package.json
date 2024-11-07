@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.2.1",
+    "@prisma/client": "^5.22.0",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.2",
+    "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "html2canvas": "^1.4.1",
@@ -26,12 +28,14 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "15.0.2",
     "postcss": "^8",
+    "prisma": "^5.22.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
