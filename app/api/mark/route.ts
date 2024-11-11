@@ -12,31 +12,23 @@ export async function POST(request: Request) {
         });
     }
 
-    // Parse the JSON body
-    const { searchParams } = new URL(request.url);
-    const dataParam = searchParams.get("data");
-
-
- 
-
     try {
+        const body = await request.json(); // Read JSON body
+        const { userId, date } = body; // Extract userId and date
 
-    if (dataParam) {
-        const { userId, date } = JSON.parse(decodeURIComponent(dataParam));
-
-
-        if (!userId) {
-            return new Response("userId is required", { status: 400 });
+        if (!userId || !date) {
+            return new Response("userId and date are required", { status: 400 });
         }
-    
-     if (isNaN(date.getTime())) {
-        return new Response("Invalid date format", { status: 400 });
-    }
-    
+
+        const parsedDate = new Date(date);
+        if (isNaN(parsedDate.getTime())) {
+            return new Response("Invalid date format", { status: 400 });
+        }
+
         await prisma.attendance.upsert({
-            where: { userId_date: { userId, date } },
+            where: { userId_date: { userId, date: parsedDate } },
             update: { isPresent: true },
-            create: { userId, date, isPresent: true },
+            create: { userId, date: parsedDate, isPresent: true },
         });
 
         return new Response(JSON.stringify({ message: "Attendance marked successfully" }), {
@@ -46,11 +38,6 @@ export async function POST(request: Request) {
                 "Access-Control-Allow-Origin": "*",
             },
         });
-
-    } else {
-        return new Response("date is required", { status: 400 });
-  
-    }
     } catch (error) {
         console.error("Error saving attendance info:", error);
         return new Response("Failed to mark attendance", { status: 500 });

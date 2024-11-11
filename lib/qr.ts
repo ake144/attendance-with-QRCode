@@ -7,7 +7,7 @@ export const generateQrData = ({ userID }: { userID: string }) => {
   
   // Encoding the userID and date as a JSON string
   const payload = JSON.stringify({ userId: userID, date: today });
-  return `https://nextjs-qr-attendance.vercel.app/api/mark?data=${encodeURIComponent(payload)}`;
+  return `http://localhost:3000/api/mark?data=${encodeURI(payload)}`;
 };
 
   
