@@ -1,45 +1,32 @@
-import prisma from "@/lib/db";
+// app/api/mark/route.ts
+import { NextResponse } from 'next/server';
+import prisma from "@/lib/db"; // Adjust based on your setup
 
-export async function POST(request: Request) {
-    if (request.method === 'OPTIONS') {
-        return new Response(null, {
-            status: 204,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'POST, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type',
-            },
-        });
+export async function GET(request: Request) {
+    const { searchParams } = new URL(request.url);
+    const userId = searchParams.get("userId");
+    const date = searchParams.get("date");
+
+    if (!userId || !date) {
+        return NextResponse.json({ message: "userId and date are required" }, { status: 400 });
+    }
+
+    const parsedDate = new Date(date);
+    if (isNaN(parsedDate.getTime())) {
+        return NextResponse.json({ message: "Invalid date format" }, { status: 400 });
     }
 
     try {
-        const body = await request.json(); // Read JSON body
-        const { userId, date } = body; // Extract userId and date
-
-        if (!userId || !date) {
-            return new Response("userId and date are required", { status: 400 });
-        }
-
-        const parsedDate = new Date(date);
-        if (isNaN(parsedDate.getTime())) {
-            return new Response("Invalid date format", { status: 400 });
-        }
-
-        await prisma.attendance.upsert({
-            where: { userId_date: { userId, date: parsedDate } },
-            update: { isPresent: true },
-            create: { userId, date: parsedDate, isPresent: true },
-        });
-
-        return new Response(JSON.stringify({ message: "Attendance marked successfully" }), {
-            status: 200,
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
+        await prisma.attendance.create({
+            data: {
+                userId,
+                date: parsedDate,
+                isPresent: true,
             },
         });
+        return NextResponse.json({ message: "Attendance marked successfully" });
     } catch (error) {
-        console.error("Error saving attendance info:", error);
-        return new Response("Failed to mark attendance", { status: 500 });
+        console.error("Error marking attendance:", error);
+        return NextResponse.json({ message: "Internal server error", error: error }, { status: 500 });
     }
 }
