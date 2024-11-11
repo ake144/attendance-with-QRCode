@@ -1,5 +1,4 @@
 import prisma from "@/lib/db";
-import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
     try {
@@ -45,3 +44,11 @@ export async function POST(request: Request) {
 }
 
 
+export async function GET(request: Request ) {
+    
+    return new Response(JSON.stringify({ message: "Attendance marked successfully" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+    });
+ }
+ 
