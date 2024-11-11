@@ -2,22 +2,32 @@ import prisma from "@/lib/db";
 
 export async function POST(request: Request) {
     try {
-        // Parse the JSON body
-        const userInfo = await request.json();
-        const userId = userInfo.userId;
+        const { searchParams } = new URL(request.url);
+        const userId = searchParams.get("userId");
+        const dateParam = searchParams.get("date");
 
         // Validate input data
         if (!userId) {
             return new Response("userId is required", { status: 400 });
         }
 
-        // Create attendance record in the database
-        await prisma.attendance.create({
-            data: {
-                date: new Date(),
-                userId: userId,
-                isPresent: true,
+        if (!dateParam) {
+            return new Response("date is required", { status: 400 });
+        }
+
+        // Parse date parameter
+        const date = new Date(dateParam);
+        if (isNaN(date.getTime())) {
+            return new Response("Invalid date format", { status: 400 });
+        }
+
+        // Create or update attendance record in the database
+        await prisma.attendance.upsert({
+            where: {
+                userId_date: { userId, date },  // Combine userId and date as a unique constraint if you have a composite key
             },
+            update: { isPresent: true },
+            create: { userId, date, isPresent: true },
         });
 
         // Return a success response

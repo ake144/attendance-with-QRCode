@@ -1,4 +1,4 @@
-import { UserInfo } from "@/types/type";
+import { AttendanceRecord, UserInfo } from "@/types/type";
 
 
 export async function saveUserInfo(userId: string, userInfo: UserInfo): Promise<void> {
@@ -70,4 +70,39 @@ export async function updateUserInfo(userId: string, userInfo: UserInfo): Promis
         console.error("Error saving member info:", e);
         throw e;
     }
+}
+
+
+export async function getAttendanceHistory(userId: string): Promise<AttendanceRecord[]> {
+    if (!userId) throw new Error("userID is required");
+
+    try {
+        const response = await fetch(`/api/attendance?userId=${userId}`, { method: "GET" });
+        if (!response.ok) {
+            throw new Error("Error fetching attendance history");
+        }
+        const data = await response.json();
+        return data;
+    } catch (e) {
+        console.error("Error fetching attendance history:", e);
+        throw e;
+    }
+}
+
+export async function MarkAttendance(userId:string, date:Date){
+    if (!userId) throw new Error("userID is required");
+    try{
+        const response = await fetch(`/api/attendance/mark?userId=${userId}&date=${date}`)
+        
+        if (!response.ok) {
+            throw new Error("Error creating attendance");
+        }
+      
+         
+    }
+    catch(e){
+        console.log('error  creating attendance')
+        throw e
+    }
+
 }

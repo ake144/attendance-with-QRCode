@@ -13,7 +13,10 @@ import { UserInfo, AttendanceRecord } from "@/types/type";
 
 import churchLogo from "/public/church-logo.jpg"; // Ensure this logo file is available in your public folder
 import Image from "next/image";
-import { saveUserInfo, updateUserInfo } from "@/lib/api";
+import { getAttendanceHistory, saveUserInfo, updateUserInfo } from "@/lib/api";
+import UserForm from "@/components/userinfo";
+import {generateQrData} from '@/lib/qr'
+
 
 
 export default function DashboardPage() {
@@ -25,40 +28,30 @@ export default function DashboardPage() {
   useEffect(() => {
     if (!user) return;
 
-
-    const qrContent = `${window.location.origin}/api/attendance/mark?userId=${user.id}`;
+   const userId = user.id;
+    const qrContent = generateQrData({userID: userId});
     setQrData(qrContent);
-
-    const initializeMemberData = async () => {
-      const userData = {
-        name: user.firstName || "",
-        email: user.emailAddresses[0]?.emailAddress || "",
-        phone: "",
-        clerkUserIdc:user.id,
-        qrCode: qrData,
-
-      };
-
-      setMemberInfo(userData);
-      await saveUserInfo(user.id, userData);
-      
-     
-
-      try {
-         
-        // Fetch attendance history
-        const response = await fetch(`/api/attendance?userId=${user.id}`, { method: "GET" });
-        if (response.ok) {
-          const data = await response.json();
-          setAttendanceHistory(data);
+    
+      const fetchMemberData = async () => {
+        try {
+          const userData = {
+            name: user.firstName || "",
+            email: user.emailAddresses[0]?.emailAddress || "",
+            phone: "",
+            clerkUserId: user.id,
+            qrCode: qrData,
+          };
+          setMemberInfo(userData);
+          await saveUserInfo(user.id, userData);
+    
+          const response = await getAttendanceHistory(user.id);
+          if (response) setAttendanceHistory(response);
+        } catch (error) {
+          console.error("Error initializing member data:", error);
         }
-      } catch (error) {
-        console.error("Error initializing member data:", error);
-      }
-    };
-
-    initializeMemberData();
-  }, [user]);
+      };
+      fetchMemberData();
+    }, [user]);
 
 
   const handleFormUpdate = async (e: React.FormEvent) => {
@@ -76,10 +69,14 @@ export default function DashboardPage() {
 
 
 
+
+
   // Function to download attendance report with church logo
-  const downloadAttendanceCard = async () => {
-    const captureElement = document.getElementById("attendanceCard");
-    if (captureElement) {
+// Update the ID reference here in downloadAttendanceCard
+const downloadAttendanceCard = async () => {
+  const captureElement = document.getElementById("capture"); // Updated ID to match
+  if (captureElement) {
+    try {
       const canvas = await html2canvas(captureElement);
       const imgData = canvas.toDataURL("image/png");
 
@@ -87,8 +84,13 @@ export default function DashboardPage() {
       link.href = imgData;
       link.download = `${memberInfo?.name}-attendance-card.png`;
       link.click();
+    } catch (error) {
+      console.error("Error capturing element:", error);
     }
-  };
+  } else {
+    console.error("Capture element not found");
+  }
+};
 
   
 
@@ -109,40 +111,8 @@ export default function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-          <form className="space-y-4" onSubmit={handleFormUpdate}>
-    <div className="space-y-2">
-        <Label htmlFor="name">Full Name</Label>
-        <Input
-            id="name"
-            value={memberInfo.name}
-            onChange={(e) =>
-            setMemberInfo({ ...memberInfo, name: e.target.value })
-            }
-        />
-    </div>
-    <div className="space-y-2">
-        <Label htmlFor="email">Email</Label>
-        <Input
-            id="email"
-            type="email"
-            value={memberInfo.email}
-            onChange={(e) =>
-                setMemberInfo({ ...memberInfo, email: e.target.value })
-            }
-        />
-    </div>
-          <div className="space-y-2">
-              <Label htmlFor="phone">Phone Number</Label>
-              <Input
-                  id="phone"
-                  value={memberInfo.phone}
-                  onChange={(e) =>
-                      setMemberInfo({ ...memberInfo, phone: e.target.value })
-                  }
-              />
-          </div>
-          <Button type="submit">Update</Button>
-      </form>
+
+          <UserForm  handleFormUpdate={handleFormUpdate}/>
                 
       
           </CardContent>
@@ -158,7 +128,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="flex flex-col items-center space-y-4">
           <div
-            id="capture"
+             id="capture"
             className="flex items-center p-6 border border-gray-300 rounded-lg bg-white shadow-md space-x-6"
           >
             {/* Left Side: Logo and User Info */}
@@ -185,7 +155,7 @@ export default function DashboardPage() {
           </div>
 
           <Button onClick={downloadAttendanceCard} className="mt-4">
-            Download Report with Logo
+            Download 
           </Button>
         </CardContent>
         </Card>
