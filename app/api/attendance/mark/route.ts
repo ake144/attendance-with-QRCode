@@ -21,6 +21,8 @@ export async function POST(request: Request) {
             return new Response("Invalid date format", { status: 400 });
         }
 
+        console.log("Marking attendance for", userId, "on", date);
+        
         // Create or update attendance record in the database
         await prisma.attendance.upsert({
             where: {
