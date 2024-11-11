@@ -3,7 +3,8 @@ export type UserInfo = {
     name: string;
     email: string;
     phone: string;
-    membershipId: string;
+    qrCode: string;
+    
   };
   
   export type AttendanceRecord = {

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ChurchIcon, QrCodeIcon, ShieldCheckIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { useAuth } from '@clerk/nextjs';
+import Image from "next/image";
 
 import { useRouter } from "next/navigation";
 
@@ -28,7 +29,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-b from-background to-secondary">
         <div className="max-w-3xl mx-auto text-center">
-          <ChurchIcon className="h-16 w-16 mx-auto mb-8 text-primary" />
+          <Image src='/church-logo.jpg'  alt='church logo' width={400} height={300} className="h-20 w-20 mx-auto mb-8 text-primary" />
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl mb-6">
             Digital Identity for Your Church Community
           </h1>

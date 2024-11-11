@@ -19,10 +19,11 @@ model User {
   clerkUserId   String   @unique
   name          String
   email         String
-  phone         String
-  membershipId  String
-  qrCode        String
+  phone         String?
+  qrCode        String?
   attendance    Attendance[]
+
+
 }
 
 model Attendance {

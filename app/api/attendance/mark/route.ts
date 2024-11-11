@@ -1,48 +1,24 @@
-import prisma from "@/lib/db"
-import { NextResponse } from "next/server"
+import prisma from "@/lib/db";
 
+export async function POST(request: Request) {
+    const userId = new URLSearchParams(request.url).get("userId");
+    const userInfo = await request.json();
 
-export async function POST(request:Request){
-    const {userId} = await request.json()
+    if (!userId || !userInfo) {
+        throw new Error("userId and userInfo are required");
+    }
 
-    console.log(userId)
-    const specifiedDays = ["Monday", "Wednesday", "Friday"];
-    const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
-
-
-    if (!specifiedDays.includes(today)) {
-    return NextResponse.json({ error: "Not a valid attendance day" },{status:500});
-      }
-
-    try{
-        const todayDate = new Date().toISOString().split("T")[0];
-
-        if(userId){
-           const existingAttendance = await prisma.attendance.findFirst({
-                where: {
-                     userId: userId,
-                     date: todayDate
-                }
-            })
-
-
-          
-            if(existingAttendance){
-                return NextResponse.json({message: 'Attendance already marked'}, {status: 400})
+    try {
+        await prisma.attendance.create({
+            data: {
+               date: new Date(),
+                userId: userId,
+                isPresent: true
             }
-            await prisma.attendance.create({
-                data: {
-                    userId,
-                    date: todayDate,
-                    isPresent: true
-                }
-            })
-                return NextResponse.json( {message: "Attendance marked successfully"}, {status: 200})
-        }
-        return NextResponse.json({message: 'Please provide userId, date and isPresent'}, {status: 400})
+
+        });
+    } catch (e) {
+        console.error("Error saving member info:", e);
+        throw e;
     }
-    catch(e){
-        console.log(e)
-    }
-    
 }
