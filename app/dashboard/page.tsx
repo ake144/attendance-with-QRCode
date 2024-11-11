@@ -4,8 +4,7 @@
 import { useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import { QRCodeCanvas } from "qrcode.react";
 import { useEffect, useState } from "react";
 import html2canvas from "html2canvas";
