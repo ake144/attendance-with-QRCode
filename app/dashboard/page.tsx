@@ -66,7 +66,7 @@ export default function DashboardPage() {
     if (!user || !memberInfo) return; // Ensure memberInfo is defined
 
     try {
-           const res = await updateUserInfo(user.id, memberInfo);
+           await updateUserInfo(user.id, memberInfo);
           
         console.log("Member info updated successfully!");
     } catch (error) {

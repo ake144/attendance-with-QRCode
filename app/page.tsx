@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { ChurchIcon, QrCodeIcon, ShieldCheckIcon, UsersIcon } from "lucide-react";
+import {  QrCodeIcon, ShieldCheckIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { useAuth } from '@clerk/nextjs';
 import Image from "next/image";
@@ -67,7 +67,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl font-semibold mb-4">Secure & Private</h3>
               <p className="text-muted-foreground">
-                Your members' data is encrypted and protected. Only authorized personnel can access information.
+                Your members&apos; data is encrypted and protected. Only authorized personnel can access information.
               </p>
             </div>
             <div className="flex flex-col items-center text-center">
