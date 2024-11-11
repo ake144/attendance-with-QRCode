@@ -13,6 +13,7 @@ import { getAttendanceHistory, saveUserInfo, updateUserInfo } from "@/lib/api";
 import UserForm from "@/components/userinfo";
 import { generateQrData } from '@/lib/qr';
 
+
 export default function DashboardPage() {
   const { user } = useUser();
   const [memberInfo, setMemberInfo] = useState<UserInfo | null>(null);
