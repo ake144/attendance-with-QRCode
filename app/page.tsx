@@ -31,10 +31,10 @@ export default function Home() {
         <div className="max-w-3xl mx-auto text-center">
           <Image src='/church-logo.jpg'  alt='church logo' width={400} height={300} className="h-20 w-20 mx-auto mb-8 text-primary" />
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl mb-6">
-            Digital Identity for Your Church Community
+            Digital Identity for You GO Church Community
           </h1>
           <p className="text-xl text-muted-foreground mb-8">
-            Generate secure QR codes for church members. Streamline attendance, events, and member identification.
+            Generate secure QR codes for yourself. Streamline attendance, events, and your identification.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" className="text-lg" onClick={handleStart}>

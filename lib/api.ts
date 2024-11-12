@@ -15,7 +15,9 @@ export async function saveUserInfo(userId: string, userInfo: UserInfo): Promise<
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userInfo),
-          });
+            next: { revalidate: 100 },
+          },
+        );
           
 
     }
@@ -30,7 +32,8 @@ export async function getQRCode(userId: string): Promise<string | null> {
     if (!userId) throw new Error("userID is required");
 
     try {
-        const response = await fetch(`/api/members?userId=${userId}`, { method: "GET", headers: { "Content-Type": "application/json" },
+        const response = await fetch(`/api/members?userId=${userId}`, { method: "GET", headers: { "Content-Type": "application/json"},
+            next: { revalidate: 100 },
         });
         if (!response.ok) {
             throw new Error("Error fetching QR code");
@@ -77,7 +80,7 @@ export async function getAttendanceHistory(userId: string): Promise<AttendanceRe
     if (!userId) throw new Error("userID is required");
 
     try {
-        const response = await fetch(`/api/attendance?userId=${userId}`, { method: "GET" });
+        const response = await fetch(`/api/attendance?userId=${userId}`, { method: "GET", headers: { "Content-Type": "application/json" },    });
         if (!response.ok) {
             throw new Error("Error fetching attendance history");
         }
@@ -105,4 +108,21 @@ export async function MarkAttendance(userId:string, date:Date){
         throw e
     }
 
+}
+
+
+export async function getMemberInfo(userId: string): Promise<UserInfo | null> {
+    if (!userId) throw new Error("userID is required");
+
+    try {
+        const response = await fetch(`/api/user?userId=${userId}`, { method: "GET", headers: { "Content-Type": "application/json" },    next: { revalidate: 100 }, });
+        if (!response.ok) {
+            throw new Error("Error fetching user info");
+        }
+        const data = await response.json();
+        return data;
+    } catch (e) {
+        console.error("Error fetching user info:", e);
+        throw e;
+    }
 }

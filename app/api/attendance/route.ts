@@ -1,3 +1,4 @@
+// In your API route for fetching attendance history
 import prisma from "@/lib/db";
 
 export async function GET(request: Request) {
@@ -11,7 +12,10 @@ export async function GET(request: Request) {
     try {
         const attendanceRecords = await prisma.attendance.findMany({
             where: { userId },
+            orderBy: { date: 'desc' }, // Order by date
+            take: 10, // Limit the number of records to fetch
         });
+
         return new Response(JSON.stringify(attendanceRecords), { status: 200 });
     } catch (e) {
         console.error("Error fetching attendance records:", e);

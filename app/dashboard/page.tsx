@@ -40,6 +40,7 @@ export default function DashboardPage() {
         await saveUserInfo(user.id, userData);
 
         const response = await getAttendanceHistory(user.id);
+        console.log("Attendance history:", response);
         if (response) setAttendanceHistory(response);
       } catch (error) {
         console.error("Error initializing member data:", error);
@@ -47,6 +48,8 @@ export default function DashboardPage() {
     };
     fetchMemberData();
   }, [user]);
+
+  
 
   const handleFormUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
