@@ -126,3 +126,28 @@ export async function getMemberInfo(userId: string): Promise<UserInfo | null> {
         throw e;
     }
 }
+
+
+export async function GetMembers(){
+  try{
+ const response  = await fetch('/api/users',
+    {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    next: { revalidate: 100 },
+    })
+    if (!response) {
+        throw new Error("Error fetching user info");
+    }
+    const data = await response.json();
+    return data;
+
+
+  }
+  catch(e){
+    console.error("Error fetching user info:", e);
+    throw e;
+
+  }
+
+}
