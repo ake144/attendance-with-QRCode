@@ -74,6 +74,8 @@ export async function PUT(request:Request) {
                 qrCode: userInfo.qrCode
             }
         });
+
+        return new Response("User info updated successfully", { status: 200 });
     }
     catch(e){
         console.error("Error saving member info:", e);

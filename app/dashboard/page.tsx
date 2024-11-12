@@ -9,7 +9,7 @@ import html2canvas from "html2canvas";
 import { UserInfo, AttendanceRecord } from "@/types/type";
 import churchLogo from "/public/church-logo.jpg";
 import Image from "next/image";
-import { getAttendanceHistory, saveUserInfo, updateUserInfo } from "@/lib/api";
+import { getAttendanceHistory, getMemberInfo, saveUserInfo, updateUserInfo } from "@/lib/api";
 import UserForm from "@/components/userinfo";
 import { generateQrData } from '@/lib/qr';
 
@@ -29,27 +29,46 @@ export default function DashboardPage() {
 
     const fetchMemberData = async () => {
       try {
-        const userData = {
+        // Try to fetch member info from the database
+        const res = await getMemberInfo(userId);
+        
+        if (res) {
+          // If data exists, use it and return early to avoid redundant operations
+          const userData = {
+            name: res.name,
+            email: res.email,
+            phone: res.phone,
+            clerkUserId: userId,
+            qrCode: res.qrCode,
+          };
+          setMemberInfo(userData);
+          return; // Exit early if data was found
+        }
+
+        // Fallback: Use data from `user` object if no data exists in the database
+        const fallbackUserData = {
           name: user.firstName || "",
           email: user.emailAddresses[0]?.emailAddress || "",
           phone: "",
-          clerkUserId: user.id,
+          clerkUserId: userId,
           qrCode: qrContent,
         };
-        setMemberInfo(userData);
-        await saveUserInfo(user.id, userData);
+        setMemberInfo(fallbackUserData);
+        await saveUserInfo(userId, fallbackUserData);
 
-        const response = await getAttendanceHistory(user.id);
-        console.log("Attendance history:", response);
+        // Fetch and set attendance history
+        const response = await getAttendanceHistory(userId);
         if (response) setAttendanceHistory(response);
       } catch (error) {
         console.error("Error initializing member data:", error);
       }
     };
+
     fetchMemberData();
   }, [user]);
 
-  
+
+
 
   const handleFormUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
