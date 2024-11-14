@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { QrCodeIcon, ShieldCheckIcon, UsersIcon } from "lucide-react";
+import { QrCodeIcon,ChurchIcon,  ShieldCheckIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { SignIn, SignUp, useAuth } from "@clerk/nextjs";
 import Image from "next/image";
@@ -25,9 +25,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-b from-background to-secondary">
         <div className="max-w-3xl mx-auto text-center">
-          <Image
-            src="/church-logo.jpg"
-            alt="church logo"
+          <ChurchIcon
             width={400}
             height={300}
             className="h-20 w-20 mx-auto mb-8 text-primary"
