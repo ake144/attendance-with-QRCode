@@ -12,12 +12,15 @@ import Image from "next/image";
 import { getAttendanceHistory, getMemberInfo, saveUserInfo, updateUserInfo } from "@/lib/api";
 import UserForm from "@/components/userinfo";
 import { generateQrData } from "@/lib/qr";
+import { useToast } from "@/hooks/use-toast";
 
 export default function DashboardPage() {
   const { user } = useUser();
   const [memberInfo, setMemberInfo] = useState<UserInfo | null>(null);
   const [attendanceHistory, setAttendanceHistory] = useState<AttendanceRecord[]>([]);
   const [qrData, setQrData] = useState<string>("");
+
+  const { toast } = useToast()
 
   useEffect(() => {
     if (!user) return;
@@ -60,6 +63,8 @@ export default function DashboardPage() {
         if (attendanceData) setAttendanceHistory(attendanceData);
       } catch (error) {
         console.error("Error initializing member data:", error);
+         toast({ title: "Error initializing member data" })
+
       }
     };
 
@@ -70,16 +75,21 @@ export default function DashboardPage() {
     async (e: React.FormEvent) => {
       e.preventDefault();
       if (!user || !memberInfo) return;
-
+  
       try {
         await updateUserInfo(user.id, memberInfo);
+        toast({ title: "Member info updated successfully" })
+        
         console.log("Member info updated successfully!");
       } catch (error) {
+        toast({title:'Error updating member data',variant:'destructive'})
         console.error("Error updating member data:", error);
+        // Handle the error, e.g., display an error message to the user
       }
     },
     [user, memberInfo]
   );
+  
 
   const downloadAttendanceCard = async () => {
     const captureElement = document.getElementById("capture");
@@ -93,9 +103,11 @@ export default function DashboardPage() {
         link.click();
       } catch (error) {
         console.error("Error capturing element:", error);
+        toast({ title: "Error downloading attendance card", variant: "destructive" });
       }
     } else {
       console.error("Capture element not found");
+      toast({ title: "Capture element not found", variant: "destructive" });
     }
   };
 

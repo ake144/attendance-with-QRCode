@@ -67,28 +67,20 @@ export async function PUT(request: Request) {
   }
 
   try {
-    // Parse request body as JSON
     const userInfo: Partial<UserInfo> = await request.json();
 
-
-    // Validate 'role' field if provided
     if (userInfo.role && !Object.values(Role).includes(userInfo.role as Role)) {
       return new Response("Invalid role value", { status: 400 });
     }
 
-    // Update user info dynamically, only including fields that exist in userInfo
-    const updateData = {
-      ...userInfo,
-      role: userInfo.role ? (userInfo.role as Role) : undefined,
-    };
-
-
     const updatedUser = await prisma.user.update({
       where: { clerkUserId: userId },
-      data: updateData,
+      data: {
+        ...userInfo,
+        role: userInfo.role ? (userInfo.role as Role) : undefined,
+      },
     });
 
-    console.log("Updated user:", updatedUser);
     return new Response(JSON.stringify(updatedUser), {
       status: 200,
       headers: { "Content-Type": "application/json" },

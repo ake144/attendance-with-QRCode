@@ -60,20 +60,58 @@ export async function updateQRCode(userId: string, qrContent: string): Promise<v
     }
 }
 
-export async function updateUserInfo(userId: string, userInfo: UserInfo): Promise<void> {
-    if (!userId || !userInfo) {
-        throw new Error("userId and userInfo are required");
-    }
+// export async function updateUserInfo(userId: string, userInfo: UserInfo): Promise<void> {
+//     if (!userId || !userInfo) {
+//         throw new Error("userId and userInfo are required");
+//     }
 
+//     try {
+//         console.log("Saving member info:", userInfo);
+//         await fetch(`/api/members?userId=${userId}`, { method: "PUT", body: JSON.stringify(userInfo), headers: { "Content-Type": "application/json" },});
+
+//     } catch (e) {
+//         console.error("Error saving member info:", e);
+//         throw e;
+//     }
+// }
+export async function updateUserInfo(userId: string, userInfo: UserInfo) {
     try {
-        console.log("Saving member info:", userInfo);
-        await fetch(`/api/members?userId=${userId}`, { method: "PUT", body: JSON.stringify(userInfo), headers: { "Content-Type": "application/json" },});
+      const response = await fetch(`/api/members?userId=${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userInfo),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Error updating user info: ${response.status} - ${response.statusText}`);
+      }
+      return await response.json();
 
-    } catch (e) {
-        console.error("Error saving member info:", e);
+    } catch (error) {
+      console.error('Error updating user info:', error);
+      throw error;
+    }
+  }
+
+
+
+  export async function deleteUser(userId:string){
+    if (!userId) throw new Error("userID is required");
+    try{
+        const response = await fetch(`/api/user?userId=${userId}`, { method: "DELETE", headers: { "Content-Type": "application/json" },    });
+        if (!response.ok) {
+            throw new Error("Error deleting user");
+        }
+        return response;
+    }
+    catch(e){
+        console.error("Error deleting user:", e);
         throw e;
     }
-}
+
+  }
 
 
 export async function getAttendanceHistory(userId: string): Promise<AttendanceRecord[]> {
