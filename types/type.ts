@@ -1,11 +1,20 @@
-// types/index.ts
-export type UserInfo = {
-    name: string;
-    email: string;
-    phone: string;
-    qrCode: string;
-    
-  };
+
+
+
+export interface UserInfo {
+  name: string;
+  email: string;
+  phone?: string;
+  qrCode?:string;
+  profilePic?: string;
+  clerkUserId: string;
+  age?: number;
+  maritalStatus?: string;
+  sex?: string;
+  role?:string;
+  address?: string;
+  occupation?: string;
+}
   
   export type AttendanceRecord = {
     date: string;  // ISO date string format

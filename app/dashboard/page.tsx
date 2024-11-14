@@ -4,15 +4,14 @@ import { useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { QRCodeCanvas } from "qrcode.react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import html2canvas from "html2canvas";
 import { UserInfo, AttendanceRecord } from "@/types/type";
 import churchLogo from "/public/church-logo.jpg";
 import Image from "next/image";
 import { getAttendanceHistory, getMemberInfo, saveUserInfo, updateUserInfo } from "@/lib/api";
 import UserForm from "@/components/userinfo";
-import { generateQrData } from '@/lib/qr';
-
+import { generateQrData } from "@/lib/qr";
 
 export default function DashboardPage() {
   const { user } = useUser();
@@ -29,36 +28,30 @@ export default function DashboardPage() {
 
     const fetchMemberData = async () => {
       try {
-        // Try to fetch member info from the database
         const res = await getMemberInfo(userId);
-        
         if (res) {
-          // If data exists, use it and return early to avoid redundant operations
-          const userData = {
+          setMemberInfo({
             name: res.name,
             email: res.email,
             phone: res.phone,
             clerkUserId: userId,
             qrCode: res.qrCode,
+            
+          });
+        } else {
+          const fallbackUserData = {
+            name: user.firstName || "",
+            email: user.emailAddresses[0]?.emailAddress || "",
+            phone: "",
+            clerkUserId: userId,
+            qrCode: qrContent,
           };
-          setMemberInfo(userData);
-          return; // Exit early if data was found
+          setMemberInfo(fallbackUserData);
+          await saveUserInfo(userId, fallbackUserData);
         }
 
-        // Fallback: Use data from `user` object if no data exists in the database
-        const fallbackUserData = {
-          name: user.firstName || "",
-          email: user.emailAddresses[0]?.emailAddress || "",
-          phone: "",
-          clerkUserId: userId,
-          qrCode: qrContent,
-        };
-        setMemberInfo(fallbackUserData);
-        await saveUserInfo(userId, fallbackUserData);
-
-        // Fetch and set attendance history
-        const response = await getAttendanceHistory(userId);
-        if (response) setAttendanceHistory(response);
+        const attendanceData = await getAttendanceHistory(userId);
+        if (attendanceData) setAttendanceHistory(attendanceData);
       } catch (error) {
         console.error("Error initializing member data:", error);
       }
@@ -67,20 +60,20 @@ export default function DashboardPage() {
     fetchMemberData();
   }, [user]);
 
+  const handleFormUpdate = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!user || !memberInfo) return;
 
-
-
-  const handleFormUpdate = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user || !memberInfo) return;
-
-    try {
-      await updateUserInfo(user.id, memberInfo);
-      console.log("Member info updated successfully!");
-    } catch (error) {
-      console.error("Error updating member data:", error);
-    }
-  };
+      try {
+        await updateUserInfo(user.id, memberInfo);
+        console.log("Member info updated successfully!");
+      } catch (error) {
+        console.error("Error updating member data:", error);
+      }
+    },
+    [user, memberInfo]
+  );
 
   const downloadAttendanceCard = async () => {
     const captureElement = document.getElementById("capture");
@@ -125,7 +118,7 @@ export default function DashboardPage() {
           <CardContent className="flex flex-col items-center space-y-4">
             <div id="capture" className="flex items-center p-6 border border-gray-300 rounded-lg bg-white shadow-md space-x-6">
               <div className="flex flex-col items-start space-y-2 w-1/2">
-                <Image src={churchLogo} alt="Church Logo" width={100} height={100} />
+                <Image src={churchLogo} alt="Church Logo" width={100} height={100} priority />
                 <p className="text-lg font-semibold">Name: {memberInfo.name}</p>
                 <p className="text-lg">Email: {memberInfo.email}</p>
                 <p className="text-lg">Phone: {memberInfo.phone}</p>
