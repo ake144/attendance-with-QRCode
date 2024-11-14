@@ -3,10 +3,16 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)',"/", "/about"])
 
 export default clerkMiddleware(async (auth, request) => {
+  // Check if the route is protected
   if (!isPublicRoute(request)) {
-    await auth.protect()
+    // If the user is not authenticated, redirect to sign-in with the intended path
+    if (!auth) {
+      const signInUrl = new URL('/sign-in', request.url);
+      signInUrl.searchParams.set('redirectUrl', request.url);
+      return Response.redirect(signInUrl.toString(), 302);
+    }
   }
-})
+});
 
 export const config = {
   matcher: [

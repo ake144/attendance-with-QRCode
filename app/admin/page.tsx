@@ -10,28 +10,40 @@ import { useToast } from "@/hooks/use-toast"
 import { Pencil, Trash2, Download } from 'lucide-react'
 import html2canvas from 'html2canvas'
 import { useUser } from '@clerk/nextjs'
-import {  GetMembers } from '@/lib/api'
+import { getMemberInfo, GetMembers } from '@/lib/api'
 import { UserInfo } from '@/types/type'
+import { QRCodeCanvas } from 'qrcode.react'
+import churchLogo from "/public/church-logo.jpg";
+import Image from "next/image";
+import { generateQrData } from '@/lib/qr'
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState<UserInfo[]>([])
   const [selectedUser, setSelectedUser] = useState<UserInfo | null>(null)
+  const [currentUser, setCurrentUser] = useState<UserInfo | null>(null)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const { user } = useUser()
+  const [qrData, setQrData] = useState<string>("")
+
   const { toast } = useToast()
 
   const userID = user?.id
-  const userRole = user?.publicMetadata?.role || 'USER' // Assuming role is stored in `publicMetadata`
 
   useEffect(() => {
     if (!user) return
 
+
+    const userId = user.id;
+    const qrContent =  generateQrData({ userID: userId });
+    setQrData(qrContent);
+
     const fetchUsers = async () => {
       try {
         const res = await GetMembers()
-        if (res) {
-          setUsers(res)
-        }
+        const AdminUser  = await getMemberInfo(user.id)
+        if(AdminUser) setCurrentUser(AdminUser)
+
+        if (res) setUsers(res)
       } catch (error) {
         console.error("Error fetching users:", error)
       }
@@ -56,11 +68,11 @@ export default function AdminDashboard() {
   }
 
   const downloadQRCode = async (user: UserInfo) => {
-    const captureElement = document.getElementById(`qr-code-${user.clerkUserId}`);
-    if (captureElement) {
+    const canvasElement = document.getElementById(`qr-code-${user.clerkUserId}`);
+    if (canvasElement) {
       try {
-        const canvas = await html2canvas(captureElement)
-        const imgData = canvas.toDataURL("image/png")
+        const canvas = await html2canvas(canvasElement, { scale: 2 })  // Increase scale for higher quality
+        const imgData = canvas.toDataURL("image/png", 1.0)  // Set quality to maximum
         const link = document.createElement("a")
         link.href = imgData
         link.download = `${user.name}-qr-code.png`
@@ -75,7 +87,7 @@ export default function AdminDashboard() {
     }
   }
 
-  if (userRole !== 'ADMIN') {
+  if (currentUser?.role !== 'ADMIN') {
     return (
       <p>This is a protected admin dashboard restricted to users with the 'ADMIN' role.</p>
     )
@@ -90,6 +102,7 @@ export default function AdminDashboard() {
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Phone</TableHead>
+            <TableHead>QR Code</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -99,6 +112,16 @@ export default function AdminDashboard() {
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.phone}</TableCell>
+              <TableCell>
+                <div id={`qr-code-${user.clerkUserId}`} className="flex items-center justify-center w-full h-full p-4 border rounded-lg bg-white">
+                      <div className="flex flex-col items-start space-y-2 w-1/2">
+                      <Image src={churchLogo} alt="Church Logo" width={100} height={100} priority />
+                      <p className="text-lg font-semibold">Name: {user.name}</p>
+                      <p className="text-lg">Phone: {user.phone}</p>
+                    </div>
+                  <QRCodeCanvas value={qrData || ''} size={200} level="H" includeMargin={true} />
+                </div>
+              </TableCell>
               <TableCell>
                 <div className="flex space-x-2">
                   <Button variant="outline" size="icon" onClick={() => handleEditUser(user)}>

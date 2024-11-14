@@ -70,7 +70,6 @@ const UserForm: React.FC<UserFormProps> = ({ memberInfo, setMemberInfo, handleFo
           <option value="">Select</option>
           <option value="Single">Single</option>
           <option value="Married">Married</option>
-          <option value="Divorced">Divorced</option>
           <option value="Widowed">Widowed</option>
         </select>
       </div>
@@ -82,7 +81,6 @@ const UserForm: React.FC<UserFormProps> = ({ memberInfo, setMemberInfo, handleFo
           <option value="">Select</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
-          <option value="Other">Other</option>
         </select>
       </div>
 

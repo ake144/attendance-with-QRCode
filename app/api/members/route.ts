@@ -1,4 +1,6 @@
 import prisma from "@/lib/db";
+import { UserInfo } from "@/types/type";
+import { Role } from '@prisma/client';
 
 
 export async function POST(request: Request) {
@@ -54,32 +56,47 @@ export async function GET(request: Request ) {
     }
 }
 
-export async function PUT(request:Request) {
- 
-    const { searchParams } = new URL(request.url);
-        const userId = searchParams.get("userId");
 
-    const userInfo = await request.json();
-    if (!userId || !userInfo) {
-        throw new Error("userId and userInfo are required");
+
+export async function PUT(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const userId = searchParams.get("userId");
+
+  if (!userId) {
+    return new Response("User ID is required", { status: 400 });
+  }
+
+  try {
+    // Parse request body as JSON
+    const userInfo: Partial<UserInfo> = await request.json();
+
+
+    // Validate 'role' field if provided
+    if (userInfo.role && !Object.values(Role).includes(userInfo.role as Role)) {
+      return new Response("Invalid role value", { status: 400 });
     }
 
-    try{
-        await prisma.user.update({
-            where: { clerkUserId: userId },
-            data: {
-                name: userInfo.name,
-                email: userInfo.email,
-                phone: userInfo.phone,
-                qrCode: userInfo.qrCode
-            }
-        });
+    // Update user info dynamically, only including fields that exist in userInfo
+    const updateData = {
+      ...userInfo,
+      role: userInfo.role ? (userInfo.role as Role) : undefined,
+    };
 
-        return new Response("User info updated successfully", { status: 200 });
-    }
-    catch(e){
-        console.error("Error saving member info:", e);
-        throw e;
-    }   
-     
+
+    const updatedUser = await prisma.user.update({
+      where: { clerkUserId: userId },
+      data: updateData,
+    });
+
+    console.log("Updated user:", updatedUser);
+    return new Response(JSON.stringify(updatedUser), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error("Error updating user info:", error);
+    return new Response("Error updating user info", { status: 500 });
+  }
 }
+
+  

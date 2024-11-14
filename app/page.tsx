@@ -1,35 +1,37 @@
-'use client'
+"use client";
 
 import { Button } from "@/components/ui/button";
-import {  QrCodeIcon, ShieldCheckIcon, UsersIcon } from "lucide-react";
+import { QrCodeIcon, ShieldCheckIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
-import { useAuth } from '@clerk/nextjs';
+import { SignIn, SignUp, useAuth } from "@clerk/nextjs";
 import Image from "next/image";
-
 import { useRouter } from "next/navigation";
-
 
 export default function Home() {
   const { isSignedIn } = useAuth();
-
-  const router = useRouter()
-
+  const router = useRouter();
 
   const handleStart = () => {
     if (isSignedIn) {
-      router.push('/dashboard');
+      router.push("/dashboard");
     } else {
-      router.push('/sign-up');
+      router.push("/sign-in?redirectUrl=/dashboard");
     }
   };
-
+  
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       {/* Hero Section */}
       <section className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-b from-background to-secondary">
         <div className="max-w-3xl mx-auto text-center">
-          <Image src='/church-logo.jpg'  alt='church logo' width={400} height={300} className="h-20 w-20 mx-auto mb-8 text-primary" />
+          <Image
+            src="/church-logo.jpg"
+            alt="church logo"
+            width={400}
+            height={300}
+            className="h-20 w-20 mx-auto mb-8 text-primary"
+          />
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl mb-6">
             Digital Identity for You GO Church Community
           </h1>
@@ -37,11 +39,11 @@ export default function Home() {
             Generate secure QR codes for yourself. Streamline attendance, events, and your identification.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="text-lg" onClick={handleStart}>
+            <Button size="lg" className="text-lg" onClick={handleStart}>
               Get Started
             </Button>
             <Button asChild size="lg" variant="outline" className="text-lg">
-              <Link  href="/about">Learn More</Link>
+              <Link href="/about">Learn More</Link>
             </Button>
           </div>
         </div>
@@ -67,7 +69,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl font-semibold mb-4">Secure & Private</h3>
               <p className="text-muted-foreground">
-                Your members&apos; data is encrypted and protected. Only authorized personnel can access information.
+                Your members' data is encrypted and protected. Only authorized personnel can access information.
               </p>
             </div>
             <div className="flex flex-col items-center text-center">

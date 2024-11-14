@@ -36,7 +36,7 @@ export function Navbar() {
           </Link>
           <div className="flex items-center space-x-4">
             {userData?.role === "ADMIN" && (
-              <Link href="/dashboard" className="text-foreground/60 hover:text-foreground">
+              <Link href="/admin" className="text-foreground/60 hover:text-foreground">
                 Dashboard
               </Link>
             )}

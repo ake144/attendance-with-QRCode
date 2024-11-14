@@ -36,6 +36,12 @@ export default function DashboardPage() {
             phone: res.phone,
             clerkUserId: userId,
             qrCode: res.qrCode,
+            age:res.age,
+            address:res.address,
+            maritalStatus:res.maritalStatus,
+            occupation:res.occupation,
+            sex:res.sex,
+            profilePic:res.profilePic
             
           });
         } else {
