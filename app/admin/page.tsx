@@ -63,7 +63,7 @@ export default function AdminDashboard() {
     }
 
 
-    fetchUsers(),
+    fetchUsers();
     fetchAttendance()
   }, [user])
 
