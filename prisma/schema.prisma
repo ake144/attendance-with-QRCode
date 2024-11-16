@@ -35,8 +35,6 @@ model User {
   address      String?
   occupation   String?
   attendance    Attendance[]
-
-
 }
 
 model Attendance {
