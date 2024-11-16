@@ -10,8 +10,8 @@ import { useToast } from "@/hooks/use-toast"
 import { Pencil, Trash2, Download } from 'lucide-react'
 import html2canvas from 'html2canvas'
 import { useUser } from '@clerk/nextjs'
-import { deleteUser, getMemberInfo, GetMembers, updateUserInfo } from '@/lib/api'
-import { UserInfo } from '@/types/type'
+import { deleteUser, getAttendanceHistory, getMemberInfo, GetMembers, updateUserInfo } from '@/lib/api'
+import { AttendanceRecord, UserInfo } from '@/types/type'
 import { QRCodeCanvas } from 'qrcode.react'
 import churchLogo from "/public/church-logo.jpg";
 import Image from "next/image";
@@ -24,6 +24,9 @@ export default function AdminDashboard() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const { user } = useUser()
   const [loading, setLoading] = useState(true)
+
+  const [attendance, setAttendance] = useState<AttendanceRecord[]>([])
+
   const [qrData, setQrData] = useState<string>("")
 
   const { toast } = useToast()
@@ -39,16 +42,33 @@ export default function AdminDashboard() {
       try {
         const res = await GetMembers()
         const adminUser = await getMemberInfo(user.id)
+
         if (adminUser) setCurrentUser(adminUser)
         if (res) setUsers(res)
+
       } catch (error) {
         console.error("Error fetching users:", error)
       } finally {
         setLoading(false)
       }
     }
-    fetchUsers()
+    
+    const fetchAttendance = async () => {
+      try {
+        const res = await getAttendanceHistory(userId)
+        if (res) setAttendance(res)
+      } catch (error) {
+        console.error("Error fetching attendance history:", error)
+      }
+    }
+
+
+    fetchUsers(),
+    fetchAttendance()
   }, [user])
+
+
+
 
   const handleEditUser = (user: UserInfo) => {
     setSelectedUser(user)
@@ -74,6 +94,9 @@ export default function AdminDashboard() {
       console.error(error);
     }
   };
+
+
+
   
 
   const handleDeleteUser = async (userId: string) => {
@@ -107,6 +130,21 @@ export default function AdminDashboard() {
     }
   }
 
+
+
+  const handleDownloadAttendance = () => {
+    const attendanceText = attendance.map(record => {
+      return `Date: ${record.date}, present: ${record.isPresent}`; 
+    }).join('\n');
+
+    // Create a Blob and URL for download
+    const blob = new Blob([attendanceText], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'attendance.txt';
+    link.click();
+  };
+
   if (loading) {
     return (
       <p className='mt-12 my-9 items-center justify-center text-xl '>
@@ -132,6 +170,7 @@ export default function AdminDashboard() {
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Phone</TableHead>
+            <TableHead>Attendance</TableHead>
             <TableHead>QR Code</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
@@ -142,6 +181,9 @@ export default function AdminDashboard() {
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.phone}</TableCell>
+              <TableCell>
+                <Button onClick={() => handleDownloadAttendance()}>Download Attendance</Button>
+              </TableCell>
               <TableCell>
                 <div id={`qr-code-${user.clerkUserId}`} className="flex items-center justify-center w-full h-full p-4 border rounded-lg bg-white">
                   <div className="flex flex-col items-start space-y-2 w-1/2">
