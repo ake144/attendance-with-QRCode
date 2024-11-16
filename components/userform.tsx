@@ -144,7 +144,7 @@ export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
             <FormItem>
               <FormLabel htmlFor="age">Age</FormLabel>
               <FormControl>
-                <Input id="age" type="number" {...field} value={field.value ?? ''} />
+                <Input id="age" type="number" {...field} value={field.value ?? ''}  className="w-24"/>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -159,7 +159,7 @@ export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
             <FormItem>
               <FormLabel htmlFor="maritalStatus">Marital Status</FormLabel>
               <FormControl>
-                <Select {...field} value={field.value ?? undefined}>
+                <Select {...field} value={field.value ?? undefined} >
                   <SelectTrigger>
                     <SelectValue placeholder="Select Marital Status" />
                   </SelectTrigger>

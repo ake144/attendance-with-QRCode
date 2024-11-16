@@ -57,15 +57,24 @@ export default function AdminDashboard() {
 
   const handleUpdateUser = async (userId: string, updatedUser: UserInfo) => {
     try {
-      const updatedData = await updateUserInfo(userId, updatedUser)
-      setUsers(users.map((u) => (u.clerkUserId === userId ? updatedData : u)))
-      setIsEditModalOpen(false)
-      toast({ title: "User updated successfully" })
+      // Create a new FormData object
+      const formData = new FormData();
+      formData.append("name", updatedUser.name);
+      formData.append("email", updatedUser.email);
+      formData.append("phone", updatedUser.phone ?? '');
+
+    
+  
+      const updatedData = await updateUserInfo(userId, formData);
+      setUsers(users.map((u) => (u.clerkUserId === userId ? updatedData : u)));
+      setIsEditModalOpen(false);
+      toast({ title: "User updated successfully" });
     } catch (error) {
-      toast({ title: "Error updating user", variant: "destructive" })
-      console.log(error)
+      toast({ title: "Error updating user", variant: "destructive" });
+      console.error(error);
     }
-  }
+  };
+  
 
   const handleDeleteUser = async (userId: string) => {
     try {
@@ -162,49 +171,52 @@ export default function AdminDashboard() {
       </Table>
 
       <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Edit User</DialogTitle>
-          </DialogHeader>
-          {selectedUser && (
-            <form onSubmit={(e) => {
-              e.preventDefault()
-              const formData = new FormData(e.currentTarget)
-              const updatedUser: UserInfo = {
-                ...selectedUser,
-                name: formData.get("name") as string,
-                email: formData.get("email") as string,
-                phone: formData.get("phone") as string,
-              }
-              handleUpdateUser(selectedUser.clerkUserId, updatedUser)
-            }}>
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="name" className="text-right">
-                    Name
-                  </Label>
-                  <Input id="name" name="name" defaultValue={selectedUser.name} className="col-span-3" />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="email" className="text-right">
-                    Email
-                  </Label>
-                  <Input id="email" name="email" defaultValue={selectedUser.email} className="col-span-3" />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="phone" className="text-right">
-                    Phone
-                  </Label>
-                  <Input id="phone" name="phone" defaultValue={selectedUser.phone} className="col-span-3" />
-                </div>
-              </div>
-              <div className="flex justify-end">
-                <Button type="submit">Save changes</Button>
-              </div>
-            </form>
-          )}
-        </DialogContent>
-      </Dialog>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Edit User</DialogTitle>
+    </DialogHeader>
+    {selectedUser && (
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        
+        const updatedUser: UserInfo = {
+          ...selectedUser,
+          name: formData.get("name") as string,
+          email: formData.get("email") as string,
+          phone: formData.get("phone") as string,
+          // Add other fields if necessary
+        };
+
+        handleUpdateUser(selectedUser.clerkUserId, updatedUser);
+      }}>
+        <div className="grid gap-4 py-4">
+          {/* Name Field */}
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">Name</Label>
+            <Input id="name" name="name" defaultValue={selectedUser.name} className="col-span-3 w-full" placeholder="Enter your name" />
+          </div>
+
+          {/* Email Field */}
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="email" className="text-right">Email</Label>
+            <Input id="email" name="email" defaultValue={selectedUser.email} className="col-span-3 w-full" placeholder="Enter your email" />
+          </div>
+
+          {/* Phone Field */}
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="phone" className="text-right">Phone</Label>
+            <Input id="phone" name="phone" defaultValue={selectedUser.phone ?? ''} className="col-span-3 w-full" placeholder="Enter your phone number" />
+          </div>
+        </div>
+        <div className="flex justify-end">
+          <Button type="submit">Save changes</Button>
+        </div>
+      </form>
+    )}
+  </DialogContent>
+</Dialog>
+
     </div>
   )
 }
