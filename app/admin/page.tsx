@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast"
 import { Pencil, Trash2, Download } from 'lucide-react'
@@ -63,6 +63,7 @@ export default function AdminDashboard() {
       toast({ title: "User updated successfully" })
     } catch (error) {
       toast({ title: "Error updating user", variant: "destructive" })
+      console.log(error)
     }
   }
 
@@ -108,7 +109,7 @@ export default function AdminDashboard() {
   if (currentUser?.role !== 'ADMIN') {
     return (
       <p className='mx-8 mt-12 my-9 items-center justify-center'>
-        This is a protected admin dashboard restricted to users with the 'ADMIN' role.
+        This is a protected admin dashboard restricted to users with the &ldquo;ADMIN&rdquo; role.
       </p>
     )
   }

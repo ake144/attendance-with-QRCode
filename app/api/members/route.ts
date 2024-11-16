@@ -1,6 +1,5 @@
 import prisma from "@/lib/db";
-import { UserInfo } from "@/types/type";
-import { Role } from '@prisma/client';
+
 
 
 export async function POST(request: Request) {
@@ -58,6 +57,7 @@ export async function GET(request: Request ) {
 
 
 
+
 export async function PUT(request: Request) {
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get("userId");
@@ -67,18 +67,11 @@ export async function PUT(request: Request) {
   }
 
   try {
-    const userInfo: Partial<UserInfo> = await request.json();
-
-    if (userInfo.role && !Object.values(Role).includes(userInfo.role as Role)) {
-      return new Response("Invalid role value", { status: 400 });
-    }
+    const userInfo = await request.json();
 
     const updatedUser = await prisma.user.update({
       where: { clerkUserId: userId },
-      data: {
-        ...userInfo,
-        role: userInfo.role ? (userInfo.role as Role) : undefined,
-      },
+      data: userInfo,
     });
 
     return new Response(JSON.stringify(updatedUser), {
@@ -90,5 +83,3 @@ export async function PUT(request: Request) {
     return new Response("Error updating user info", { status: 500 });
   }
 }
-
-  

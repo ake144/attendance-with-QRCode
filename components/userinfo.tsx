@@ -2,7 +2,7 @@ import { UserInfo } from "@/types/type";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
-import { Select } from "./ui/select";
+
 import { Textarea } from "./ui/textarea";
 
 interface UserFormProps {

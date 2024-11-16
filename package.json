@@ -10,13 +10,16 @@
     "postinstall": "npx prisma generate"
   },
   "dependencies": {
+    "@clerk/clerk-sdk-node": "^5.0.65",
     "@clerk/nextjs": "^6.2.1",
+    "@hookform/resolvers": "^3.9.1",
     "@prisma/client": "^5.22.0",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-tabs": "^1.1.1",
     "@radix-ui/react-toast": "^1.2.2",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
@@ -27,8 +30,11 @@
     "qrcode.react": "^4.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.2",
+    "svix": "^1.40.0",
     "tailwind-merge": "^2.5.4",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/axios": "^0.14.4",
