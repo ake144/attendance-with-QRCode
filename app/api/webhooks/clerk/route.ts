@@ -2,13 +2,24 @@ import prisma from '@/lib/db';
 import type { WebhookEvent } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
+// Define a type for the user data structure from Clerk's webhook
+interface UserData {
+  id: string;
+  email_addresses: { email_address: string }[];
+  username?: string;
+  image_url?: string;
+  first_name?: string;
+  last_name?: string;
+}
+
 export async function POST(req: Request) {
   try {
     console.log('Webhook received');
     const evt = (await req.json()) as WebhookEvent;
     console.log('Event:', evt);
 
-    const userData = evt.data as any; // Typecast to any to access properties directly
+    // Type-cast the data as UserData
+    const userData = evt.data as UserData;
     const { id: clerkUserId, email_addresses, username, image_url } = userData;
     const email = email_addresses?.[0]?.email_address;
 
@@ -52,8 +63,8 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ user });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error processing webhook:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({message: error }, { status: 500 });
   }
 }
