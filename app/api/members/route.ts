@@ -67,7 +67,19 @@ export async function PUT(request: Request) {
   }
 
   try {
-    const userInfo = await request.json();
+
+    const formData = await request.formData();
+
+    const userInfo = {
+      name: formData.get("name") as string | undefined,
+      email: formData.get("email") as string | undefined,
+      phone: formData.get("phone") as string | undefined,
+      age: Number(formData.get("age")), 
+      maritalStatus: formData.get("maritalStatus") as string | undefined,
+      sex: formData.get("sex") as string | undefined,
+      address: formData.get("address") as string | undefined,
+      occupation: formData.get("occupation") as string | undefined,
+    };
 
     const updatedUser = await prisma.user.update({
       where: { clerkUserId: userId },
@@ -83,3 +95,4 @@ export async function PUT(request: Request) {
     return new Response("Error updating user info", { status: 500 });
   }
 }
+

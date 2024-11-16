@@ -4,16 +4,15 @@
 export interface UserInfo {
   name: string;
   email: string;
-  phone?: string;
-  qrCode?:string;
-  profilePic?: string;
+  phone?: string | null;
+  qrCode?:string | null;
   clerkUserId: string;
-  age?: number;
-  maritalStatus?: string;
-  sex?: string;
+  age?: number | null ;
+  maritalStatus?: string | null;
+  sex?: string | null;
   role?:string;
-  address?: string;
-  occupation?: string;
+  address?: string | null;
+  occupation?: string | null;
 }
   
   export type AttendanceRecord = {

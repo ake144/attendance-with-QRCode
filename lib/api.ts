@@ -74,21 +74,17 @@ export async function updateQRCode(userId: string, qrContent: string): Promise<v
 //         throw e;
 //     }
 // }
-export async function updateUserInfo(userId: string, userInfo: UserInfo) {
+export async function updateUserInfo(userId: string, userInfo: FormData) {
     try {
       const response = await fetch(`/api/members?userId=${userId}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userInfo),
+        body: userInfo, 
       });
   
       if (!response.ok) {
         throw new Error(`Error updating user info: ${response.status} - ${response.statusText}`);
       }
       return await response.json();
-
     } catch (error) {
       console.error('Error updating user info:', error);
       throw error;
