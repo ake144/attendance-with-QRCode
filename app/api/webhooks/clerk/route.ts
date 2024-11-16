@@ -36,13 +36,13 @@ export async function POST(req: Request) {
           where: { clerkUserId },
           update: {
             email,
-            name: username || null,
+            name: username || '',
             profilePic: image_url || null,
           },
           create: {
             clerkUserId,
             email,
-            name: username || null,
+            name: username || '',
             profilePic: image_url || null,
           },
         });
