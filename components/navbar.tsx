@@ -32,7 +32,7 @@ export function Navbar() {
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-2">
             <ChurchIcon className="h-8 w-8" />
-            <span className="font-bold text-xl">You GO Church</span>
+            <span className="font-bold text-xl">City of Refuge Church</span>
           </Link>
           <div className="flex items-center space-x-4">
             {userData?.role === "ADMIN" && (

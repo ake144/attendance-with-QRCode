@@ -8,7 +8,7 @@ const FooterPage = ()=>{
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <h3 className="text-xl font-semibold mb-4">You GO Church</h3>
+              <h3 className="text-xl font-semibold mb-4">City of Refuge Church</h3>
               <p>Spreading the Gospel of our Lord and Saviour Jesus Christ. He is more than enough!</p>
             </div>
             <div>

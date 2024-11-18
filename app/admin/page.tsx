@@ -163,7 +163,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="container mx-auto py-10">
-      <h1 className="text-2xl font-bold mb-5">Admin Dashboard</h1>
+      <h1 className="text-2xl font-bold mb-5">Membership List</h1>
       <Table>
         <TableHeader>
           <TableRow>
@@ -171,7 +171,7 @@ export default function AdminDashboard() {
             <TableHead>Email</TableHead>
             <TableHead>Phone</TableHead>
             <TableHead>Attendance</TableHead>
-            <TableHead>QR Code</TableHead>
+            <TableHead>Id Card</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>

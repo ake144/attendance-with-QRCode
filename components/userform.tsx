@@ -90,7 +90,7 @@ export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleFormUpdate)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(handleFormUpdate)} className="space-y-8 ">
         {/* Name Field */}
         <FormField
           control={form.control}

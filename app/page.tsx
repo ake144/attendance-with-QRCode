@@ -24,60 +24,66 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-32 overflow-hidden">
-        <Image
-          src="/yougo.jpg"
-          alt="Church community gathering"
-          layout="fill"
-          objectFit="cover"
-          quality={100}
-          className="absolute z-0"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50 z-10" />
-        <div className="max-w-5xl mx-auto text-left relative z-20 flex flex-col md:flex-row items-center">
-          
-          <div className="max-w-4xl mx-auto text-center relative z-10">
-          <ChurchIcon className="h-24 w-24 mx-auto mb-8 text-white animate-pulse" />
-          <h1 className="text-5xl font-bold tracking-tight sm:text-7xl mb-6 text-white drop-shadow-lg">
-            Digital Identity for Your Church Community
-          </h1>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Generate secure QR codes for your congregation. Streamline attendance, events, and member identification with ease.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8 py-6" onClick={handleStart}>
-              Get Started
-            </Button>
-            <Button asChild size="lg" variant="outline" className="text-lg px-8 py-6 bg-white/10 hover:bg-white/20 text-white border-white/20">
-              <Link href="/about">Learn More</Link>
-            </Button>
-          </div>
-        </div>
- 
+      <section className="relative flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 h-[90vh] overflow-hidden">
+  <Image
+    src="/yougo5.jpg"
+    alt="Church community gathering"
+    layout="fill"
+    objectFit="cover"
+    quality={100}
+    className="absolute z-0"
+  />
+  {/* Background Gradient */}
+  <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60 z-10" />
+  
+  {/* Content */}
+  <div className="max-w-5xl mx-auto text-center relative z-20 flex flex-col items-center gap-8">
+  
+    {/* Buttons */}
+    <div className="flex flex-col sm:flex-row gap-4">
+      <Button
+        size="lg"
+        className="text-lg px-8 py-4 font-medium bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-lg"
+        onClick={handleStart}
+        aria-label="Get Started"
+      >
+        Get Started
+      </Button>
+      <Button
+        asChild
+        size="lg"
+        variant="outline"
+        className="text-lg px-8 py-4 font-medium bg-white/10 hover:bg-white/20 text-white border-white/20 rounded-lg shadow-lg"
+        aria-label="Learn More"
+      >
+        <Link href="/about">Learn More</Link>
+      </Button>
+    </div>
+  </div>
+</section>
 
-        </div>
-      </section>
 
       {/* Features Section */}
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16">Why Choose Church QR?</h2>
+          <h2 className="text-4xl font-bold text-center mb-16">Join Our Community of Faith, Love, and Growth</h2>
+            <p>At City of Refuge Church, we believe in creating a community where everyone can grow spiritually, share in fellowship, and find a place of belonging. Becoming a member is a step toward deepening your connection with God and others in our church family.</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
               {
                 icon: QrCodeIcon,
-                title: "Easy QR Generation",
-                description: "Create personalized QR codes for each member in seconds. Update information instantly."
+                title: "Why become a member?",
+                description: "Spiritual Growth. Access resources, teachings, and events that nurture your spiritual life.Service Opportunities. Join us in serving others through outreach programs, missions, and church ministries.Accountability & Support. "
               },
               {
                 icon: ShieldCheckIcon,
-                title: "Secure & Private",
-                description: "Your members' data is encrypted and protected. Only authorized personnel can access information."
+                title: "Membership Benefits",
+                description: "articipation in all church programs and activities.Pastoral care and counseling.Opportunities to serve in ministry and leadership roles.Exclusive updates on church events, newsletters, and announcements."
               },
               {
                 icon: UsersIcon,
-                title: "Member Management",
-                description: "Efficiently manage your congregation with our intuitive dashboard and member profiles."
+                title: "Who Can Join?",
+                description: "We welcome individuals and families who:Have accepted Jesus Christ as their Savior.Are seeking a place to worship and grow in faith. Are committed to supporting the vision and mission of City of Refuge Church "
               }
             ].map((feature, index) => (
               <Card key={index} className="transition-all duration-300 hover:shadow-lg">
@@ -119,7 +125,7 @@ export default function Home() {
       </section>
 
       {/* Testimonial Section */}
-      <section className="py-24 bg-gray-50 relative overflow-hidden">
+      {/* <section className="py-24 bg-gray-50 relative overflow-hidden">
         <div className="absolute inset-0 opacity-3">
           <Image
             src="/yougo5.jpg"
@@ -142,7 +148,7 @@ export default function Home() {
             </CardContent>
           </Card>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
        {/* CTA Section */}
@@ -150,11 +156,11 @@ export default function Home() {
           <h2 className="text-3xl font-bold mb-4">Ready to Become Part of the You GO Family?</h2>
           <p className="text-xl mb-8">Join us today and experience the power of community.</p>
           <Button size="lg" className="text-lg px-8">
-            Join Our Community <ChevronRight className="ml-2 h-5 w-5" />
+            <Link href="/dashboard">
+            Join Our Community 
+            </Link>
           </Button>
         </section>
-      
-
        <FooterPage  />
     </div>
   )
