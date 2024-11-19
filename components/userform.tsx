@@ -21,16 +21,16 @@ import { updateUserInfo } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
 import { UserInfo } from "@/types/type";
 
-// Updated schema allowing optional fields without validation errors
+
 const formSchema = z.object({
   name: z.string().min(2, { message: "Username must be at least 2 characters." }),
   email: z.string().email({ message: "Please enter a valid email address" }),
   phone: z.string().min(10, { message: "Please enter a valid phone number" }).optional().nullable(),
   age: z.coerce.number().min(0, { message: "Please enter a valid age" }).optional(),
-  maritalStatus: z.enum(["Single", "Married"]).optional(),
-  sex: z.enum(["Male", "Female"]).optional(),
-  address: z.string().min(2, { message: "Please enter a valid address" }).optional(),
-  occupation: z.string().min(2, { message: "Please enter a valid occupation" }).optional(),
+  maritalStatus: z.enum(["Single", "Married"]).optional().nullable(),
+  sex: z.enum(["Male", "Female"]).optional().nullable(),
+  address: z.string().min(2, { message: "Please enter a valid address" }).optional().nullable(),
+  occupation: z.string().min(2, { message: "Please enter a valid occupation" }).optional().nullable(),
 });
 
 export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
@@ -54,7 +54,8 @@ export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
   
       try {
         const formData = new FormData();
-        // Append each field to FormData, including the file
+
+
         formData.append('name', data.name);
         formData.append('email', data.email);
         if (data.phone) {
@@ -159,7 +160,7 @@ export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
             <FormItem>
               <FormLabel htmlFor="maritalStatus">Marital Status</FormLabel>
               <FormControl>
-                <Select {...field} value={field.value ?? undefined} >
+                <Select {...field} value={field.value ?? undefined}  onValueChange={(value) => field.onChange(value || null)}  >
                   <SelectTrigger>
                     <SelectValue placeholder="Select Marital Status" />
                   </SelectTrigger>
@@ -182,7 +183,7 @@ export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
             <FormItem>
               <FormLabel htmlFor="sex">Gender</FormLabel>
               <FormControl>
-                <Select {...field} value={field.value ?? undefined}>
+                <Select {...field} value={field.value ?? undefined} onValueChange={(value) => field.onChange(value || null)} >
                   <SelectTrigger>
                     <SelectValue placeholder="Select Gender" />
                   </SelectTrigger>
