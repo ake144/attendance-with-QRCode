@@ -168,7 +168,7 @@ export default function AdminDashboard() {
                           <p className="text-lg">Phone: {user.phone}</p>
                         </div>
                         <QRCodeCanvas
-                          value={generateQrData({ userID: user.clerkUserId })}
+                          value={qrData}
                           size={200}
                           level="H"
                           includeMargin={true}

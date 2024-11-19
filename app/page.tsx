@@ -1,8 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { QrCodeIcon, ChurchIcon, ShieldCheckIcon, UsersIcon, ChevronRight } from 'lucide-react'
+import { QrCodeIcon, ShieldCheckIcon, UsersIcon } from 'lucide-react'
 import Link from "next/link"
 import { useAuth } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
