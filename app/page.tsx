@@ -23,84 +23,86 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 h-[90vh] overflow-hidden">
-  <Image
-    src="/yougo5.jpg"
-    alt="Church community gathering"
-    layout="fill"
-    objectFit="cover"
-    quality={100}
-    className="absolute z-0"
-  />
-  {/* Background Gradient */}
-  <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60 z-10" />
-  
-  {/* Content */}
-  <div className="max-w-5xl mx-auto text-center relative z-20 flex flex-col items-center gap-8">
-  
-    {/* Buttons */}
-    <div className="flex flex-col sm:flex-row gap-4">
-      <Button
-        size="lg"
-        className="text-lg px-8 py-4 font-medium bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-lg"
-        onClick={handleStart}
-        aria-label="Get Started"
-      >
-        Get Started
-      </Button>
-      <Button
-        asChild
-        size="lg"
-        variant="outline"
-        className="text-lg px-8 py-4 font-medium bg-white/10 hover:bg-white/20 text-white border-white/20 rounded-lg shadow-lg"
-        aria-label="Learn More"
-      >
-        <Link href="/about">Learn More</Link>
-      </Button>
-    </div>
-  </div>
-</section>
+   {/* Hero Section */}
+            <section className="relative flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 h-screen overflow-hidden">
+              {/* Background Image */}
+              <Image
+                src="/yougo5.jpg"
+                alt="Church community gathering"
+                layout="fill"
+                objectFit="cover"
+                quality={100}
+                priority
+                className="absolute z-0"
+              />
+              {/* Overlay Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/50 to-transparent z-10" />
+              
+              {/* Content */}
+              <div className="relative z-20 flex flex-col items-center gap-8 text-center max-w-4xl mx-auto">
+                {/* Heading */}
+                <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight tracking-wide">
+                  Welcome to Our Community
+                </h1>
+                {/* Subtitle */}
+                {/* <p className="text-lg md:text-xl text-gray-300 max-w-2xl">
+                  Discover a welcoming space for everyone to connect, grow, and celebrate together.
+                </p> */}
+                {/* Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button
+                    size="lg"
+                    className="px-8 py-4 text-lg font-medium bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-lg focus:ring-4 focus:ring-blue-300 focus:outline-none"
+                    onClick={handleStart}
+                    aria-label="Get Started"
+                  >
+                    Get Started
+                  </Button>
+              
+                </div>
+              </div>
+            </section>
 
 
-      {/* Features Section */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16">Join Our Community of Faith, Love, and Growth</h2>
-            <p>At City of Refuge Church, we believe in creating a community where everyone can grow spiritually, share in fellowship, and find a place of belonging. Becoming a member is a step toward deepening your connection with God and others in our church family.</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {[
-              {
-                icon: QrCodeIcon,
-                title: "Why become a member?",
-                description: "Spiritual Growth. Access resources, teachings, and events that nurture your spiritual life.Service Opportunities. Join us in serving others through outreach programs, missions, and church ministries.Accountability & Support. "
-              },
-              {
-                icon: ShieldCheckIcon,
-                title: "Membership Benefits",
-                description: "articipation in all church programs and activities.Pastoral care and counseling.Opportunities to serve in ministry and leadership roles.Exclusive updates on church events, newsletters, and announcements."
-              },
-              {
-                icon: UsersIcon,
-                title: "Who Can Join?",
-                description: "We welcome individuals and families who:Have accepted Jesus Christ as their Savior.Are seeking a place to worship and grow in faith. Are committed to supporting the vision and mission of City of Refuge Church "
-              }
-            ].map((feature, index) => (
-              <Card key={index} className="transition-all duration-300 hover:shadow-lg">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <feature.icon className="h-6 w-6 text-primary" />
-                    {feature.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p>{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+
+     {/* Features Section */}
+            <section className="py-24 bg-gray-100">
+              <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                <h2 className="text-4xl font-extrabold text-center text-gray-900 mb-10">
+                  Join Our Community of Faith, Love, and Growth
+                </h2>
+                <p className="text-lg text-gray-700 text-center mb-16">
+                  At City of Refuge Church, we cultivate a vibrant community where you can grow spiritually, engage in fellowship, and find your place of belonging. Becoming a member is a profound step towards deepening your connection with God and others.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                  {[
+                    {
+                      icon: QrCodeIcon,
+                      title: "Why Become a Member?",
+                      description: "Engage in spiritual growth with access to resources, teachings, and events. Join us in serving through outreach programs, and enjoy accountability and support from our church family."
+                    },
+                    {
+                      icon: ShieldCheckIcon,
+                      title: "Membership Benefits",
+                      description: "Participate in all church programs and activities, receive pastoral care and counseling, take on leadership roles, and stay updated with exclusive newsletters."
+                    },
+                    {
+                      icon: UsersIcon,
+                      title: "Who Can Join?",
+                      description: "We welcome individuals and families who have accepted Jesus Christ as their Savior, seek a place to worship, and are committed to supporting our mission."
+                    }
+                  ].map((feature, index) => (
+                    <div key={index} className="bg-white rounded-lg shadow-lg p-6 transition-transform duration-300 transform hover:scale-105 hover:shadow-2xl">
+                      <div className="flex items-center mb-4">
+                        <feature.icon className="h-8 w-8 text-primary" />
+                        <h3 className="ml-3 text-xl font-semibold text-gray-800">{feature.title}</h3>
+                      </div>
+                      <p className="text-gray-600">{feature.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
 
       {/* How It Works Section */}
       <section className="py-24 bg-white">
