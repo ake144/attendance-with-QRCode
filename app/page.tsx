@@ -156,10 +156,10 @@ export default function Home() {
        <section className="text-center py-24  ">
           <h2 className="text-3xl font-bold mb-4">Ready to Become Part of the You GO Family?</h2>
           <p className="text-xl mb-8">Join us today and experience the power of community.</p>
-          <Button size="lg" className="text-lg px-8">
-            <Link href="/dashboard">
+          <Button onClick={handleStart} size="lg" className="text-lg px-8">
+          
             Join Our Community 
-            </Link>
+          
           </Button>
         </section>
        <FooterPage  />
