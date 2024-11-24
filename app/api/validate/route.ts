@@ -6,6 +6,8 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const token = searchParams.get("token");
 
+  console.log(token)
+
   if (!token) {
     return NextResponse.json({ message: "Token is required" }, { status: 400 });
   }
@@ -15,11 +17,14 @@ export async function GET(request: Request) {
     return NextResponse.json({ message: "Invalid or expired token" }, { status: 403 });
   }
 
-  const { userID: userId, date } = decoded;
+  console.log(decoded)
 
+  const { userID, date } = decoded;
+
+  console.log(userID)
   try {
     const user = await prisma.user.findUnique({
-      where: { id: userId },
+      where: { clerkUserId: userID },
     });
 
     if (!user) {

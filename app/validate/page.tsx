@@ -79,6 +79,7 @@ export default function ValidatePage() {
             <p className="text-green-500">Your attendance has been marked!</p>
           ) : (
             <p>Your attendance for today is being processed.</p>
+            
           )}
           <div className="mt-4">
             <Badge variant="secondary">Email</Badge>: {userInfo?.email}
