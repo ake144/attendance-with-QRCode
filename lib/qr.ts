@@ -9,5 +9,5 @@ export const generateSecureToken = ({ userID, date }: { userID: string; date: st
 export const generateQrData = ({ userID }: { userID: string }) => {
   const today = new Date().toISOString().split("T")[0];
   const token = generateSecureToken({ userID, date: today });
-  return `https://nextjs-qr-attendance.vercel.app/validate?token=${encodeURIComponent(token)}`;
+  return `https://www.brightethiopia.com/validate?token=${encodeURIComponent(token)}`;
 };
