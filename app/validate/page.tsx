@@ -1,6 +1,4 @@
-'use client'
-
-
+"use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -15,7 +13,7 @@ export default function ValidatePage() {
   const router = useRouter();
   const token = searchParams.get("token");
   const [loading, setLoading] = useState(true);
-  const [userInfo, setUserInfo] = useState<UserInfo>();
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -31,12 +29,12 @@ export default function ValidatePage() {
         const data = await res.json();
 
         if (!res.ok) {
-          setError(data.message);
+          setError(data.message || "Validation failed");
         } else {
           setUserInfo(data.user);
         }
       } catch (err) {
-        console.error(err);
+        console.error("Error during validation:", err);
         setError("Failed to validate token");
       } finally {
         setLoading(false);
@@ -47,20 +45,28 @@ export default function ValidatePage() {
   }, [token]);
 
   const markAttendance = async () => {
+    if (!userInfo) {
+      setError("User information is missing");
+      return;
+    }
+
     try {
-      const res = await fetch(`/api/mark?token=${token}`, {
-        method: "POST",
-      });
+      const res = await fetch(
+        `/api/mark?userId=${userInfo.clerkUserId}&date=${new Date().toISOString().split("T")[0]}`,
+        {
+          method: "GET", // Matches the `/api/mark` method
+        }
+      );
 
       if (res.ok) {
-        router.push("/success");
+        router.push("/success"); // Redirect to success page
       } else {
         const data = await res.json();
-        setError(data.message);
+        setError(data.message || "Failed to mark attendance");
       }
     } catch (err) {
+      console.error("Error marking attendance:", err);
       setError("Failed to mark attendance");
-      console.log(err)
     }
   };
 
