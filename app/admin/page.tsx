@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Pencil, Trash2, Download, Eye } from 'lucide-react';
 import html2canvas from 'html2canvas';
 import { useUser } from '@clerk/nextjs';
-import { deleteUser, getMemberInfo, GetMembers, updateUserInfo } from '@/lib/api';
+import { deleteUser, getMemberInfo, GetMembers } from '@/lib/api';
 import {  UserInfo } from '@/types/type';
 import { QRCodeCanvas } from 'qrcode.react';
 
