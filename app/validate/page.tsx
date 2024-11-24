@@ -15,9 +15,10 @@ export default function ValidatePage() {
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [error, setError] = useState("");
+  const [attendanceMarked, setAttendanceMarked] = useState(false);
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchAndMarkAttendance = async () => {
       if (!token) {
         setError("Invalid or missing token");
         setLoading(false);
@@ -25,50 +26,44 @@ export default function ValidatePage() {
       }
 
       try {
-        const res = await fetch(`/api/validate?token=${token}`);
-        const data = await res.json();
+        // Fetch user data
+        const validateRes = await fetch(`/api/validate?token=${token}`);
+        const validateData = await validateRes.json();
 
-        if (!res.ok) {
-          setError(data.message || "Validation failed");
+        if (!validateRes.ok) {
+          setError(validateData.message || "Validation failed");
+          setLoading(false);
+          return;
+        }
+
+        const user = validateData.user;
+        setUserInfo(user);
+
+        // Automatically mark attendance
+        const date = new Date().toISOString().split("T")[0];
+        const markRes = await fetch(
+          `/api/mark?userId=${user.id}&date=${date}`,
+          {
+            method: "GET", // Adjust to match your API
+          }
+        );
+        const markData = await markRes.json();
+
+        if (!markRes.ok) {
+          setError(markData.message || "Failed to mark attendance");
         } else {
-          setUserInfo(data.user);
+          setAttendanceMarked(true); // Indicates attendance is marked
         }
       } catch (err) {
-        console.error("Error during validation:", err);
-        setError("Failed to validate token");
+        console.error("Error during validation or attendance marking:", err);
+        setError("An error occurred while processing your request.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUserData();
+    fetchAndMarkAttendance();
   }, [token]);
-
-  const markAttendance = async () => {
-    if (!userInfo) {
-      setError("User information is missing");
-      return;
-    }
-
-    try {
-      const res = await fetch(
-        `/api/mark?userId=${userInfo.clerkUserId}&date=${new Date().toISOString().split("T")[0]}`,
-        {
-          method: "GET", // Matches the `/api/mark` method
-        }
-      );
-
-      if (res.ok) {
-        router.push("/success"); // Redirect to success page
-      } else {
-        const data = await res.json();
-        setError(data.message || "Failed to mark attendance");
-      }
-    } catch (err) {
-      console.error("Error marking attendance:", err);
-      setError("Failed to mark attendance");
-    }
-  };
 
   if (loading) return <Loader />;
 
@@ -80,12 +75,21 @@ export default function ValidatePage() {
         <CardContent>
           <h1 className="text-2xl font-bold mb-4">Confirm Attendance</h1>
           <p>Welcome, {userInfo?.name}!</p>
-          <p>Your attendance for today is about to be marked.</p>
+          {attendanceMarked ? (
+            <p className="text-green-500">Your attendance has been marked!</p>
+          ) : (
+            <p>Your attendance for today is being processed.</p>
+          )}
           <div className="mt-4">
             <Badge variant="secondary">Email</Badge>: {userInfo?.email}
           </div>
           <div className="mt-4">
-            <Button onClick={markAttendance}>Confirm Attendance</Button>
+            <Button
+              onClick={() => router.push("/success")}
+              disabled={!attendanceMarked}
+            >
+              Continue
+            </Button>
           </div>
         </CardContent>
       </Card>
