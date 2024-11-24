@@ -8,13 +8,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Loader } from "@/components/ui/loader";
+import { UserInfo } from "@/types/type";
 
 export default function ValidatePage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const token = searchParams.get("token");
   const [loading, setLoading] = useState(true);
-  const [userInfo, setUserInfo] = useState<any>(null);
+  const [userInfo, setUserInfo] = useState<UserInfo>();
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -59,6 +60,7 @@ export default function ValidatePage() {
       }
     } catch (err) {
       setError("Failed to mark attendance");
+      console.log(err)
     }
   };
 
@@ -71,10 +73,10 @@ export default function ValidatePage() {
       <Card>
         <CardContent>
           <h1 className="text-2xl font-bold mb-4">Confirm Attendance</h1>
-          <p>Welcome, {userInfo.name}!</p>
+          <p>Welcome, {userInfo?.name}!</p>
           <p>Your attendance for today is about to be marked.</p>
           <div className="mt-4">
-            <Badge variant="secondary">Email</Badge>: {userInfo.email}
+            <Badge variant="secondary">Email</Badge>: {userInfo?.email}
           </div>
           <div className="mt-4">
             <Button onClick={markAttendance}>Confirm Attendance</Button>

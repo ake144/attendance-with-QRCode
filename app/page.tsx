@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button"
 import { QrCodeIcon, ShieldCheckIcon, UsersIcon } from 'lucide-react'
-import Link from "next/link"
 import { useAuth } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
