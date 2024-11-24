@@ -12,6 +12,7 @@ import { useUser } from '@clerk/nextjs';
 import { deleteUser, getMemberInfo, GetMembers } from '@/lib/api';
 import {  UserInfo } from '@/types/type';
 import { QRCodeCanvas } from 'qrcode.react';
+import { generateQrData } from '@/lib/qr';
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState<UserInfo[]>([]);
@@ -21,10 +22,16 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [showQRCode, setShowQRCode] = useState<Record<string, boolean>>({});
   const { user } = useUser();
+  const [qrData, setQrData] = useState<string>('');
   const { toast } = useToast();
 
   useEffect(() => {
     if (!user) return;
+
+    const userId = user.id;
+    const qrContent = generateQrData({ userID: userId });
+    setQrData(qrContent);
+
 
     const fetchUsersAndAttendance = async () => {
       try {
@@ -142,7 +149,7 @@ export default function AdminDashboard() {
                 <div className="flex flex-col items-center">
                   {showQRCode[user.clerkUserId] && (
                     <div id={`qr-code-${user.clerkUserId}`} className="p-4 border rounded-lg bg-white">
-                      <QRCodeCanvas value={`userID:${user.clerkUserId},name:${user.name}`} size={200} />
+                      <QRCodeCanvas value={qrData} size={200} />
                     </div>
                   )}
                   <div className="flex space-x-2 mt-2">
