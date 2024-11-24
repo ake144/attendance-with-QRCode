@@ -16,6 +16,7 @@ export async function GET(request: Request) {
       );
     }
 
+
     const parsedDate = new Date(date);
     if (isNaN(parsedDate.getTime())) {
       return NextResponse.json(
@@ -24,6 +25,7 @@ export async function GET(request: Request) {
       );
     }
 
+
     // Convert date to string (YYYY-MM-DD) for consistent database storage
     const formattedDate = parsedDate.toISOString().split("T")[0];
 
@@ -31,6 +33,7 @@ export async function GET(request: Request) {
     const user = await prisma.user.findUnique({
       where: { id: userId },
     });
+
 
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
@@ -44,6 +47,7 @@ export async function GET(request: Request) {
       },
     });
 
+    
     if (existingAttendance) {
       return NextResponse.json(
         { message: "Attendance already marked for this date" },
@@ -63,7 +67,7 @@ export async function GET(request: Request) {
     return NextResponse.json({
       message: "Attendance marked successfully",
       user: {
-        id: user.id,
+        userId: user.id,
         name: user.name,
         email: user.email,
       },
