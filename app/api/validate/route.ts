@@ -15,7 +15,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ message: "Invalid or expired token" }, { status: 403 });
   }
 
-  const [userId, date] = decoded.split('|');
+  const { userID: userId, date } = decoded;
 
   try {
     const user = await prisma.user.findUnique({
@@ -32,3 +32,8 @@ export async function GET(request: Request) {
     return NextResponse.json({ message: "Internal server error" }, { status: 500 });
   }
 }
+
+
+
+
+

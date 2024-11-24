@@ -1,19 +1,20 @@
 import { createHash } from "crypto";
 
-/**
- * Decodes and verifies the token by matching its hash with the expected format.
- * @param token - The hashed token to verify.
- * @returns {string | null} - The decoded string if the token is valid, otherwise null.
- */
-export const verifyToken = (token: string): string | null => {
+export const verifyToken = (token: string): { userID: string; date: string } | null => {
   try {
     const parts = token.split("|");
-    if (parts.length !== 2) return null;
+    if (parts.length !== 3) return null; // Token must include userID, date, and hash
 
-    const [userID, date] = parts;
+    const [userID, date, hash] = parts;
     const expectedHash = createHash('sha256').update(`${userID}|${date}`).digest('hex');
 
-    return token === expectedHash ? `${userID}|${date}` : null;
+    // Validate the hash
+    if (hash !== expectedHash) {
+      console.error("Invalid hash in token");
+      return null;
+    }
+
+    return { userID, date }; // Return decoded data if valid
   } catch (error) {
     console.error("Error verifying token:", error);
     return null;
