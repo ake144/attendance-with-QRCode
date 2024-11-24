@@ -16,7 +16,6 @@ export async function GET(request: Request) {
       );
     }
 
-
     const parsedDate = new Date(date);
     if (isNaN(parsedDate.getTime())) {
       return NextResponse.json(
@@ -25,29 +24,28 @@ export async function GET(request: Request) {
       );
     }
 
-
     // Convert date to string (YYYY-MM-DD) for consistent database storage
     const formattedDate = parsedDate.toISOString().split("T")[0];
 
     // Check if the user exists
     const user = await prisma.user.findUnique({
-      where: { clerkUserId: userId },
+      where: { id: userId },
     });
-
 
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
     // Check for duplicate attendance record
-    const existingAttendance = await prisma.attendance.findFirst({
+    const existingAttendance = await prisma.attendance.findUnique({
       where: {
-        userId,
-        date: formattedDate,
+        userId_date: {
+          userId,
+          date: formattedDate,
+        },
       },
     });
 
-    
     if (existingAttendance) {
       return NextResponse.json(
         { message: "Attendance already marked for this date" },
@@ -67,7 +65,7 @@ export async function GET(request: Request) {
     return NextResponse.json({
       message: "Attendance marked successfully",
       user: {
-        userId,
+        id: user.id,
         name: user.name,
         email: user.email,
       },
