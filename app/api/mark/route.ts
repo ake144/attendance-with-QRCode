@@ -31,7 +31,7 @@ export async function GET(request: Request) {
 
     // Check if the user exists
     const user = await prisma.user.findUnique({
-      where: { id: userId },
+      where: { clerkUserId: userId },
     });
 
 
@@ -67,7 +67,7 @@ export async function GET(request: Request) {
     return NextResponse.json({
       message: "Attendance marked successfully",
       user: {
-        userId: user.id,
+        userId,
         name: user.name,
         email: user.email,
       },
