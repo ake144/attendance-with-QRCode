@@ -44,7 +44,7 @@ export default function ValidatePage() {
         // Automatically mark attendance
         const date = new Date().toISOString().split("T")[0];
         const markRes = await fetch(
-          `/api/mark?userId=${user.id}&date=${date}`,
+          `/api/mark?userId=${user.clerkUserId}&date=${date}`,
           {
             method: "GET", // Adjust to match your API
           }

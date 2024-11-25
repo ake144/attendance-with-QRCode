@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
-
+console.log(user)
     return NextResponse.json({ user, date });
   } catch (error) {
     console.error(error);
