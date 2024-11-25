@@ -33,8 +33,16 @@ export default function AdminDashboard() {
     if (!user) return;
 
     const userId = user.id;
-    const qrContent = generateQrData({ userID: userId });
-    setQrData(qrContent);
+    // const qrContent = generateQrData({ userID: userId });
+    // setQrData(qrContent);
+
+
+    const fetchQrContent = async ({userID}:{userID:string} ) => {
+      const qrContent = generateQrData({ userID });
+      setQrData(qrContent); 
+      return qrContent;      
+    }
+
 
 
     const fetchUsersAndAttendance = async () => {
@@ -175,32 +183,36 @@ export default function AdminDashboard() {
                 </Button>
               </TableCell>
               <TableCell>
-                <div className="flex flex-row items-center">
-                  {showQRCode[user.clerkUserId] && (
-                    <>
-                      <div
-                        id={`qr-code-${user.clerkUserId}`}
-                        className="p-4 border rounded-lg bg-white"
+                  <div className="flex flex-row items-center">
+                    {showQRCode[user.clerkUserId] && (
+                      <>
+                        <div
+                          id={`qr-code-${user.clerkUserId}`}
+                          className="p-4 border rounded-lg bg-white"
+                        >
+                          <QRCodeCanvas
+                            value={generateQrData({ userID: user.clerkUserId })}
+                            size={200}
+                          />
+                        </div>
+                        <div className="flex items-center justify-center space-x-2 mt-2">
+                          <Button variant="outline" onClick={() => downloadQRCode(user)}>
+                            <Download className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </>
+                    )}
+                    <div className="flex items-center justify-center space-x-2 mt-2">
+                      <Button
+                        variant="outline"
+                        onClick={() => toggleQRCodeVisibility(user.clerkUserId)}
                       >
-                        <QRCodeCanvas value={qrData} size={200} />
-                      </div>
-                      <div className="flex items-center justify-center space-x-2 mt-2">
-                        <Button variant="outline" onClick={() => downloadQRCode(user)}>
-                          <Download className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </>
-                  )}
-                  <div className="flex items-center justify-center space-x-2 mt-2">
-                    <Button
-                      variant="outline"
-                      onClick={() => toggleQRCodeVisibility(user.clerkUserId)}
-                    >
-                      <Eye className="w-4 h-4" />
-                    </Button>
+                        <Eye className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </TableCell>
+                </TableCell>
+
 
               <TableCell>
                 <div className="flex space-x-2">

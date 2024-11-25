@@ -76,8 +76,8 @@ export default function ValidatePage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Image
-            src="/church-logo.png"
-            alt="Church Logo"
+            src="/yougo.jpg"
+            alt="YouGo Church Logo"
             width={120}
             height={120}
             className="mx-auto mb-4"
@@ -87,6 +87,10 @@ export default function ValidatePage() {
         
         <Card className="w-full">
           <CardContent className="pt-6">
+
+            <div  className="my-4 flex flex-col items-center">
+              <h2 className="text-2xl font-bold text-gray-200">welcome  {userInfo?.name}</h2>
+            </div>
             <div className="flex flex-col items-center mb-6">
               <div className="w-24 h-24 rounded-full overflow-hidden mb-4">
                 <Image

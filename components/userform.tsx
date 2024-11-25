@@ -4,6 +4,8 @@ import { useCallback, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form"; 
 import { z } from "zod";
+import { UploadButton } from "@/lib/uploadthing";
+
 
 import { Button } from "@/components/ui/button";
 import {
