@@ -76,6 +76,9 @@ export async function updateQRCode(userId: string, qrContent: string): Promise<v
 // }
 export async function updateUserInfo(userId: string, userInfo: FormData) {
     try {
+
+        console.log("Saving member info:", userInfo.get('profilePic'));
+
       const response = await fetch(`/api/members?userId=${userId}`, {
         method: 'PUT',
         body: userInfo, 

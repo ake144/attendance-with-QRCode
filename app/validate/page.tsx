@@ -94,7 +94,7 @@ export default function ValidatePage() {
             <div className="flex flex-col items-center mb-6">
               <div className="w-24 h-24 rounded-full overflow-hidden mb-4">
                 <Image
-                  src={userInfo?.name || "/placeholder.svg"}
+                  src={userInfo?.profilePic || "/placeholder.svg"}
                   alt={userInfo?.name || "User"}
                   width={96}
                   height={96}

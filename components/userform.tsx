@@ -28,6 +28,7 @@ const formSchema = z.object({
   name: z.string().min(2, { message: "Username must be at least 2 characters." }),
   email: z.string().email({ message: "Please enter a valid email address" }),
   phone: z.string().min(10, { message: "Please enter a valid phone number" }).optional().nullable(),
+  profilePic: z.string().min(2, { message: "Please upload a profile picture" }).url().optional().nullable(),
   age: z.coerce.number().min(0, { message: "Please enter a valid age" }).optional(),
   maritalStatus: z.enum(["Single", "Married"]).optional().nullable(),
   sex: z.enum(["Male", "Female"]).optional().nullable(),
@@ -56,30 +57,20 @@ export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
   
       try {
         const formData = new FormData();
+        formData.append("name", data.name);
+        formData.append("email", data.email);
+        if (data.phone) formData.append("phone", data.phone);
+        if (data.age) formData.append("age", data.age.toString());
+        if (data.maritalStatus) formData.append("maritalStatus", data.maritalStatus);
+        if (data.sex) formData.append("sex", data.sex);
+        if (data.address) formData.append("address", data.address);
+        if (data.occupation) formData.append("occupation", data.occupation);
+        if (data.profilePic) formData.append("profilePic", data.profilePic);
 
-
-        formData.append('name', data.name);
-        formData.append('email', data.email);
-        if (data.phone) {
-          formData.append('phone', data.phone);
-        }
-        if(data.age){
-            formData.append('age', data.age.toString());
-        }
-        if(data.maritalStatus){
-            formData.append('maritalStatus', data.maritalStatus);
-        }
-        if(data.sex) {
-           formData.append('sex', data.sex)
-        }
-        if(data.address){
-            formData.append('address', data.address);
-        }
-        if(data.occupation){
-            formData.append('occupation', data.occupation);
-        }
-  
         await updateUserInfo(user.id, formData);
+
+        console.log('data',data.profilePic);
+
         toast({ title: "Member info updated successfully" });
       } catch (error) {
         toast({ title: "Error updating member data", variant: "destructive" });
@@ -138,6 +129,40 @@ export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
             </FormItem>
           )}
         />
+
+
+         {/* Profile Picture Upload */}
+         <FormField
+          control={form.control}
+          name="profilePic"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Profile Picture</FormLabel>
+              <FormControl>
+                <UploadButton
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(res) => {
+                    if (res && res[0]?.url) {
+                      field.onChange(res[0].url);
+                      form.setValue("profilePic", res[0].url);
+                      toast({ title: "Profile picture uploaded successfully" });
+                    }
+                  }}
+                  onUploadError={(error: Error) => {
+                    toast({ title: `Error uploading image: ${error.message}`, variant: "destructive" });
+                  }}
+                />
+              </FormControl>
+              <FormMessage />
+              {field.value && (
+                <div className="mt-4">
+                  <img src={field.value} alt="Profile" className="w-24 h-24 rounded-full" />
+                </div>
+              )}
+            </FormItem>
+          )}
+        />
+
 
         {/* Age Field */}
         <FormField

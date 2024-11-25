@@ -10,6 +10,7 @@ export interface UserInfo {
   age?: number | null ;
   maritalStatus?: string | null;
   sex?: string | null;
+  profilePic?: string | null;
   role?:string;
   address?: string | null;
   occupation?: string | null;
