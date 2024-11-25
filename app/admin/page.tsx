@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
-import { Pencil, Trash2, Download, QrCode, X } from 'lucide-react';
+import { Pencil, Trash2, Download, QrCode} from 'lucide-react';
 import html2canvas from 'html2canvas';
 import { useUser } from '@clerk/nextjs';
 import { deleteUser, getAttendanceHistory, getMemberInfo, GetMembers, updateUserInfo } from '@/lib/api';
@@ -136,7 +136,7 @@ export default function AdminDashboard() {
   if (currentUser?.role !== 'ADMIN') {
     return (
       <p className="mt-12 text-center text-xl font-semibold text-red-600">
-        Access Denied: This dashboard is restricted to users with the "ADMIN" role.
+        Access Denied: This dashboard is restricted to users with the &ldquo;ADMIN&rdquo; role.
       </p>
     );
   }
