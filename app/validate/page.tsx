@@ -1,12 +1,14 @@
-"use client";
+'use client';
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Loader } from "@/components/ui/loader";
 import { UserInfo } from "@/types/type";
+import { CheckCircle } from 'lucide-react';
 
 export default function ValidatePage() {
   const searchParams = useSearchParams();
@@ -70,30 +72,57 @@ export default function ValidatePage() {
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <Card>
-        <CardContent>
-          <h1 className="text-2xl font-bold mb-4">Confirm Attendance</h1>
-          <p>Welcome, {userInfo?.name}!</p>
-          {attendanceMarked ? (
-            <p className="text-green-500">Your attendance has been marked!</p>
-          ) : (
-            <p>Your attendance for today is being processed.</p>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <Image
+            src="/church-logo.png"
+            alt="Church Logo"
+            width={120}
+            height={120}
+            className="mx-auto mb-4"
+          />
+          <h1 className="text-3xl font-bold text-gray-800">Attendance Confirmation</h1>
+        </div>
+        
+        <Card className="w-full">
+          <CardContent className="pt-6">
+            <div className="flex flex-col items-center mb-6">
+              <div className="w-24 h-24 rounded-full overflow-hidden mb-4">
+                <Image
+                  src={userInfo?.name || "/placeholder.svg"}
+                  alt={userInfo?.name || "User"}
+                  width={96}
+                  height={96}
+                  className="object-cover"
+                />
+              </div>
+              <h2 className="text-2xl font-semibold text-gray-800">{userInfo?.name}</h2>
+              <Badge variant="secondary" className="mt-2">{userInfo?.email}</Badge>
+            </div>
             
-          )}
-          <div className="mt-4">
-            <Badge variant="secondary">Email</Badge>: {userInfo?.email}
-          </div>
-          <div className="mt-4">
-            <Button
-              onClick={() => router.push("/success")}
-              disabled={!attendanceMarked}
-            >
-              Continue
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+            {attendanceMarked ? (
+              <div className="text-center mb-6">
+                <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-2" />
+                <p className="text-lg font-medium text-green-600">Attendance Submitted Successfully!</p>
+              </div>
+            ) : (
+              <p className="text-center text-gray-600 mb-6">Your attendance for today is being processed.</p>
+            )}
+            
+            <div className="flex justify-center">
+              <Button
+                onClick={() => router.push("/success")}
+                disabled={!attendanceMarked}
+                className="px-8 py-2"
+              >
+                Continue
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
+
