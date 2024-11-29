@@ -78,6 +78,7 @@ export async function PUT(request: Request) {
       maritalStatus: formData.get("maritalStatus") as string | undefined,
       sex: formData.get("sex") as string | undefined,
       address: formData.get("address") as string | undefined,
+      profilePic : formData.get("profilePic") as string | undefined,
       occupation: formData.get("occupation") as string | undefined,
     };
 

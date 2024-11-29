@@ -42,7 +42,7 @@ model Attendance {
   date      DateTime
   isPresent Boolean
   userId    String
-  user      User    @relation(fields: [userId], references: [id])
+  user      User    @relation(fields: [userId], references: [clerkUserId])
 
    @@unique([userId, date])
 }

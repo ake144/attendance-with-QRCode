@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button"
 import { QrCodeIcon, ShieldCheckIcon, UsersIcon } from 'lucide-react'
-import Link from "next/link"
 import { useAuth } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
@@ -156,10 +155,10 @@ export default function Home() {
        <section className="text-center py-24  ">
           <h2 className="text-3xl font-bold mb-4">Ready to Become Part of the You GO Family?</h2>
           <p className="text-xl mb-8">Join us today and experience the power of community.</p>
-          <Button size="lg" className="text-lg px-8">
-            <Link href="/dashboard">
+          <Button onClick={handleStart} size="lg" className="text-lg px-8">
+          
             Join Our Community 
-            </Link>
+          
           </Button>
         </section>
        <FooterPage  />
