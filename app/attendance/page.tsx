@@ -2,7 +2,6 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -146,15 +145,19 @@ export default function AttendancePage() {
 
         {/* Main Content Card */}
         <Card className="w-full shadow-2xl">
-          <CardHeader className="bg-primary text-primary-foreground text-center py-6">
-            <CardTitle className="text-3xl font-bold">Welcome, <span className="ml-8 p-8 space-x-4">{userInfo.name}!</span></CardTitle>
+        <CardHeader className="bg-primary text-primary-foreground text-center py-6">
+            <CardTitle className="text-3xl font-bold">
+              Welcome, <span className="ml-2">{userInfo.name}!</span>
+            </CardTitle>
           </CardHeader>
-             <div className="flex justify-center -mt-12  mb-4">
-                    <Avatar className="w-24 h-24 border-4 border-white shadow-lg">
-                      <AvatarImage src={userInfo.profilePic} alt={`${userInfo.name}'s profile picture`} />
-                      <AvatarFallback>{userInfo.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                  </div>
+
+          <div className="flex justify-center mb-4">
+            <Avatar className="w-28 h-28 border-4 border-white shadow-lg">
+              <AvatarImage src={userInfo.profilePic} alt={`${userInfo.name}'s profile picture`} />
+              <AvatarFallback>{userInfo.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+          </div>
+
           <CardContent className="p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -174,6 +177,7 @@ export default function AttendancePage() {
               </div>
             </div>
           </CardContent>
+
         </Card>
 
         {/* Confirmation Message */}
