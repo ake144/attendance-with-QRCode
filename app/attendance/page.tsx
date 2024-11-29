@@ -23,6 +23,7 @@ export default function AttendancePage() {
       const url = new URL(input);
       const tokenFromUrl = url.searchParams.get("token");
       setToken(tokenFromUrl || input);
+      console.log(token, tokenFromUrl)
     } catch {
       setToken(input);
     }
