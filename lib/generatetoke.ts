@@ -16,8 +16,8 @@ export const generateSecureToken = ({ userID, date }: { userID: string; date: st
  * @param userID - The user ID
  * @returns The QR URL with the secure token
  */
-export const generateQrData = ({ userID }: { userID: string }) => {
+export const generateQrData = ({ userID }: { userID: string }): string => {
   const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
   const token = generateSecureToken({ userID, date: today });
-  return `http://localhost:3000/api/validate?token=${token}|${userID}|${today}`;
+  return `token=${token}|${userID}|${today}`; // Return the token string without a URL
 };

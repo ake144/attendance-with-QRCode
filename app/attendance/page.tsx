@@ -1,6 +1,5 @@
 "use client";
 
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
@@ -12,21 +11,15 @@ export default function AttendancePage() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [userInfo, setUserInfo] = useState<UserInfo | null >(null);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [attendanceMarked, setAttendanceMarked] = useState(false);
 
   const CLEAR_TIMEOUT = 10000; // Time in milliseconds (e.g., 10 seconds)
 
   const handleTokenInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
-    try {
-      const url = new URL(input);
-      const tokenFromUrl = url.searchParams.get("token");
-      setToken(tokenFromUrl || input);
-      console.log(token, tokenFromUrl)
-    } catch {
-      setToken(input);
-    }
+    setToken(input);  // Set the token directly
+    console.log("Token set:", input);
   };
 
   useEffect(() => {
@@ -45,7 +38,7 @@ export default function AttendancePage() {
 
       try {
         // Validate token and fetch user data
-        const validateResponse = await fetch(`/api/validate?token=${token}`);
+        const validateResponse = await fetch(`/api/validate?${token}`);
         const validateData = await validateResponse.json();
 
         if (!validateResponse.ok) {
@@ -135,70 +128,59 @@ export default function AttendancePage() {
   if (attendanceMarked && userInfo) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-between p-8 bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="w-full max-w-4xl flex flex-col items-center">
-        {/* Church Logo */}
-        <Image
-          src="/yougo.jpg"
-          alt="Church Logo"
-          width={150}
-          height={150}
-          className="mb-8"
-        />
+        <div className="w-full max-w-4xl flex flex-col items-center">
+          {/* Church Logo */}
+          <Image
+            src="/yougo.jpg"
+            alt="Church Logo"
+            width={150}
+            height={150}
+            className="mb-8"
+          />
 
-        {/* Main Content Card */}
-        <Card className="w-full shadow-2xl">
-        <CardHeader className="bg-primary text-primary-foreground text-center py-6">
-            <CardTitle className="text-3xl font-bold">
-              Welcome, <span className="ml-2">{userInfo.name}!</span>
-            </CardTitle>
-          </CardHeader>
+          {/* Main Content Card */}
+          <Card className="w-full shadow-2xl">
+            <CardHeader className="bg-primary text-primary-foreground text-center py-6">
+              <CardTitle className="text-3xl font-bold">
+                Welcome, <span className="ml-2">{userInfo.name}!</span>
+              </CardTitle>
+            </CardHeader>
 
-          <div className="flex justify-center mb-4">
-            <Avatar className="w-28 h-28 border-4 border-white shadow-lg">
-              <AvatarImage src={userInfo.profilePic || "https://github.com/shadcn.png"} alt={`${userInfo.name}'s profile picture`} />
-              <AvatarFallback>{userInfo.name.charAt(0)}</AvatarFallback>
-            </Avatar>
-          </div>
-
-          <CardContent className="p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h2 className="text-xl font-semibold mb-4">Your Information</h2>
-                <div className="space-y-2">
-                  <p><span className="font-medium">Name:</span> {userInfo.name}</p>
-                  <p><span className="font-medium">Email:</span> {userInfo.email}</p>
-                </div>
-              </div>
-              <div>
-                <h2 className="text-xl font-semibold mb-4">Attendance Details</h2>
-                <div className="space-y-2">
-                  <p><span className="font-medium">Date:</span> {new Date().toLocaleDateString()}</p>
-                  <p><span className="font-medium">Time:</span> {new Date().toLocaleTimeString()}</p>
-                  <p><span className="font-medium">Service:</span> Sunday Worship</p>
-                </div>
-              </div>
+            <div className="flex justify-center mb-4">
+              <Avatar className="w-28 h-28 border-4 border-white shadow-lg">
+                <AvatarImage src={userInfo.profilePic || "https://github.com/shadcn.png"} alt={`${userInfo.name}'s profile picture`} />
+                <AvatarFallback>{userInfo.name.charAt(0)}</AvatarFallback>
+              </Avatar>
             </div>
-          </CardContent>
 
-        </Card>
+            <CardContent className="p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h2 className="text-xl font-semibold mb-4">Your Information</h2>
+                  <div className="space-y-2">
+                    <p><span className="font-medium">Name:</span> {userInfo.name}</p>
+                    <p><span className="font-medium">Email:</span> {userInfo.email}</p>
+                  </div>
+                </div>
+                <div>
+                  <h2 className="text-xl font-semibold mb-4">Attendance Details</h2>
+                  <div className="space-y-2">
+                    <p><span className="font-medium">Date:</span> {new Date().toLocaleDateString()}</p>
+                    <p><span className="font-medium">Time:</span> {new Date().toLocaleTimeString()}</p>
+                    <p><span className="font-medium">Service:</span> Sunday Worship</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-        {/* Confirmation Message */}
-        <div className="mt-5 text-center">
-          <h2 className="text-2xl font-bold text-green-600 mb-2">Attendance Submitted Successfully!</h2>
-          <p className="text-gray-600">Thank you for joining us today. Your presence makes our community stronger.</p>
+          {/* Confirmation Message */}
+          <div className="mt-5 text-center">
+            <h2 className="text-2xl font-bold text-green-600 mb-2">Attendance Submitted Successfully!</h2>
+            <p className="text-gray-600">Thank you for joining us today. Your presence makes our community stronger.</p>
+          </div>
         </div>
       </div>
-
-      {/* Footer
-      <footer className="mt-5 text-center text-gray-500">
-        <p>&copy; 2023 Your Church Name. All rights reserved.</p>
-        <p className="mt-2">
-          <Link href="/privacy-policy" className="underline hover:text-primary">Privacy Policy</Link>
-          {' | '}
-          <Link href="/contact" className="underline hover:text-primary">Contact Us</Link>
-        </p>
-      </footer> */}
-    </div>
     );
   }
 
