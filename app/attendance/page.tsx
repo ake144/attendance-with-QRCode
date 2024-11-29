@@ -1,20 +1,21 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { UserInfo } from "@/types/type";
 
 export default function AttendancePage() {
   const [token, setToken] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [userInfo, setUserInfo] = useState<any>(null);
+  const [userInfo, setUserInfo] = useState<UserInfo | null >(null);
   const [attendanceMarked, setAttendanceMarked] = useState(false);
 
-  const CLEAR_TIMEOUT = 10000; // Time in milliseconds (e.g., 5 seconds)
+  const CLEAR_TIMEOUT = 10000; // Time in milliseconds (e.g., 10 seconds)
 
   const handleTokenInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
@@ -153,7 +154,7 @@ export default function AttendancePage() {
 
           <div className="flex justify-center mb-4">
             <Avatar className="w-28 h-28 border-4 border-white shadow-lg">
-              <AvatarImage src={userInfo.profilePic} alt={`${userInfo.name}'s profile picture`} />
+              <AvatarImage src={userInfo.profilePic || "https://github.com/shadcn.png"} alt={`${userInfo.name}'s profile picture`} />
               <AvatarFallback>{userInfo.name.charAt(0)}</AvatarFallback>
             </Avatar>
           </div>
