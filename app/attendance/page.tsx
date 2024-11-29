@@ -5,9 +5,11 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserInfo } from "@/types/type";
+import { useDebounce } from 'use-debounce'; // Import useDebounce
 
 export default function AttendancePage() {
   const [token, setToken] = useState<string | null>(null);
+  const [debouncedToken] = useDebounce(token, 300); // Debounce the token input by 300 ms
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,14 +33,14 @@ export default function AttendancePage() {
 
   useEffect(() => {
     const processToken = async () => {
-      if (!token) return;
+      if (!debouncedToken) return;
 
       setLoading(true);
       setError(null);
 
       try {
         // Validate token and fetch user data
-        const validateResponse = await fetch(`/api/validate?${token}`);
+        const validateResponse = await fetch(`/api/validate?${debouncedToken}`);
         const validateData = await validateResponse.json();
 
         if (!validateResponse.ok) {
@@ -69,7 +71,7 @@ export default function AttendancePage() {
     };
 
     processToken();
-  }, [token]);
+  }, [debouncedToken]); // Use the debounced token
 
   // Automatically clear user info and input field after a timeout
   useEffect(() => {
