@@ -136,7 +136,7 @@ export default function AttendancePage() {
       <div className="w-full max-w-4xl flex flex-col items-center">
         {/* Church Logo */}
         <Image
-          src="/church-logo.jpg"
+          src="/yougo.jpg"
           alt="Church Logo"
           width={150}
           height={150}

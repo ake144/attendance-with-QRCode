@@ -10,11 +10,7 @@ import { useUser } from '@clerk/nextjs';
 import { deleteUser, getAttendanceHistory, getMemberInfo, GetMembers, updateUserInfo } from '@/lib/api';
 import { AttendanceRecord, UserInfo } from '@/types/type';
 import { QRCodeSVG } from 'qrcode.react';
-<<<<<<< HEAD
 import { generateQrData } from '@/lib/generatetoke';
-=======
-import { generateQrData } from '@/lib/qr';
->>>>>>> 7b9e7c64026fe50a96a887f01bcc9b37e6567a78
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
