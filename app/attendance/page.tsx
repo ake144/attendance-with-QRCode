@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useDebounce } from "use-debounce";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UserInfo } from "@/types/type";
@@ -12,6 +13,7 @@ export default function AttendancePage() {
   const [error, setError] = useState<string | null>(null);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [attendanceMarked, setAttendanceMarked] = useState(false);
+  const [debouncedToken] = useDebounce(token, 300);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const CLEAR_TIMEOUT = 10000; // 10 seconds
@@ -37,30 +39,32 @@ export default function AttendancePage() {
     refocusInput();
   }, []);
 
+  
   useEffect(() => {
     const processToken = async () => {
-      if (!token) return;
-
+      if (!debouncedToken) return;
+  
       setLoading(true);
       setError(null);
-
+  
       try {
-        const validateResponse = await fetch(`/api/validate?${token}`);
+        // Correctly format the URL with a query parameter
+        const validateResponse = await fetch(`/api/validate?${debouncedToken}`);
         const validateData = await validateResponse.json();
-
+  
         if (!validateResponse.ok) {
           setError(validateData.message || "Failed to validate token.");
           return;
         }
-
+  
         const { user, date } = validateData;
         setUserInfo(user);
-
+  
         const markResponse = await fetch(
           `/api/mark?userId=${user.clerkUserId}&date=${date}`,
           { method: "GET" }
         );
-
+  
         if (!markResponse.ok) {
           const markData = await markResponse.json();
           setError(markData.message || "Failed to mark attendance.");
@@ -74,9 +78,9 @@ export default function AttendancePage() {
         setLoading(false);
       }
     };
-
+  
     processToken();
-  }, [token]);
+  }, [debouncedToken]);
 
   useEffect(() => {
     if (attendanceMarked || error) {
