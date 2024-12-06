@@ -16,7 +16,7 @@ export default function AttendancePage() {
   const [debouncedToken] = useDebounce(token, 300);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const CLEAR_TIMEOUT = 10000; // 10 seconds
+  const CLEAR_TIMEOUT = 3000; 
 
   const handleTokenInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setToken(event.target.value);

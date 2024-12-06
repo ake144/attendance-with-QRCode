@@ -5,7 +5,7 @@ import { QrCodeIcon, ShieldCheckIcon, UsersIcon } from 'lucide-react'
 import { useAuth } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import FooterPage from "@/components/footer"
+import { PulsatingButton } from "@/components/ui/join"
 
 export default function Home() {
   const { isSignedIn } = useAuth()
@@ -48,15 +48,32 @@ export default function Home() {
                 </p> */}
                 {/* Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button
+                  {/* <Button
                     size="lg"
                     className="px-8 py-4 text-lg font-medium bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-lg focus:ring-4 focus:ring-blue-300 focus:outline-none"
                     onClick={handleStart}
                     aria-label="Get Started"
                   >
                     Get Started
-                  </Button>
-              
+                  </Button> */}
+
+                        <button
+                          className="group relative inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring"
+                          onClick={handleStart}
+                          aria-label="Get Started"
+                        >
+                          <span
+                            className="absolute inset-y-0 left-0 w-[2px] bg-indigo-600 transition-all group-hover:w-full group-active:bg-indigo-500"
+                          ></span>
+
+                          <span
+                            className="relative text-lg font-bold  text-white transition-colors group-hover:text-white"
+                          >
+                            Get Started
+                          </span>
+                        </button>
+
+                              
                 </div>
               </div>
             </section>
@@ -152,16 +169,21 @@ export default function Home() {
 
       {/* CTA Section */}
        {/* CTA Section */}
-       <section className="text-center py-24  ">
-          <h2 className="text-3xl font-bold mb-4">Ready to Become Part of the You GO Family?</h2>
-          <p className="text-xl mb-8">Join us today and experience the power of community.</p>
-          <Button onClick={handleStart} size="lg" className="text-lg px-8">
-          
-            Join Our Community 
-          
-          </Button>
+       <section className="text-center py-24 flex flex-col items-center justify-center">
+          <h2 className="text-3xl font-bold mb-4">
+            Ready to Become Part of the You GO Family?
+          </h2>
+          <p className="text-xl mb-8">
+            Join us today and experience the power of community.
+          </p>
+          <PulsatingButton
+            onClick={handleStart}
+            className="text-lg flex items-center justify-center px-8"
+          >
+            Join Our Community
+          </PulsatingButton>
         </section>
-       <FooterPage  />
+
     </div>
   )
 }
