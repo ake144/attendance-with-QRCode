@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
 import { QrCodeIcon, ShieldCheckIcon, UsersIcon } from 'lucide-react'
 import { useAuth } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"

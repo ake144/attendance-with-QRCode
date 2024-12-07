@@ -22,6 +22,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import Link from 'next/link';
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState<UserInfo[]>([]);
@@ -144,6 +145,12 @@ export default function AdminDashboard() {
   return (
     <div className="container mx-auto py-10 px-4">
       <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Membership Management</h1>
+      <div className="flex justify-end mb-4">
+        <Link href="/attendance">
+          <Button variant="link">Manage Attendance</Button>
+        </Link>
+      </div>
+
       <Card className="overflow-hidden shadow-lg">
         <CardContent className="p-0">
           <Table>

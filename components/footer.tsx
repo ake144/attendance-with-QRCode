@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { FaFacebookF, FaInstagram, FaTwitter, FaTelegram, FaYoutube, FaLinkedin, FaTiktok } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaTwitter, FaTelegram, FaYoutube, FaTiktok } from 'react-icons/fa';
 
 const FooterPage = () => {
   const currentYear = new Date().getFullYear()

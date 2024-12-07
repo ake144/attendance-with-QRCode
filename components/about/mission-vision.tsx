@@ -18,7 +18,7 @@ export default function MissionVision() {
           <Card>
             <CardHeader>
               <CardTitle>Our Vision</CardTitle>
-              <CardDescription>Where we're headed</CardDescription>
+              <CardDescription>Where we&apos;re headed</CardDescription>
             </CardHeader>
             <CardContent>
               <p>To be a beacon of light, fostering a global community of believers who are equipped to make a positive impact in their spheres of influence, bringing about lasting change and spiritual revival.</p>

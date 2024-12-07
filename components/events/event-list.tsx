@@ -14,7 +14,7 @@ const events = [
     date: "Every Friday",
     time: "6:30 PM - 8:30 PM",
     description: "A time for young people to connect, learn, and have fun.",
-    image: "/placeholder.svg?height=200&width=300"
+    image: "/ev2.jpg"
   },
   {
     title: "Community Outreach",

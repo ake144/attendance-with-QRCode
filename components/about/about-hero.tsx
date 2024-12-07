@@ -13,10 +13,10 @@ export default function AboutHero() {
       />
       <div className="absolute inset-0 bg-black opacity-50"></div>
       <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-          <span className="text-blue-400">YouGo City Church</span>
+      <h1 className="text-10xl sm:text-6xl md:text-8xl font-bold mb-6">
+              ABOUT  US
         </h1>
-        <p className="text-xl sm:text-2xl mb-8 max-w-2xl mx-auto">
+        {/* <p className="text-xl sm:text-2xl mb-8 max-w-2xl mx-auto">
           A place of hope, healing, and community. Join us in our journey of faith and service.
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
@@ -43,8 +43,8 @@ export default function AboutHero() {
 
                 <span className="text-sm font-medium transition-all group-hover:ms-4">  Get Involved
                   </span>
-              </a>
-        </div>
+              </a> */}
+        {/* </div> */}
       </div>
     </section>
   );
