@@ -146,8 +146,8 @@ export default function AdminDashboard() {
     <div className="container mx-auto py-10 px-4">
       <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Membership Management</h1>
       <div className="flex justify-end mb-4">
-        <Link href="/attendance">
-          <Button variant="link">Manage Attendance</Button>
+        <Link href="/admin/attendance">
+          <Button variant="outline">Manage Attendance</Button>
         </Link>
       </div>
 

@@ -49,8 +49,8 @@ const handleDateRangeSubmit = async (startDate: Date, endDate: Date) => {
   }
 
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-8">Attendance Tracker</h1>
+    <div className="container mx-auto py-8 min-h-screen ">
+      <h1 className="text-3xl my-9 font-bold mb-8">Attendance Tracker</h1>
       <DateRangeForm onSubmit={handleDateRangeSubmit} />
       <AttendanceTable data={attendanceData} />
     </div>

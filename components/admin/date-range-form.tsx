@@ -72,7 +72,7 @@ export function DateRangeForm({ onSubmit }: DateRangeFormProps) {
           </PopoverContent>
         </Popover>
       </div>
-      <Button type="submit" disabled={!startDate || !endDate}>Fetch Attendance Data</Button>
+      <Button type="submit" disabled={!startDate || !endDate}>Get Attendance Data</Button>
     </form>
   )
 }
