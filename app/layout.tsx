@@ -18,8 +18,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "City of refuge church",
-  description: "user identity management app for City of refuge church community",
+  title: "YouGo City Churh",
+  description: "user identity management app for YouGo City Church Community",
 };
 
 export default function RootLayout({
