@@ -5,12 +5,12 @@ const FooterPage = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer id="contact" className="bg-gray-900 text-white py-16">
+    <footer id="contact" className="bg-[#409EEF] text-white py-16">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-12">
           <div className="space-y-6">
             <h3 className="text-3xl font-bold">YouGo City Church</h3>
-            <p className="text-gray-300 text-lg">Spreading the Gospel of our Lord and Saviour Jesus Christ. He is more than enough!</p>
+            <p className="text-white text-lg">Spreading the Gospel of our Lord and Saviour Jesus Christ. He is more than enough!</p>
             <div className="flex space-x-6">
               {[
                 { icon: FaFacebookF, label: "Facebook", href: "https://l.instagram.com/?u=https%3A%2F%2Fwww.facebook.com%2FYouGoChurch%3Fmibextid%3DZbWKwL&e=AT2-pG8vnfa8hRo4LEK2Rhn_7eXs1M0Qj8GTlzY5WdIP6QJcu_JiWSN7ZkcGYTtCwRbYxGIkUkhCvAlaQqFObwzTl7-nuJl95k1S8m8" },
@@ -21,7 +21,7 @@ const FooterPage = () => {
                 { icon: FaTiktok, label: "TikTok", href: "https://l.facebook.com/l.php?u=https%3A%2F%2Ftiktok.com%2F%40you_go_church%3Ffbclid%3DIwZXh0bgNhZW0CMTAAAR0CJJAdu6GW7Ot6VlHz2cvQe_kb95Gjkw5rCyFWPjBXQVfnnbosjIMZmKk_aem_sxx3VG8ATaT-FKIYtkO8Jg&h=AT1dbvdEfRys8NL9ITc1sOhyK6bXqF232lt1HUXfGOTZ-rJU2qoUsYG0bgnS_U0nnTOorC-zYiLGwMk_1OUSD9y-ked_tbWA_HzyN0IrD2DmSN9ri174uLpIgMmm" },
               ].map(({ icon: Icon, label, href }) => (
                 <Link key={label} href={href} aria-label={label}>
-                  <Icon className="h-6 w-6 text-gray-400 hover:text-white transition-colors duration-300" />
+                  <Icon className="h-6 w-6 text-white hover:text-white transition-colors duration-300" />
                 </Link>
               ))}
             </div>
@@ -35,7 +35,7 @@ const FooterPage = () => {
                 { label: "Events", href: "#" },
               ].map(({ label, href }) => (
                 <li key={label}>
-                  <Link href={href} className="text-gray-300 hover:text-white transition-colors duration-300 text-lg">
+                  <Link href={href} className="text-white hover:text-white transition-colors duration-300 text-lg">
                     {label}
                   </Link>
                 </li>
@@ -44,7 +44,7 @@ const FooterPage = () => {
           </div>
           <div>
             <h3 className="text-2xl font-semibold mb-6">Connect With Us</h3>
-            <address className="not-italic text-gray-300 space-y-4">
+            <address className="not-italic text-white space-y-4">
               <p className="text-lg">Bole Medhanialem Road, Addis Ababa, Ethiopia</p>
               <p className="text-lg">
                 Phone: <a href="tel:+251911639350" className="hover:text-white transition-colors duration-300">+251 91 163 9350</a>
@@ -56,7 +56,7 @@ const FooterPage = () => {
           </div>
         </div>
         <div className="mt-16 pt-8 border-t border-gray-800 text-center">
-          <p className="text-gray-400 text-lg">&copy; {currentYear} YouGo City Church. All rights reserved.</p>
+          <p className="text-white text-lg">&copy; {currentYear} YouGo City Church. All rights reserved.</p>
         </div>
       </div>
     </footer>

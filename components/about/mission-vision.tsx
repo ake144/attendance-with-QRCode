@@ -12,7 +12,9 @@ export default function MissionVision() {
               <CardDescription>What drives us every day</CardDescription>
             </CardHeader>
             <CardContent>
-              <p>To provide a refuge of hope, healing, and transformation through the love of Christ, empowering individuals to live purposeful lives and build stronger communities.</p>
+              <p>
+                To provide a refuge of hope, healing, and transformation through the love of Christ, empowering individuals to live purposeful lives and build stronger communities.
+              </p>
             </CardContent>
           </Card>
           <Card>
@@ -21,12 +23,13 @@ export default function MissionVision() {
               <CardDescription>Where we&apos;re headed</CardDescription>
             </CardHeader>
             <CardContent>
-              <p>To be a beacon of light, fostering a global community of believers who are equipped to make a positive impact in their spheres of influence, bringing about lasting change and spiritual revival.</p>
+              <p>
+                To be a beacon of light, fostering a global community of believers who are equipped to make a positive impact in their spheres of influence, bringing about lasting change and spiritual revival.
+              </p>
             </CardContent>
           </Card>
         </div>
       </div>
     </section>
-  )
+  );
 }
-

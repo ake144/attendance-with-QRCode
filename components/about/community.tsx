@@ -1,6 +1,6 @@
-import Image from 'next/image'
+import Image from 'next/image';
 
-export default function Community() {
+export function Community() {
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -18,14 +18,37 @@ export default function Community() {
             </p>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <Image src="/com1.jpg" alt="Community event" width={300} height={200} className="rounded-lg" />
-            <Image src="/com2.jpg" alt="Youth group" width={300} height={200} className="rounded-lg" />
-            <Image src="/com3.jpg" alt="Worship service" width={300} height={200} className="rounded-lg" />
-            <Image src="/com4.jpg" alt="Volunteer work" width={300} height={200} className="rounded-lg" />
+            <Image
+              src="/com1.jpg"
+              alt="Community event"
+              width={300}
+              height={200}
+              className="rounded-lg"
+            />
+            <Image
+              src="/com2.jpg"
+              alt="Youth group"
+              width={300}
+              height={200}
+              className="rounded-lg"
+            />
+            <Image
+              src="/com3.jpg"
+              alt="Worship service"
+              width={300}
+              height={200}
+              className="rounded-lg"
+            />
+            <Image
+              src="/com4.jpg"
+              alt="Volunteer work"
+              width={300}
+              height={200}
+              className="rounded-lg"
+            />
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
-

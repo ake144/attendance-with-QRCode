@@ -49,6 +49,6 @@ export default function Leadership() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 

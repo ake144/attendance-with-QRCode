@@ -1,5 +1,5 @@
 import AboutHero from "@/components/about/about-hero"
-import Community from "@/components/about/community"
+import {Community} from "@/components/about/community"
 import ContactCTA from "@/components/about/contact-cta"
 import Leadership from "@/components/about/leadership"
 import MissionVision from "@/components/about/mission-vision"
