@@ -13,7 +13,7 @@ const FooterPage = () => {
             <p className="text-white text-lg">Spreading the Gospel of our Lord and Saviour Jesus Christ. He is more than enough!</p>
             <div className="flex space-x-6">
               {[
-                { icon: FaFacebookF, label: "Facebook", href: "https://l.instagram.com/?u=https%3A%2F%2Fwww.facebook.com%2FYouGoChurch%3Fmibextid%3DZbWKwL&e=AT2-pG8vnfa8hRo4LEK2Rhn_7eXs1M0Qj8GTlzY5WdIP6QJcu_JiWSN7ZkcGYTtCwRbYxGIkUkhCvAlaQqFObwzTl7-nuJl95k1S8m8" },
+                { icon: FaFacebookF, label: "Facebook", href: "https://web.facebook.com/YouGoChurch?mibextid=ZbWKwL&_rdc=1&_rdr" },
                 { icon: FaTwitter, label: "Twitter", href: "https://x.com/YougoCityChurch" },
                 { icon: FaInstagram, label: "Instagram", href: "https://www.instagram.com/yougocitychurch/" },
                 { icon: FaTelegram, label: "Telegram", href: "https://t.me/yougochurch" },

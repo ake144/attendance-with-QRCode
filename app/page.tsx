@@ -37,25 +37,10 @@ export default function Home() {
               
               {/* Content */}
               <div className="relative z-20 flex flex-col items-center gap-8 text-center max-w-4xl mx-auto">
-                {/* Heading */}
                 <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight tracking-wide">
                   Welcome to Our Community
                 </h1>
-                {/* Subtitle */}
-                {/* <p className="text-lg md:text-xl text-gray-300 max-w-2xl">
-                  Discover a welcoming space for everyone to connect, grow, and celebrate together.
-                </p> */}
-                {/* Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  {/* <Button
-                    size="lg"
-                    className="px-8 py-4 text-lg font-medium bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-lg focus:ring-4 focus:ring-blue-300 focus:outline-none"
-                    onClick={handleStart}
-                    aria-label="Get Started"
-                  >
-                    Get Started
-                  </Button> */}
-
                         <button
                           className="group relative inline-block overflow-hidden border border-[#49A3EF] px-8 py-3 focus:outline-none focus:ring"
                           onClick={handleStart}
@@ -74,6 +59,8 @@ export default function Home() {
                 </div>
               </div>
             </section>
+
+            
       {/* Features Section */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
