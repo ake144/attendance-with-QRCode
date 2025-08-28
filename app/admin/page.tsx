@@ -62,8 +62,14 @@ export default function AdminDashboard() {
       const adminInfo = await apiClient.getUser(user!.id);
       const attendanceHistory = await apiClient.getAttendance(user!.id);
      
-      setUsers(members || []);
-      if (adminInfo) setCurrentUser(adminInfo);
+      setUsers((members || []).map(user => ({
+        ...user,
+        role: user.role as 'ADMIN' | 'USER'
+      })));
+      if (adminInfo) setCurrentUser({
+        ...adminInfo,
+        role: adminInfo.role as 'ADMIN' | 'USER'
+      });
       if (attendanceHistory) setAttendance(attendanceHistory);
     } catch (error) {
       console.error("Error fetching data:", error);
