@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
 import { Navbar } from "@/components/navbar";
 import { Toaster } from "@/components/ui/toaster";
 import FooterPage from "@/components/footer";
+import { AuthProvider } from "@/components/auth-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -18,7 +18,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "YouGo City Churh",
+  title: "YouGo City Church",
   description: "user identity management app for YouGo City Church Community",
 };
 
@@ -28,21 +28,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider  dynamic>
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <AuthProvider>
         <Navbar />
         <main>
         {children}
-      
         </main>
         <FooterPage />
-
         <Toaster />
+        </AuthProvider>
       </body>
     </html>
-    </ClerkProvider>
   );
 }

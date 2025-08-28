@@ -2,24 +2,26 @@
 
 
 export interface UserInfo {
+  id: string;
   name: string;
   email: string;
-  phone?: string | null;
-  qrCode?:string | null;
-  clerkUserId: string;
-  age?: number | null ;
-  maritalStatus?: string | null;
-  sex?: string | null;
-  profilePic?: string | null;
-  role?:string;
-  address?: string | null;
-  occupation?: string | null;
+  phone?: string;
+  qrCode?: string;
+  profilePic?: string;
+  age?: number;
+  maritalStatus?: string;
+  sex?: string;
+  role: 'USER' | 'ADMIN';
+  address?: string;
+  occupation?: string;
 }
   
-  export type AttendanceRecord = {
-    date: string;  // ISO date string format
+export interface AttendanceRecord {
+  id: string;
+  date: string;
     isPresent: boolean;
-  };
+  userId: string;
+}
   
   export type QRData = {
     userId: string;

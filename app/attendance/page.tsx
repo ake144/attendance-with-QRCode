@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UserInfo } from "@/types/type";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { apiClient } from "@/lib/api-client";
 
 export default function AttendancePage() {
   const [token, setToken] = useState<string | null>(null);
@@ -48,32 +49,26 @@ export default function AttendancePage() {
       setError(null);
   
       try {
-        // Correctly format the URL with a query parameter
-        const validateResponse = await fetch(`/api/validate?${debouncedToken}`);
-        const validateData = await validateResponse.json();
-  
-        if (!validateResponse.ok) {
-          setError(validateData.message || "Failed to validate token.");
+        // Parse the token to extract user ID and date
+        const tokenParts = debouncedToken.split('|');
+        if (tokenParts.length < 3) {
+          setError("Invalid token format.");
           return;
         }
-  
-        const { user, date } = validateData;
+        
+        const [tokenValue, userId, date] = tokenParts;
+        
+        // Get user info from the backend
+        const user = await apiClient.getUser(userId);
         setUserInfo(user);
-  
-        const markResponse = await fetch(
-          `/api/mark?userId=${user.clerkUserId}&date=${date}`,
-          { method: "GET" }
-        );
-  
-        if (!markResponse.ok) {
-          const markData = await markResponse.json();
-          setError(markData.message || "Failed to mark attendance.");
-        } else {
-          setAttendanceMarked(true);
-        }
+
+        // Mark attendance using the new API
+        await apiClient.markAttendance(userId, date);
+        setAttendanceMarked(true);
+        
       } catch (err) {
         console.error("Error during token processing:", err);
-        setError("An unexpected error occurred.");
+        setError("An unexpected error occurred or user not found.");
       } finally {
         setLoading(false);
       }
@@ -149,7 +144,8 @@ export default function AttendancePage() {
                   <h2 className="text-xl font-semibold mb-4">Your Information</h2>
                   <div className="space-y-2">
                     <p><span className="font-medium">Name:</span> {userInfo.name}</p>
-                    <p><span className="font-medium">Email:</span> {userInfo.email}</p>
+                    <p><span className="font-medium">Email:</span> {userInfo.email || 'N/A'}</p>
+                    <p><span className="font-medium">Phone:</span> {userInfo.phone || 'N/A'}</p>
                   </div>
                 </div>
                 <div>

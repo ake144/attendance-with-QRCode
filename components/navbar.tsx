@@ -1,37 +1,26 @@
 "use client";
 
-import { getMemberInfo } from "@/lib/api";
-import { UserInfo } from "@/types/type";
-import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/nextjs";
-import { ChurchIcon, Menu } from "lucide-react";
+import { ChurchIcon, Menu, User, LogOut, Heart } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { useAuthStore } from "@/stores/auth-store";
+import { useRouter } from "next/navigation";
 
 export function Navbar() {
-  const { user } = useUser();
-  const [userData, setUserData] = useState<UserInfo | null>(null);
+  const { user, loading, isAuthenticated, logout } = useAuthStore();
+  const router = useRouter();
 
-  useEffect(() => {
-    if (!user) return;
-
-    const fetchUser = async () => {
-      try {
-        const userInfo = await getMemberInfo(user.id);
-        setUserData(userInfo);
-      } catch (error) {
-        console.error("Error initializing member data:", error);
-      }
-    };
-
-    fetchUser();
-  }, [user]);
+  const handleLogout = async () => {
+    await logout();
+    router.push('/');
+  };
 
   return (
     <nav className="border-b bg-white sticky top-0 z-50 shadow-md">
@@ -54,7 +43,10 @@ export function Navbar() {
             <Link href="/about" className="text-gray-600 hover:text-[#379AFE] font-medium transition-colors">
               About
             </Link>
-            {userData?.role === "ADMIN" && (
+            <Link href="/donate" className="text-gray-600 hover:text-[#379AFE] font-medium transition-colors">
+              Donate
+            </Link>
+            {user?.role === "ADMIN" && (
               <Link href="/admin" className="text-gray-600 hover:text-[#379AFE] font-medium transition-colors">
                 Dashboard
               </Link>
@@ -63,16 +55,41 @@ export function Navbar() {
 
           {/* Sign-In / User Button */}
           <div className="hidden md:flex items-center space-x-4">
-            <SignedOut>
-              <SignInButton mode="modal">
-                <Button variant="outline" className="text-[#379AFE] border-[#379AFE] hover:bg-[#379AFE] hover:text-white">
-                  Sign In
-                </Button>
-              </SignInButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButton afterSignOutUrl="/" />
-            </SignedIn>
+            {!loading && !isAuthenticated && (
+              <>
+                <Link href="/sign-up">
+                  <Button variant="outline" className="text-[#379AFE] border-[#379AFE] hover:bg-[#379AFE] hover:text-white">
+                    Sign Up
+                  </Button>
+                </Link>
+                <Link href="/login">
+                  <Button variant="outline" className="text-[#379AFE] border-[#379AFE] hover:bg-[#379AFE] hover:text-white">
+                    Sign In
+                  </Button>
+                </Link>
+              </>
+            )}
+            {user && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="flex items-center space-x-2">
+                    <User className="h-4 w-4" />
+                    <span>{user.name}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem disabled>
+                    <User className="h-4 w-4 mr-2" />
+                    {user.email || user.phone}
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout}>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
 
           {/* Mobile Menu */}
@@ -94,20 +111,37 @@ export function Navbar() {
                 <DropdownMenuItem asChild>
                   <Link href="/about">About</Link>
                 </DropdownMenuItem>
-                {userData?.role === "ADMIN" && (
+                <DropdownMenuItem asChild>
+                  <Link href="/donate">Donate</Link>
+                </DropdownMenuItem>
+                {user?.role === "ADMIN" && (
                   <DropdownMenuItem asChild>
                     <Link href="/admin">Dashboard</Link>
                   </DropdownMenuItem>
                 )}
-                <SignedOut>
-                  <DropdownMenuItem>
-                  <SignInButton mode="modal">
-                    <Button variant="outline" className="text-[#379AFE] border-[#379AFE] hover:bg-[#379AFE] hover:text-white">
-                      Sign In
-                    </Button>
-                  </SignInButton>
-                  </DropdownMenuItem>
-                </SignedOut>
+                {!loading && !isAuthenticated && (
+                  <>
+                    <DropdownMenuItem asChild>
+                      <Link href="/sign-up">Sign Up</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/login">Sign In</Link>
+                    </DropdownMenuItem>
+                  </>
+                )}
+                {user && (
+                  <>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem disabled>
+                      <User className="h-4 w-4 mr-2" />
+                      {user.name}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleLogout}>
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Sign Out
+                    </DropdownMenuItem>
+                  </>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

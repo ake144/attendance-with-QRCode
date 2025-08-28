@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { UploadButton } from "@/lib/uploadthing";
 
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -18,11 +17,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"; 
-import { useUser } from "@clerk/nextjs";
-import { updateUserInfo } from "@/lib/api";
+import { useAuthStore } from '@/stores/auth-store';
+import { apiClient } from '@/lib/api-client';
 import { useToast } from "@/hooks/use-toast";
 import { UserInfo } from "@/types/type";
-
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Username must be at least 2 characters." }),
@@ -38,7 +36,7 @@ const formSchema = z.object({
 
 export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
   const { toast } = useToast();
-  const { user } = useUser();
+  const { user } = useAuthStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm({
@@ -56,20 +54,19 @@ export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
       setIsSubmitting(true);
   
       try {
-        const formData = new FormData();
-        formData.append("name", data.name);
-        formData.append("email", data.email);
-        if (data.phone) formData.append("phone", data.phone);
-        if (data.age) formData.append("age", data.age.toString());
-        if (data.maritalStatus) formData.append("maritalStatus", data.maritalStatus);
-        if (data.sex) formData.append("sex", data.sex);
-        if (data.address) formData.append("address", data.address);
-        if (data.occupation) formData.append("occupation", data.occupation);
-        if (data.profilePic) formData.append("profilePic", data.profilePic);
+        const updateData = {
+          name: data.name,
+          email: data.email,
+          phone: data.phone || '',
+          age: data.age,
+          maritalStatus: data.maritalStatus,
+          sex: data.sex,
+          address: data.address,
+          occupation: data.occupation,
+          profilePic: data.profilePic
+        };
 
-        await updateUserInfo(user.id, formData);
-
-        console.log('data',data.profilePic);
+        await apiClient.updateUser(user.id, updateData);
 
         toast({ title: "Member info updated successfully" });
       } catch (error) {
@@ -130,7 +127,6 @@ export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
           )}
         />
 
-
          {/* Profile Picture Upload */}
          <FormField
           control={form.control}
@@ -162,7 +158,6 @@ export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
             </FormItem>
           )}
         />
-
 
         {/* Age Field */}
         <FormField
@@ -249,8 +244,7 @@ export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
               <FormLabel htmlFor="occupation">Occupation</FormLabel>
               <FormControl>
                 <Input id="occupation" {...field} value={field.value ?? ''} />
-              </FormControl>
-              <FormMessage />
+              </FormItem>
             </FormItem>
           )}
         />
