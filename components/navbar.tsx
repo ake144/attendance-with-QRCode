@@ -43,6 +43,9 @@ export function Navbar() {
             <Link href="/about" className="text-gray-600 hover:text-[#379AFE] font-medium transition-colors">
               About
             </Link>
+            <Link href="/prayer" className="text-gray-600 hover:text-[#379AFE] font-medium transition-colors">
+              Prayer Request
+            </Link>
             <Link href="/donate" className="text-gray-600 hover:text-[#379AFE] font-medium transition-colors">
               Donate
             </Link>
