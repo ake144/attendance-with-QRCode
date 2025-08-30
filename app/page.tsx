@@ -1,10 +1,29 @@
 "use client";
 
-import { useAuthStore } from '@/stores/auth-store';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, Users, Calendar, Heart, Globe, BookOpen, Shield, Star } from 'lucide-react';
-import Link from 'next/link';
+import { useAuthStore } from "@/stores/auth-store";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  ArrowRight,
+  Users,
+  Calendar,
+  Heart,
+  Globe,
+  BookOpen,
+  Shield,
+  Star,
+  QrCodeIcon,
+  ShieldCheckIcon,
+  UsersIcon,
+} from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function HomePage() {
   const { user, isAuthenticated } = useAuthStore();
@@ -12,7 +31,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 via-blue-100 to-indigo-100 py-20">
+      {/* <section className="relative bg-gradient-to-br from-blue-50 via-blue-100 to-indigo-100 py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
             Welcome to{' '}
@@ -45,10 +64,128 @@ export default function HomePage() {
             )}
           </div>
         </div>
+      </section> */}
+
+      <section className="relative flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 h-screen overflow-hidden">
+        {/* Background Image */}
+        <Image
+          src="/yougo5.jpg"
+          alt="Church community gathering"
+          layout="fill"
+          objectFit="cover"
+          quality={100}
+          priority
+          className="absolute z-0"
+        />
+        {/* Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/50 to-transparent z-10" />
+
+        {/* Content */}
+        <div className="relative z-20 flex flex-col items-center gap-8 text-center max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight tracking-wide">
+            Welcome to Our Community
+          </h1>
+          <div className="flex flex-col sm:flex-row gap-4">
+            {/* <button
+                          className="group relative inline-block overflow-hidden border border-[#49A3EF] px-8 py-3 focus:outline-none focus:ring"
+                          onClick={handleStart}
+                          aria-label="Get Started"
+                        >
+                          <span
+                            className="absolute inset-y-0 left-0 w-[190px] bg-[#49A3EF] transition-all group-hover:w-full group-active:bg-indigo-500"
+                          ></span>
+
+                          <span
+                            className="relative text-lg font-bold  text-white transition-colors group-hover:text-white"
+                          >
+                            Get Started
+                          </span>
+                        </button> */}
+            {!isAuthenticated ? (
+              <>
+                <Link href="/login">
+                  <Button
+                    size="lg"
+                    className="bg-[#379AFE] hover:bg-[#49A3EF] text-lg px-8 py-3"
+                  >
+                    Sign In
+                  </Button>
+                </Link>
+                <Link href="/sign-up">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="text-[#379AFE] border-[#379AFE] hover:bg-[#379AFE] hover:text-white text-lg px-8 py-3"
+                  >
+                    Join Us
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <Link href="/dashboard">
+                <Button
+                  size="lg"
+                  className="bg-[#379AFE] hover:bg-[#49A3EF] text-lg px-8 py-3"
+                >
+                  Go to Dashboard
+                </Button>
+              </Link>
+            )}
+          </div>
+        </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center text-[#379AFE] mb-10">
+            Join Our Community of Faith, Love, and Growth
+          </h2>
+          <p className="text-lg text-gray-600 text-center mb-16">
+            At YouGO City Church, we cultivate a vibrant community where you can
+            grow spiritually, engage in fellowship, and find your place of
+            belonging.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {[
+              {
+                icon: QrCodeIcon,
+                title: "Why Become a Member?",
+                description:
+                  "Engage in spiritual growth with resources, teachings, and events. Join us in serving through outreach programs, and enjoy accountability and support.",
+              },
+              {
+                icon: ShieldCheckIcon,
+                title: "Membership Benefits",
+                description:
+                  "Participate in all church programs, receive pastoral care, take on leadership roles, and stay updated with exclusive newsletters.",
+              },
+              {
+                icon: UsersIcon,
+                title: "Who Can Join?",
+                description:
+                  "We welcome individuals and families who have accepted Jesus Christ as their Savior, seek a place to worship, and support our mission.",
+              },
+            ].map((feature, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-lg shadow-lg p-6 transition-transform duration-300 transform hover:scale-105 hover:shadow-xl border border-[#379AFE]"
+              >
+                <div className="flex items-center mb-4">
+                  <feature.icon className="h-8 w-8 text-[#379AFE]" />
+                  <h3 className="ml-3 text-xl font-semibold text-gray-800">
+                    {feature.title}
+                  </h3>
+                </div>
+                <p className="text-gray-600">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      {/* <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
             What We Offer
@@ -85,7 +222,7 @@ export default function HomePage() {
             </Card>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Donation Section */}
       <section className="py-20 bg-gradient-to-r from-blue-50 to-indigo-50">
@@ -101,43 +238,57 @@ export default function HomePage() {
                 Support Our Mission
               </h2>
               <p className="text-xl text-gray-600 mb-8">
-                Your generous donations help us continue our work in the community, 
-                maintain our facilities, and spread the message of hope and love.
+                Your generous donations help us continue our work in the
+                community, maintain our facilities, and spread the message of
+                hope and love.
               </p>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div className="text-center">
                   <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Users className="h-8 w-8 text-blue-600" />
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">Community Programs</h3>
+                  <h3 className="font-semibold text-lg mb-2">
+                    Community Programs
+                  </h3>
                   <p className="text-gray-600">40% of donations</p>
                 </div>
                 <div className="text-center">
                   <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Shield className="h-8 w-8 text-green-600" />
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">Facilities & Maintenance</h3>
+                  <h3 className="font-semibold text-lg mb-2">
+                    Facilities & Maintenance
+                  </h3>
                   <p className="text-gray-600">30% of donations</p>
                 </div>
                 <div className="text-center">
                   <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Globe className="h-8 w-8 text-purple-600" />
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">Missions & Outreach</h3>
+                  <h3 className="font-semibold text-lg mb-2">
+                    Missions & Outreach
+                  </h3>
                   <p className="text-gray-600">20% of donations</p>
                 </div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/donate">
-                  <Button size="lg" className="bg-red-600 hover:bg-red-700 text-lg px-8 py-3">
+                  <Button
+                    size="lg"
+                    className="bg-red-600 hover:bg-red-700 text-lg px-8 py-3"
+                  >
                     <Heart className="h-5 w-5 mr-2" />
                     Donate Now
                   </Button>
                 </Link>
                 <Link href="/donate">
-                  <Button size="lg" variant="outline" className="text-red-600 border-red-600 hover:bg-red-600 hover:text-white text-lg px-8 py-3">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="text-red-600 border-red-600 hover:bg-red-600 hover:text-white text-lg px-8 py-3"
+                  >
                     Learn More
                   </Button>
                 </Link>
@@ -194,26 +345,39 @@ export default function HomePage() {
             Ready to Join Us?
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Experience the warmth of our community and grow in your faith journey with us.
+            Experience the warmth of our community and grow in your faith
+            journey with us.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {!isAuthenticated ? (
               <>
                 <Link href="/sign-up">
-                  <Button size="lg" variant="secondary" className="text-[#379AFE] bg-white hover:bg-gray-100 text-lg px-8 py-3">
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="text-[#379AFE] bg-white hover:bg-gray-100 text-lg px-8 py-3"
+                  >
                     Get Started Today
                     <ArrowRight className="h-5 w-5 ml-2" />
                   </Button>
                 </Link>
                 <Link href="/events">
-                  <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-[#379AFE] text-lg px-8 py-3">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="text-white border-white hover:bg-white hover:text-[#379AFE] text-lg px-8 py-3"
+                  >
                     View Events
                   </Button>
                 </Link>
               </>
             ) : (
               <Link href="/dashboard">
-                <Button size="lg" variant="secondary" className="text-[#379AFE] bg-white hover:bg-gray-100 text-lg px-8 py-3">
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="text-[#379AFE] bg-white hover:bg-gray-100 text-lg px-8 py-3"
+                >
                   Go to Dashboard
                   <ArrowRight className="h-5 w-5 ml-2" />
                 </Button>
