@@ -28,13 +28,26 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   checkAuth: async () => {
     try {
+      console.log('Checking authentication...');
       const response = await apiClient.me();
-      set({ 
-        user: response.user, 
-        isAuthenticated: true, 
-        loading: false 
-      });
+      
+      if (response.user && response.user.id) {
+        console.log('Auth check successful:', response.user.id);
+        set({ 
+          user: response.user, 
+          isAuthenticated: true, 
+          loading: false 
+        });
+      } else {
+        console.log('Auth check failed: User object is invalid');
+        set({ 
+          user: null, 
+          isAuthenticated: false, 
+          loading: false 
+        });
+      }
     } catch (error) {
+      console.log('Auth check failed:', error instanceof Error ? error.message : 'Unknown error');
       set({ 
         user: null, 
         isAuthenticated: false, 
@@ -46,13 +59,22 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   login: async (data: { email?: string; phone?: string; name?: string }) => {
     set({ loading: true });
     try {
+      console.log('Attempting login with data:', data);
       const response = await apiClient.login(data);
-      set({ 
-        user: response.user, 
-        isAuthenticated: true, 
-        loading: false 
-      });
+      
+      if (response.user && response.user.id) {
+        console.log('Login successful:', response.user.id);
+        set({ 
+          user: response.user, 
+          isAuthenticated: true, 
+          loading: false 
+        });
+      } else {
+        console.log('Login failed: Invalid user response');
+        throw new Error('Invalid user response from server');
+      }
     } catch (error) {
+      console.log('Login failed:', error instanceof Error ? error.message : 'Unknown error');
       set({ loading: false });
       throw error;
     }
@@ -60,9 +82,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   logout: async () => {
     try {
+      console.log('Attempting logout...');
       await apiClient.logout();
+      console.log('Logout successful');
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error('Logout error:', error instanceof Error ? error.message : 'Unknown error');
     } finally {
       set({ 
         user: null, 

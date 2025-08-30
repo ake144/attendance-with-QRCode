@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
 interface User {
   id: string;
@@ -53,14 +53,27 @@ class ApiClient {
       },
     };
 
-    const response = await fetch(url, config);
+    console.log(`Making request to: ${url}`);
+    console.log('Request config:', { method: config.method || 'GET', headers: config.headers });
     
-    if (!response.ok) {
-      const error = await response.text();
-      throw new Error(error || `HTTP error! status: ${response.status}`);
-    }
+    try {
+      const response = await fetch(url, config);
+      
+      console.log(`Response status: ${response.status}`);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('API Error:', errorText);
+        throw new Error(errorText || `HTTP error! status: ${response.status}`);
+      }
 
-    return response.json();
+      const data = await response.json();
+      console.log('Response data:', data);
+      return data;
+    } catch (error) {
+      console.error('Request failed:', error);
+      throw error;
+    }
   }
 
   // Auth endpoints

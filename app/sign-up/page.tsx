@@ -243,8 +243,6 @@ export default function SignUpPage() {
                   <option value="">Select status</option>
                   <option value="Single">Single</option>
                   <option value="Married">Married</option>
-                  <option value="Divorced">Divorced</option>
-                  <option value="Widowed">Widowed</option>
                 </select>
               </div>
               
@@ -259,7 +257,7 @@ export default function SignUpPage() {
                   <option value="">Select gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
-                  <option value="Other">Other</option>
+                
                 </select>
               </div>
             </div>
