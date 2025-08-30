@@ -20,6 +20,8 @@ import {
   Users,
   Church
 } from 'lucide-react';
+import Image from 'next/image';
+
 
 interface DonationMethod {
   id: string;
@@ -28,6 +30,7 @@ interface DonationMethod {
   icon: React.ReactNode;
   details: string;
   instructions: string[];
+  url: string;
   qrCode?: string;
 }
 
@@ -37,6 +40,7 @@ const donationMethods: DonationMethod[] = [
     name: 'TeleBirr',
     description: 'Fast and secure mobile money transfer',
     icon: <Smartphone className="h-6 w-6" />,
+    url: '/tellebirr.png',
     details: '0912345678',
     instructions: [
       'Open your TeleBirr app',
@@ -52,6 +56,7 @@ const donationMethods: DonationMethod[] = [
     name: 'Commercial Bank of Ethiopia',
     description: 'Direct bank transfer to church account',
     icon: <Building2 className="h-6 w-6" />,
+    url: '/cbe.jpeg',
     details: 'Account: 1000123456789\nBranch: Addis Ababa Main',
     instructions: [
       'Visit any CBE branch or use CBE Birr app',
@@ -65,6 +70,7 @@ const donationMethods: DonationMethod[] = [
     name: 'Awash Bank',
     description: 'Convenient bank transfer option',
     icon: <Building2 className="h-6 w-6" />,
+    url: '/awash.png',
     details: 'Account: 0134567890123\nBranch: Addis Ababa',
     instructions: [
       'Use Awash Bank mobile app or visit branch',
@@ -78,6 +84,7 @@ const donationMethods: DonationMethod[] = [
     name: 'Cash Donation',
     description: 'Direct cash donation at church',
     icon: <Gift className="h-6 w-6" />,
+    url: '/m-pesa.png',
     details: 'Visit us during service hours',
     instructions: [
       'Visit YouGo Church during service hours',
@@ -148,7 +155,7 @@ export default function DonatePage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Donation Form */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 my-5">
             <Card className="shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-blue-600">
@@ -175,7 +182,9 @@ export default function DonatePage() {
                           htmlFor={method.id} 
                           className="flex items-center gap-2 cursor-pointer"
                         >
-                          {method.icon}
+                          <Image src={method.url} alt={method.name} width={40}
+                           height={50} />
+                         
                           <span className="font-medium">{method.name}</span>
                         </Label>
                       </div>
@@ -183,91 +192,13 @@ export default function DonatePage() {
                   </RadioGroup>
                 </div>
 
-                {/* Amount Input */}
-                <div>
-                  <Label htmlFor="amount" className="text-base font-medium">
-                    Donation Amount (ETB)
-                  </Label>
-                  <div className="mt-3">
-                    <Input
-                      id="amount"
-                      type="number"
-                      placeholder="Enter amount"
-                      value={amount}
-                      onChange={(e) => setAmount(e.target.value)}
-                      className="text-lg"
-                    />
-                    <div className="flex gap-2 mt-2">
-                      {[100, 500, 1000, 2000, 5000].map((preset) => (
-                        <Button
-                          key={preset}
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setAmount(preset.toString())}
-                          className="text-blue-600 border-blue-200 hover:bg-blue-50"
-                        >
-                          {preset}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Donor Information */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="name" className="text-base font-medium">
-                      Your Name (Optional)
-                    </Label>
-                    <Input
-                      id="name"
-                      placeholder="Enter your name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="mt-2"
-                    />
-                  </div>
-                  <div>
-                    <Label className="text-base font-medium">Donor Type</Label>
-                    <RadioGroup 
-                      value={donorType} 
-                      onValueChange={setDonorType}
-                      className="flex gap-4 mt-2"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="anonymous" id="anonymous" />
-                        <Label htmlFor="anonymous">Anonymous</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="named" id="named" />
-                        <Label htmlFor="named">Named</Label>
-                      </div>
-                    </RadioGroup>
-                  </div>
-                </div>
-
-                {/* Message */}
-                <div>
-                  <Label htmlFor="message" className="text-base font-medium">
-                    Message (Optional)
-                  </Label>
-                  <Textarea
-                    id="message"
-                    placeholder="Share why you're donating or a prayer request..."
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    className="mt-2"
-                    rows={3}
-                  />
-                </div>
-
                 <Button 
                   onClick={handleDonationSubmit}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-3"
+                  className="w-full mt-10 bg-blue-600 hover:bg-blue-700 text-lg py-9"
                   disabled={!selectedMethod || !amount}
                 >
                   <Heart className="h-5 w-5 mr-2" />
-                  Complete Donation
+                  God Bless You
                 </Button>
               </CardContent>
             </Card>
