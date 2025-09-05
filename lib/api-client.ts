@@ -5,7 +5,7 @@ interface User {
   name: string;
   email: string;
   phone?: string;
-  role: string;
+  role: 'USER' | 'ADMIN';
   age?: number;
   maritalStatus?: string;
   sex?: string;

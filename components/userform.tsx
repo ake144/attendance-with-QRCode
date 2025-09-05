@@ -244,7 +244,8 @@ export function ProfileForm({ memberInfo }: { memberInfo: UserInfo }) {
               <FormLabel htmlFor="occupation">Occupation</FormLabel>
               <FormControl>
                 <Input id="occupation" {...field} value={field.value ?? ''} />
-              </FormItem>
+              </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

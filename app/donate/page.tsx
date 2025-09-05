@@ -135,7 +135,7 @@ export default function DonatePage() {
   const selectedMethodData = donationMethods.find(m => m.id === selectedMethod);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-indigo-100 py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">

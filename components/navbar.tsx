@@ -34,23 +34,23 @@ export function Navbar() {
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-6">
-            <Link href="/" className="text-gray-600 hover:text-[#379AFE] font-medium transition-colors">
+            <Link href="/" className="text-gray-600 hover:text-[#379AFE] font-lg spacing-x-3 text-pretty  font-semibold transition-colors">
               Home
             </Link>
-            <Link href="/events" className="text-gray-600 hover:text-[#379AFE] font-medium transition-colors">
+            <Link href="/events" className="text-gray-600 hover:text-[#379AFE] font-lg spacing-x-3 text-pretty  font-semibold transition-colors">
               Events
             </Link>
-            <Link href="/about" className="text-gray-600 hover:text-[#379AFE] font-medium transition-colors">
+            <Link href="/about" className="text-gray-600 hover:text-[#379AFE] font-lg spacing-x-3 text-pretty  font-semibold transition-colors">
               About
             </Link>
-            <Link href="/prayer" className="text-gray-600 hover:text-[#379AFE] font-medium transition-colors">
+            <Link href="/prayer" className="text-gray-600 hover:text-[#379AFE] font-lg spacing-x-3 text-pretty  font-semibold transition-colors">
               Prayer Request
             </Link>
-            <Link href="/donate" className="text-gray-600 hover:text-[#379AFE] font-medium transition-colors">
+            <Link href="/donate" className="text-gray-600 hover:text-[#379AFE] font-lg spacing-x-3 text-pretty  font-semibold transition-colors">
               Donate
             </Link>
             {user?.role === "ADMIN" && (
-              <Link href="/admin" className="text-gray-600 hover:text-[#379AFE] font-medium transition-colors">
+              <Link href="/admin" className="text-gray-600 hover:text-[#379AFE] font-lg spacing-x-3 text-pretty  font-semibold transition-colors">
                 Dashboard
               </Link>
             )}

@@ -24,6 +24,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import LocationSection from "@/components/location/locationSection";
+import ServicesSection from "@/components/services/serviceSection";
 
 export default function HomePage() {
   const { user, isAuthenticated } = useAuthStore();
@@ -66,74 +68,64 @@ export default function HomePage() {
         </div>
       </section> */}
 
-      <section className="relative flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 h-screen overflow-hidden">
-        {/* Background Image */}
-        <Image
-          src="/yougo5.jpg"
-          alt="Church community gathering"
-          layout="fill"
-          objectFit="cover"
-          quality={100}
-          priority
-          className="absolute z-0"
-        />
-        {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/50 to-transparent z-10" />
+     <section className="relative flex items-center justify-center h-screen w-full overflow-hidden">
+      {/* Fullscreen Background Video */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <iframe
+          src="https://www.youtube.com/embed/jy66YEmCwko?autoplay=1&mute=1&controls=0&disablekb=1&loop=1&playlist=jy66YEmCwko&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&showinfo=0"
+          title="Church Introduction Video"
+          frameBorder="0"
+          className="absolute top-0 left-0 w-[200%] h-[300%]  -translate-y-1/2 pointer-events-none"
+          allow="autoplay; fullscreen; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        ></iframe>
+      </div>
 
-        {/* Content */}
-        <div className="relative z-20 flex flex-col items-center gap-8 text-center max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight tracking-wide">
-            Welcome to Our Community
-          </h1>
-          <div className="flex flex-col sm:flex-row gap-4">
-            {/* <button
-                          className="group relative inline-block overflow-hidden border border-[#49A3EF] px-8 py-3 focus:outline-none focus:ring"
-                          onClick={handleStart}
-                          aria-label="Get Started"
-                        >
-                          <span
-                            className="absolute inset-y-0 left-0 w-[190px] bg-[#49A3EF] transition-all group-hover:w-full group-active:bg-indigo-500"
-                          ></span>
+      {/* Dark Overlay for Readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 z-10" />
 
-                          <span
-                            className="relative text-lg font-bold  text-white transition-colors group-hover:text-white"
-                          >
-                            Get Started
-                          </span>
-                        </button> */}
-            {!isAuthenticated ? (
-              <>
-                <Link href="/login">
-                  <Button
-                    size="lg"
-                    className="bg-[#379AFE] hover:bg-[#49A3EF] text-lg px-8 py-3"
-                  >
-                    Sign In
-                  </Button>
-                </Link>
-                <Link href="/sign-up">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="text-[#379AFE] border-[#379AFE] hover:bg-[#379AFE] hover:text-white text-lg px-8 py-3"
-                  >
-                    Join Us
-                  </Button>
-                </Link>
-              </>
-            ) : (
-              <Link href="/dashboard">
+      {/* Content */}
+      <div className="relative z-20 flex flex-col items-center text-center px-6 max-w-4xl">
+        <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight tracking-wide drop-shadow-lg">
+          Welcome to Our Community
+        </h1>
+        <p className="mt-4 text-lg md:text-xl text-gray-200 max-w-2xl drop-shadow-md">
+          Join us in worship, fellowship, and faith every week. Experience God’s love in action.
+        </p>
+
+        <div className="mt-8 flex flex-col sm:flex-row gap-4">
+          {!isAuthenticated ? (
+            <>
+              <Link href="/login">
                 <Button
                   size="lg"
-                  className="bg-[#379AFE] hover:bg-[#49A3EF] text-lg px-8 py-3"
+                  className="bg-[#379AFE] hover:bg-[#49A3EF] text-lg px-8 py-3 rounded-2xl shadow-xl"
                 >
-                  Go to Dashboard
+                  Sign In
                 </Button>
               </Link>
-            )}
-          </div>
+              <Link href="/sign-up">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-[#379AFE] border-[#379AFE] hover:bg-[#379AFE] hover:text-white text-lg px-8 py-3 rounded-2xl shadow-xl"
+                >
+                  Join Us
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <Link href="/dashboard">
+              <Button
+                size="lg"
+                className="bg-[#379AFE] hover:bg-[#49A3EF] text-lg px-8 py-3 rounded-2xl shadow-xl"
+              >
+                Go to Dashboard
+              </Button>
+            </Link>
+          )}
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Features Section */}
       <section className="py-24 bg-white">
@@ -224,9 +216,11 @@ export default function HomePage() {
         </div>
       </section> */}
 
+
+
       {/* Donation Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-50 to-indigo-50">
-        <div className="container mx-auto px-4 text-center">
+      <section className="py-20 ">
+        {/* <div className="container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
               <div className="flex justify-center mb-6">
@@ -295,7 +289,8 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+        <ServicesSection  />
       </section>
 
       {/* How It Works Section */}
@@ -336,6 +331,11 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="py-20 bg-church-warm">
+      
+      <LocationSection  />
       </section>
 
       {/* CTA Section */}
