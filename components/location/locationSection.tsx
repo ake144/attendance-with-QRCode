@@ -3,7 +3,11 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MapPin, Phone, Mail, Clock, Car } from 'lucide-react';
-import ChurchMapLeaflet from '../maps';
+// import ChurchMapLeaflet from '../maps';
+import dynamic from 'next/dynamic';
+
+
+const ChurchMapLeaflet = dynamic(() => import('../maps'), { ssr: false });
 
 const LocationSection = () => {
   return (
