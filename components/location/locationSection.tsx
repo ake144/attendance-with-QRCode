@@ -14,10 +14,10 @@ const LocationSection = () => {
     <section id="location" className="py-20 bg-church-warm">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-church-text mb-6">
+          <h2 className="text-4xl  md:text-5xl font-bold text-[#379AFE] mb-6">
             Visit Us
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-md text-muted-foreground max-w-xl mx-auto">
             We're located in the heart of the community and can't wait to welcome you 
             to our church family. Here's everything you need to know for your visit.
           </p>
@@ -43,14 +43,14 @@ const LocationSection = () => {
                 <div>
                   <h4 className="font-semibold text-church-text mb-1">Address</h4>
                   <p className="text-muted-foreground">
-                    123 Faith Street<br />
-                    New York, NY 10001
+                    Bole Medhanialem Road<br />
+                    Addis Ababa, Ethiopia
                   </p>
                 </div>
                 
                 <div className="flex items-center gap-3">
                   <Phone className="h-4 w-4 text-church-primary" />
-                  <span className="text-muted-foreground">(555) 123-HOPE</span>
+                  <span className="text-muted-foreground">(251) 911639350</span>
                 </div>
                 
                 <div className="flex items-center gap-3">

@@ -316,7 +316,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-semibold mb-3">Attend Services</h3>
               <p className="text-gray-600">
-                Mark your attendance and stay connected with our community
+                Stay connected with our community
               </p>
             </div>
 
@@ -361,13 +361,13 @@ export default function HomePage() {
                     <ArrowRight className="h-5 w-5 ml-2" />
                   </Button>
                 </Link>
-                <Link href="/events">
+                <Link href="/donate">
                   <Button
                     size="lg"
                     variant="outline"
-                    className="text-white border-white hover:bg-white hover:text-[#379AFE] text-lg px-8 py-3"
+                    className="text-[#379AFE] border-white hover:bg-gray-100 hover:text-[#379AFE] text-lg px-8 py-3"
                   >
-                    View Events
+                    Support Yougo Church
                   </Button>
                 </Link>
               </>

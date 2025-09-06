@@ -52,7 +52,7 @@ const ServicesSection = () => {
                   <span className="text-xl">{service.title}</span>
                   <Clock className="h-5 w-5" />
                 </CardTitle>
-                <div className="font-bold text-2xl" style={{ color: '#ffd700' }}>
+                <div className="font-bold text-2xl text-[#acaec5] mt-2">
                   {service.time}
                 </div>
               </CardHeader>
@@ -74,10 +74,7 @@ const ServicesSection = () => {
                     </div>
                   ))}
                 </div>
-                
-                <Button variant="outline" className="w-full">
-                  Learn More
-                </Button>
+              
               </CardContent>
             </Card>
           ))}
