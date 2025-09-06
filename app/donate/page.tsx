@@ -3,10 +3,8 @@
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { 
   Heart, 
@@ -98,9 +96,6 @@ const donationMethods: DonationMethod[] = [
 export default function DonatePage() {
   const [selectedMethod, setSelectedMethod] = useState<string>('');
   const [amount, setAmount] = useState('');
-  const [name, setName] = useState('');
-  const [message, setMessage] = useState('');
-  const [donorType, setDonorType] = useState('anonymous');
   const { toast } = useToast();
 
   const handleCopyDetails = (details: string) => {
@@ -128,8 +123,6 @@ export default function DonatePage() {
 
     // Reset form
     setAmount('');
-    setName('');
-    setMessage('');
   };
 
   const selectedMethodData = donationMethods.find(m => m.id === selectedMethod);
@@ -148,7 +141,7 @@ export default function DonatePage() {
             Support YouGo Church
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Your generous donations help us spread God's love, maintain our facilities, 
+            Your generous donations help us spread God&apos;s love, maintain our facilities,
             and support our community programs. Every contribution makes a difference.
           </p>
         </div>

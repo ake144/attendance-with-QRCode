@@ -244,7 +244,7 @@ export default function AdminDashboard() {
         <div className="text-center">
           <Shield className="h-16 w-16 text-red-500 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Access Denied</h2>
-          <p className="text-gray-600 mb-4">This dashboard is restricted to users with the "ADMIN" role.</p>
+          <p className="text-gray-600 mb-4">This dashboard is restricted to users with the ADMIN role.</p>
           <Link href="/dashboard">
             <Button>Go to Dashboard</Button>
           </Link>

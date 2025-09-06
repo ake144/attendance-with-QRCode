@@ -16,8 +16,6 @@ interface AttendanceData {
 export default function AttendancePage() {
   const [attendanceData, setAttendanceData] = useState<AttendanceData[]>([])
 
-
-
   const fetchAttendance = async (startDate: Date, endDate: Date, order = "desc") => {
     try {
       const response = await fetch(`/api/trackUser`, {

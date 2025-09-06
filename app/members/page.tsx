@@ -46,12 +46,7 @@ const MembersPage = () => {
             <div className="min-h-screen flex items-center justify-center">
                 <div className="text-center">
                     <p className="text-red-500 text-lg">{error}</p>
-                    <Button 
-                        onClick={() => window.location.reload()} 
-                        className="mt-4"
-                    >
-                        Try Again
-                    </Button>
+                   try by reloading
                 </div>
             </div>
         );

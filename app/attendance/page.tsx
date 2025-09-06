@@ -56,7 +56,7 @@ export default function AttendancePage() {
           return;
         }
         
-        const [tokenValue, userId, date] = tokenParts;
+        const [userId, date] = tokenParts;
         
         // Get user info from the backend
         const user = await apiClient.getUser(userId);

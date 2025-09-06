@@ -83,7 +83,7 @@ export default function LoginPage() {
         title: 'Success',
         description: 'Logged in successfully!',
       });
-      
+
       router.push('/dashboard');
     } catch (error) {
       toast({
