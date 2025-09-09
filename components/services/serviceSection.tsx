@@ -38,7 +38,7 @@ const ServicesSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-blue-400" >
             Service Times
           </h2>
-          <p className="text-xl max-w-3xl mx-auto" style={{ color: '#6b7280' }}>
+          <p className=" max-w-3xl text-gray-600 mx-auto">
             Come as you are and experience the love of Christ in a welcoming environment. 
             We have services designed to meet you wherever you are in your faith journey.
           </p>
@@ -52,7 +52,7 @@ const ServicesSection = () => {
                   <span className="text-xl">{service.title}</span>
                   <Clock className="h-5 w-5" />
                 </CardTitle>
-                <div className="font-bold text-2xl text-[#acaec5] mt-2">
+                <div className="font-bold text-2xl text-[#ebebee] mt-2">
                   {service.time}
                 </div>
               </CardHeader>

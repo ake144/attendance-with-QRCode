@@ -33,7 +33,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      {/* <section className="relative bg-gradient-to-br from-blue-50 via-blue-100 to-indigo-100 py-20">
+      <section className="relative md:hidden bg-gradient-to-br from-blue-50 via-blue-100 to-indigo-100 py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
             Welcome to{' '}
@@ -66,9 +66,9 @@ export default function HomePage() {
             )}
           </div>
         </div>
-      </section> */}
+      </section>
 
-     <section className="relative flex items-center justify-center h-screen w-full overflow-hidden">
+     <section className="relative hidden  md:flex items-center justify-center h-screen w-full overflow-hidden">
       {/* Fullscreen Background Video */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <iframe
