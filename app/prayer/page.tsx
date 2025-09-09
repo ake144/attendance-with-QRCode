@@ -3,7 +3,7 @@ import { PrayerRequestForm } from "@/components/prayer-form";
 
 const Index = () => {
 
-    const images = "https://images.unsplash.com/photo-1556703588-6eae2585e025?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    const images = "https://images.unsplash.com/photo-1473122430480-d00e6dd25ba8?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   return (
     <div className="min-h-screen relative">
       {/* Background Image with Overlay */}
@@ -17,11 +17,9 @@ const Index = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 py-8 md:py-16">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-4 tracking-tight">
-            Prayer Requests
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            "Again, truly I tell you that if two of you on earth agree about anything they ask for, 
+
+          <p className="text-xl text-gray-800 font-bold  md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            "Again, truly I tell you that if two of you on earth agree about anything they ask for,
             it will be done for them by my Father in heaven." - Matthew 18:19
           </p>
         </div>

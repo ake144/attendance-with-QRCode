@@ -140,7 +140,7 @@ export default function DonatePage() {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Support YouGo Church
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-md font-semibold  text-gray-600  max-w-2xl mx-auto">
             Your generous donations help us spread God&apos;s love, maintain our facilities,
             and support our community programs. Every contribution makes a difference.
           </p>
