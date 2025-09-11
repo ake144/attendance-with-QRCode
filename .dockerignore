@@ -1,0 +1,40 @@
+# Node modules
+node_modules
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Build outputs
+# .next
+# out
+# dist
+
+# Logs
+# *.log
+# logs
+# *.pid
+# *.seed
+# *.pid.lock
+
+# OS generated files
+# .DS_Store
+# Thumbs.db
+
+# Git & IDE files
+# .git
+# .gitignore
+# .vscode
+# .idea
+
+# Docker-specific
+# Dockerfile*
+# docker-compose.yml
+# .env.local
+# .env.development
+# .env.test
+# .env.production
+
+# Misc
+# coverage
+
+

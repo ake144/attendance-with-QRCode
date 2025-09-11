@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useToast } from "@/hooks/use-toast";
+import { Button } from "../../components/ui/button";  
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table";
 import { Pencil, Trash2, Download, QrCode, Users, Calendar, Shield } from 'lucide-react';
+
 import html2canvas from 'html2canvas';
 import { useAuthStore } from '@/stores/auth-store';
 import { apiClient } from '@/lib/api-client';
@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/sheet";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useToast } from '../../hooks/use-toast';
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState<UserInfo[]>([]);

@@ -1,7 +1,7 @@
 'use client'
 
-import { AttendanceTable } from '@/components/admin/attendance-table'
-import { DateRangeForm } from '@/components/admin/date-range-form'
+import { AttendanceTable } from '../../../components/admin/attendance-table'
+import { DateRangeForm } from '../../../components/admin/date-range-form'
 import { useState } from 'react'
 
 
