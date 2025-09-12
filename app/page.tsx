@@ -378,7 +378,7 @@ export default function HomePage() {
     </section>
 
       <section className="py-20 bg-church-warm">
-        {/* <LocationSection  /> */}
+        <LocationSection  />
       </section>
 
       {/* CTA Section */}

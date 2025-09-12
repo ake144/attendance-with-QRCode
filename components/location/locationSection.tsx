@@ -14,7 +14,7 @@ const LocationSection = () => {
     <section id="location" className="py-20 bg-church-warm">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl  md:text-5xl font-bold text-[#379AFE] mb-6">
+          <h2 className="text-4xl  md:text-5xl font-bold text-[#F09F2C] mb-6">
             Visit Us
           </h2>
           <p className="text-md text-muted-foreground max-w-xl mx-auto">
