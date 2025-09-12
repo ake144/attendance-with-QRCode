@@ -354,7 +354,7 @@ export default function HomePage() {
           {steps.map((step) => (
             <div
               key={step.number}
-              className="group relative bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-8 text-center border border-blue-100 hover:-translate-y-1"
+              className="group relative hover:shadow-amber-400  bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-8 text-center border border-blue-100 hover:-translate-y-1"
             >
               {/* Number Circle */}
               <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full bg-gradient-to-r from-amber-500 to-amber-400 text-white text-2xl font-bold shadow-lg group-hover:scale-105 transition-transform">
