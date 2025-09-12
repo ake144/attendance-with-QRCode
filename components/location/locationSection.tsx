@@ -1,7 +1,6 @@
 import React from 'react';
 // import ChurchMap from './ChurchMap';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { MapPin, Phone, Mail, Clock, Car } from 'lucide-react';
 // import ChurchMapLeaflet from '../maps';
 import dynamic from 'next/dynamic';
@@ -11,7 +10,7 @@ const ChurchMapLeaflet = dynamic(() => import('../maps'), { ssr: false });
 
 const LocationSection = () => {
   return (
-    <section id="location" className="py-20 bg-church-warm">
+    <section id="location" className="py-20 z-0 bg-church-warm">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl  md:text-5xl font-bold text-[#F09F2C] mb-6">
@@ -32,7 +31,7 @@ const LocationSection = () => {
 
           {/* Contact Information */}
           <div className="space-y-6">
-            <Card className="border-0 shadow-lg">
+            <Card className="border-0 shadow-lg hover:shadow-amber-400 border-amber-200 transition-shadow">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-church-text">
                   <MapPin className="h-5 w-5 text-church-primary" />
@@ -50,12 +49,12 @@ const LocationSection = () => {
                 
                 <div className="flex items-center gap-3">
                   <Phone className="h-4 w-4 text-church-primary" />
-                  <span className="text-muted-foreground">(251) 911639350</span>
+                  <span className="text-muted-foreground">0911639350</span>
                 </div>
                 
                 <div className="flex items-center gap-3">
                   <Mail className="h-4 w-4 text-church-primary" />
-                  <span className="text-muted-foreground">info@gracecommunity.org</span>
+                  <span className="text-muted-foreground">amlak2002@yahoo.com</span>
                 </div>
               </CardContent>
             </Card>
@@ -83,7 +82,7 @@ const LocationSection = () => {
               </CardContent>
             </Card> */}
 
-            <Card className="border-0 shadow-lg">
+            <Card className="border-0 shadow-lg hover:shadow-amber-400 border-amber-200 transition-shadow">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-church-text">
                   <Car className="h-5 w-5 text-church-primary" />

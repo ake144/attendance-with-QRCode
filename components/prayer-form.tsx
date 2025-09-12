@@ -11,7 +11,8 @@ import { Heart, Send, CheckCircle } from "lucide-react";
 
 interface PrayerFormData {
   name: string;
-  email: string;
+  email?: string;
+  phone?: string;
   prayerRequest: string;
   anonymous: boolean;
 }
@@ -19,6 +20,7 @@ interface PrayerFormData {
 export const PrayerRequestForm = () => {
   const [formData, setFormData] = useState<PrayerFormData>({
     name: "",
+    phone: "",
     email: "",
     prayerRequest: "",
     anonymous: false,
@@ -74,6 +76,7 @@ export const PrayerRequestForm = () => {
               setFormData({
                 name: "",
                 email: "",
+                phone: "",
                 prayerRequest: "",
                 anonymous: false,
               });
@@ -110,6 +113,21 @@ export const PrayerRequestForm = () => {
                 value={formData.name}
                 onChange={handleInputChange}
                 placeholder="Enter your name"
+                required
+                className="bg-background/80 border-spiritual/30 focus:border-spiritual transition-colors"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="phone" className="text-foreground font-medium">
+                Phone number
+              </Label>
+              <Input
+                id="phone"
+                name="phone"
+                type="tel"
+                value={formData.phone}
+                onChange={handleInputChange}
+                placeholder="Enter your phone number"
                 required
                 className="bg-background/80 border-spiritual/30 focus:border-spiritual transition-colors"
               />
