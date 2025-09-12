@@ -11,7 +11,7 @@ export default function ChurchMapLeaflet() {
   
 
   return (
-    <div className="w-full h-[600px] rounded-xl overflow-hidden shadow-xl">
+    <div className="w-full h-[600px] rounded-xl overflow-hidden shadow-xl relative z-0 ">
       <MapContainer
         key={`${loc.lat}-${loc.lng}`} 
         bounds={[[loc.lat - 0.01, loc.lng - 0.01], [loc.lat + 0.01, loc.lng + 0.01]]}
