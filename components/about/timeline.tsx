@@ -30,13 +30,13 @@ export default function Timeline() {
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-[#379AFE]  text-center mb-12">Our Journey</h2>
+        <h2 className="text-3xl font-bold text-[#F09F2C]  text-center mb-12">Our Journey</h2>
         <div className="relative border-l border-gray-200 dark:border-gray-700">
           {timelineEvents.map((event, index) => (
             <div key={index} className="mb-10 ml-6">
               <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
                 <svg
-                  className="w-2.5 h-2.5 text-blue-800 dark:text-blue-300"
+                  className="w-2.5 h-2.5 text-amber-600 dark:text-blue-300"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
@@ -49,7 +49,7 @@ export default function Timeline() {
                 <time className="mb-1 text-sm font-normal text-gray-400 dark:text-gray-500">
                   {event.year}
                 </time>
-                <h3 className="text-lg font-semibold text-[#379AFE]  dark:text-white">
+                <h3 className="text-lg font-semibold text-[#F09F2C]  dark:text-white">
                   {event.title}
                 </h3>
                 <p className="mb-4 text-base font-normal text-gray-600 dark:text-gray-400">

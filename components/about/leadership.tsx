@@ -3,10 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 
 const leaders = [
   {
-    name: "Pastor John Doe",
+    name: "Pastor Wondwossen",
     role: "Senior Pastor",
-    image: "/p1.jpg",
-    bio: "Pastor John has been leading our congregation for over 15 years, bringing wisdom and compassion to our community."
+    image: "/lead.jpg",
+    bio: "Pastor Wondwossen has been leading our congregation for over 15 years, bringing wisdom and compassion to our community."
   },
   {
     name: "Sarah Smith",
@@ -26,10 +26,10 @@ export default function Leadership() {
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center text-[#379AFE]  mb-12">Our Leadership</h2>
+        <h2 className="text-3xl font-bold text-center text-[#F09F2C]  mb-12">Our Leadership</h2>
         <div className="grid md:grid-cols-3 gap-8">
           {leaders.map((leader) => (
-            <Card key={leader.name} className='border border-[#379AFE] rounded-lg shadow-md overflow'>
+            <Card key={leader.name} className='border border-[#F09F2C] rounded-lg shadow-md overflow'>
               <CardHeader>
                 <Image
                   src={leader.image}

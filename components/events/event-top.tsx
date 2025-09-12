@@ -4,7 +4,7 @@ export default function EventTop() {
   return (
     <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
       <Image
-        src="/com5.jpg"
+        src="/fam7.jpg"
         alt="Church events"
         layout="fill"
         objectFit="cover"

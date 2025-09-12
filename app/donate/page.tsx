@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
 import { 
@@ -16,7 +17,12 @@ import {
   ExternalLink,
   Gift,
   Users,
-  Church
+  Church,
+  Share,
+  Sparkles,
+  Target,
+  ChevronRight,
+  CheckCircle
 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -33,34 +39,48 @@ interface DonationMethod {
 }
 
 const donationMethods: DonationMethod[] = [
-  {
-    id: 'telebirr',
-    name: 'TeleBirr',
-    description: 'Fast and secure mobile money transfer',
-    icon: <Smartphone className="h-6 w-6" />,
-    url: '/tellebirr.png',
-    details: '0912345678',
-    instructions: [
-      'Open your TeleBirr app',
-      'Scan the QR code or enter the number',
-      'Enter the amount you wish to donate',
-      'Add your name as reference',
-      'Confirm the transaction'
-    ],
-    qrCode: '/telebirr-qr.png' // You'll need to add this image
-  },
+  // {
+  //   id: 'telebirr',
+  //   name: 'TeleBirr',
+  //   description: 'Fast and secure mobile money transfer',
+  //   icon: <Smartphone className="h-6 w-6" />,
+  //   url: '/telebirr.png',
+  //   details: '0912345678',
+  //   instructions: [
+  //     'Open your TeleBirr app',
+  //     'Scan the QR code or enter the number',
+  //     'Enter the amount you wish to donate',
+  //     'Add your name as reference',
+  //     'Confirm the transaction'
+  //   ],
+  //   qrCode: '/telebirr-qr.png'
+  // },
   {
     id: 'cbe',
     name: 'Commercial Bank of Ethiopia',
     description: 'Direct bank transfer to church account',
     icon: <Building2 className="h-6 w-6" />,
     url: '/cbe.jpeg',
-    details: 'Account: 1000123456789\nBranch: Addis Ababa Main',
+    details: 'Account: 1000285127107\nBranch: Addis Ababa Main',
     instructions: [
-      'Visit any CBE branch or use CBE Birr app',
-      'Provide the account number: 1000123456789',
+      'Visit any CBE App or use CBE Birr app or visit a branch',
+      'Provide the account number: 1000285127107',
       'Mention "YouGo Church Donation" as reference',
       'Complete the transfer'
+    ]
+  },
+  {
+    id: 'abyssinia',
+    name: 'Abyssinia Bank',
+    description: 'Reliable bank transfer option',
+    icon: <Building2 className="h-6 w-6" />,
+    url: '/abysinia.png',
+    details: 'Account: 1287422972\nBranch: Addis Ababa',
+    instructions: [
+      'Use Abyssinia Bank app or visit a branch',
+      'Enter account: 1287422972',
+      'Add "YouGo Church" in the reference field',
+      'Complete your donation'
     ]
   },
   {
@@ -69,33 +89,105 @@ const donationMethods: DonationMethod[] = [
     description: 'Convenient bank transfer option',
     icon: <Building2 className="h-6 w-6" />,
     url: '/awash.png',
-    details: 'Account: 0134567890123\nBranch: Addis Ababa',
+    details: 'Account: 013521113121500\nBranch: Addis Ababa',
     instructions: [
       'Use Awash Bank mobile app or visit branch',
-      'Enter account: 0134567890123',
+      'Enter account: 013521113121500',
       'Add "YouGo Church" in reference field',
       'Complete your donation'
     ]
   },
   {
-    id: 'cash',
-    name: 'Cash Donation',
-    description: 'Direct cash donation at church',
-    icon: <Gift className="h-6 w-6" />,
-    url: '/m-pesa.png',
-    details: 'Visit us during service hours',
+    id: 'united',
+    name: 'United Bank',
+    description: 'Direct transfer to United Bank account',
+    icon: <Building2 className="h-6 w-6" />,
+    url: '/united.jpg',
+    details: 'Account: 1181810802589012\nBranch: Addis Ababa',
     instructions: [
-      'Visit YouGo Church during service hours',
-      'Speak with our ushers or pastors',
-      'Make your donation in person',
-      'Receive a donation receipt'
+      'Visit any United Bank branch',
+      'Provide the account number: 1181810802589012',
+      'Mention "YouGo Church Donation" as reference',
+      'Complete the transfer'
     ]
-  }
+  },
+  {
+    id: 'coop',
+    name: 'Cooperative Bank',
+    description: 'Bank transfer option for donations',
+    icon: <Building2 className="h-6 w-6" />,
+    url: '/coop.png',
+    details: 'Account: 1011700167802\nBranch: Addis Ababa',
+    instructions: [
+      'Use Cooperative Bank app or visit branch',
+      'Enter account: 1011700167802',
+      'Add "YouGo Church" in reference field',
+      'Complete your donation'
+    ]
+  },
+  {
+    id: 'dashen',
+    name: 'Dashen Bank',
+    description: 'Secure donation through Dashen Bank',
+    icon: <Building2 className="h-6 w-6" />,
+    url: '/dashn.jpg',
+    details: 'Account: 0076420596011\nBranch: Addis Ababa',
+    instructions: [
+      'Visit any Dashen Bank branch',
+      'Provide the account number: 0076420596011',
+      'Mention "YouGo Church Donation" as reference',
+      'Complete the transfer'
+    ]
+  },
+  {
+    id: 'berhan',
+    name: 'Berhan Bank',
+    description: 'Easy transfer option',
+    icon: <Building2 className="h-6 w-6" />,
+    url: '/berhan.png',
+    details: 'Account: 260001001 5495\nBranch: Addis Ababa',
+    instructions: [
+      'Use Berhan Bank app or visit branch',
+      'Enter account: 260001001 5495',
+      'Add "YouGo Church" in reference field',
+      'Complete your donation'
+    ]
+  },
+  {
+    id: 'siinqee',
+    name: 'Siinqee Bank',
+    description: 'Trustworthy bank transfer for donations',
+    icon: <Building2 className="h-6 w-6" />,
+    url: '/siinqee.png',
+    details: 'Account: 1608805851219\nBranch: Addis Ababa',
+    instructions: [
+      'Visit any Siinqee Bank branch',
+      'Provide the account number: 1608805851219',
+      'Mention "YouGo Church Donation" as reference',
+      'Complete the transfer'
+    ]
+  },
+    // {
+    //   id: 'cash',
+    //   name: 'Cash Donation',
+    //   description: 'Direct cash donation at church',
+    //   icon: <Gift className="h-6 w-6" />,
+    //   url: '/m-pesa.png',
+    //   details: 'Visit us during service hours',
+    //   instructions: [
+    //     'Visit YouGo Church during service hours',
+    //     'Speak with our ushers or pastors',
+    //     'Make your donation in person',
+    //     'Receive a donation receipt'
+    //   ]
+    // }
 ];
+
 
 export default function DonatePage() {
   const [selectedMethod, setSelectedMethod] = useState<string>('');
   const [amount, setAmount] = useState('');
+  const [customAmount, setCustomAmount] = useState('');
   const { toast } = useToast();
 
   const handleCopyDetails = (details: string) => {
@@ -104,6 +196,16 @@ export default function DonatePage() {
       title: 'Copied!',
       description: 'Payment details copied to clipboard',
     });
+  };
+
+  const handleAmountSelect = (selectedAmount: number) => {
+    setAmount(selectedAmount.toString());
+    setCustomAmount('');
+  };
+
+  const handleCustomAmountChange = (value: string) => {
+    setCustomAmount(value);
+    setAmount(value);
   };
 
   const handleDonationSubmit = () => {
@@ -123,36 +225,78 @@ export default function DonatePage() {
 
     // Reset form
     setAmount('');
+    setCustomAmount('');
+  };
+
+  const sharePage = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Support YouGo Church',
+        text: 'Join me in supporting YouGo Church through donations',
+        url: window.location.href,
+      })
+      .catch(() => {
+        navigator.clipboard.writeText(window.location.href);
+        toast({
+          title: 'Link copied!',
+          description: 'Page link copied to clipboard',
+        });
+      });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      toast({
+        title: 'Link copied!',
+        description: 'Page link copied to clipboard',
+      });
+    }
   };
 
   const selectedMethodData = donationMethods.find(m => m.id === selectedMethod);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-indigo-100 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-orange-50 py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-12">
+        {/* Header with improved design */}
+        <div className="text-center mb-12 relative">
+          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+            <Sparkles className="h-8 w-8 text-orange-300 animate-pulse" />
+          </div>
           <div className="flex justify-center mb-4">
-            <div className="bg-blue-100 p-3 rounded-full">
-              <Heart className="h-8 w-8 text-blue-600" />
+            <div className="bg-orange-100 p-4 rounded-full shadow-lg">
+              <Heart className="h-10 w-10 text-orange-600" />
             </div>
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Support YouGo Church
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Support <span className="text-orange-600">YouGo</span> Church
           </h1>
-          <p className="text-md font-semibold  text-gray-600  max-w-2xl mx-auto">
-            Your generous donations help us spread God&apos;s love, maintain our facilities,
+          <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+            Your generous donations help us spread God's love, maintain our facilities,
             and support our community programs. Every contribution makes a difference.
           </p>
+          
+          <Button 
+            onClick={sharePage}
+            variant="outline" 
+            className="mt-6 rounded-full border-orange-300 text-orange-600 hover:bg-orange-50"
+          >
+            <Share className="h-4 w-4 mr-2" />
+            Share this page
+          </Button>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Donation Form */}
-          <div className="lg:col-span-2 my-5">
-            <Card className="shadow-lg">
+          {/* Donation Form - Improved layout */}
+          <div className="lg:col-span-2">
+            <Card className="shadow-xl border-orange-100 rounded-2xl overflow-hidden">
+              <div className="bg-orange-600 py-2 text-center">
+                <p className="text-white text-sm font-medium flex items-center justify-center">
+                  <Target className="h-4 w-4 mr-2" /> 
+                  Make an impact today
+                </p>
+              </div>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-blue-600">
-                  <Gift className="h-5 w-5" />
+                <CardTitle className="flex items-center gap-2 text-orange-700">
+                  <Gift className="h-6 w-6" />
                   Make a Donation
                 </CardTitle>
                 <CardDescription>
@@ -160,7 +304,7 @@ export default function DonatePage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                {/* Payment Method Selection */}
+                              {/* Payment Method Selection */}
                 <div>
                   <Label className="text-base font-medium">Payment Method</Label>
                   <RadioGroup 
@@ -169,16 +313,38 @@ export default function DonatePage() {
                     className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3"
                   >
                     {donationMethods.map((method) => (
-                      <div key={method.id} className="flex items-center space-x-3">
-                        <RadioGroupItem value={method.id} id={method.id} />
+                      <div key={method.id}>
+                        <RadioGroupItem 
+                          value={method.id} 
+                          id={method.id} 
+                          className="sr-only" 
+                        />
                         <Label 
                           htmlFor={method.id} 
-                          className="flex items-center gap-2 cursor-pointer"
+                          className={`flex flex-col items-center p-4 border-2 rounded-xl cursor-pointer transition-all ${
+                            selectedMethod === method.id
+                              ? 'border-orange-500 bg-orange-50'
+                              : 'border-gray-200 hover:border-orange-300'
+                          }`}
                         >
-                          <Image src={method.url} alt={method.name} width={40}
-                           height={50} />
-                         
-                          <span className="font-medium">{method.name}</span>
+                          <div className="bg-white p-2 rounded-lg shadow-sm mb-2">
+                            <Image 
+                              src={method.url} 
+                              alt={method.name} 
+                              width={40} 
+                              height={40} 
+                              className="object-contain"
+                            />
+                          </div>
+                          <span className="font-medium text-gray-900">{method.name}</span>
+                          <span className="text-xs text-gray-500 text-center mt-1">
+                            {method.description}
+                          </span>
+                          <ChevronRight 
+                            className={`h-4 w-4 mt-1 ${
+                              selectedMethod === method.id ? 'text-orange-600' : 'text-gray-400'
+                            }`} 
+                          />
                         </Label>
                       </div>
                     ))}
@@ -187,39 +353,70 @@ export default function DonatePage() {
 
                 <Button 
                   onClick={handleDonationSubmit}
-                  className="w-full mt-10 bg-blue-600 hover:bg-blue-700 text-lg py-9"
+                  className="w-full mt-6 bg-orange-600 hover:bg-orange-700 text-lg py-6 rounded-xl shadow-md hover:shadow-lg transition-all"
                   disabled={!selectedMethod || !amount}
                 >
                   <Heart className="h-5 w-5 mr-2" />
-                  God Bless You
+                  Donate {amount && `${amount} ETB`}
                 </Button>
+                
+                <div className="flex items-center text-sm text-gray-500">
+                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  <span>Secure and encrypted payment process</span>
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Recent Donors Section (simulated) */}
+            <Card className="mt-6 shadow-lg border-orange-100 rounded-2xl">
+              <CardHeader className="py-4">
+                <CardTitle className="text-lg">Recent Donations</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {[
+                    { name: 'Anonymous', amount: '500 ETB', time: '2 hours ago' },
+                    { name: 'Daniel T.', amount: '1,000 ETB', time: '5 hours ago' },
+                    { name: 'Sarah M.', amount: '200 ETB', time: 'Yesterday' }
+                  ].map((donor, index) => (
+                    <div key={index} className="flex items-center justify-between p-2 rounded-lg bg-orange-50">
+                      <div className="flex items-center">
+                        <div className="bg-orange-100 h-8 w-8 rounded-full flex items-center justify-center mr-3">
+                          <Heart className="h-4 w-4 text-orange-600" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium">{donor.name}</p>
+                          <p className="text-xs text-gray-500">{donor.time}</p>
+                        </div>
+                      </div>
+                      <span className="text-orange-700 font-semibold">{donor.amount}</span>
+                    </div>
+                  ))}
+                </div>
               </CardContent>
             </Card>
           </div>
 
-          {/* Payment Instructions */}
+          {/* Payment Instructions Sidebar */}
           <div className="space-y-6">
-            {selectedMethodData && (
-              <Card className="shadow-lg border-blue-200">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-blue-600">
+            {selectedMethodData ? (
+              <Card className="shadow-lg border-orange-200 rounded-2xl">
+                <CardHeader className="bg-orange-50 py-4">
+                  <CardTitle className="flex items-center gap-2 text-orange-700">
                     {selectedMethodData.icon}
-                    {selectedMethodData.name}
+                    {selectedMethodData.name} Instructions
                   </CardTitle>
-                  <CardDescription>
-                    {selectedMethodData.description}
-                  </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="bg-blue-50 p-3 rounded-lg">
-                    <Label className="text-sm font-medium text-blue-800">Payment Details</Label>
-                    <div className="flex items-center justify-between mt-1">
-                      <code className="text-sm text-blue-700">{selectedMethodData.details}</code>
+                <CardContent className="space-y-4 pt-6">
+                  <div className="bg-orange-50 p-4 rounded-xl">
+                    <Label className="text-sm font-medium text-orange-800">Payment Details</Label>
+                    <div className="flex items-center justify-between mt-2">
+                      <code className="text-sm text-orange-700 whitespace-pre-wrap">{selectedMethodData.details}</code>
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => handleCopyDetails(selectedMethodData.details)}
-                        className="text-blue-600 hover:text-blue-700"
+                        className="text-orange-600 hover:text-orange-700 hover:bg-orange-100"
                       >
                         <Copy className="h-4 w-4" />
                       </Button>
@@ -227,69 +424,104 @@ export default function DonatePage() {
                   </div>
 
                   <div>
-                    <Label className="text-sm font-medium">Instructions</Label>
-                    <ol className="list-decimal list-inside space-y-1 mt-2 text-sm text-gray-600">
+                    <Label className="text-sm font-medium">How to donate:</Label>
+                    <ol className="mt-3 space-y-3">
                       {selectedMethodData.instructions.map((instruction, index) => (
-                        <li key={index}>{instruction}</li>
+                        <li key={index} className="flex items-start">
+                          <div className="bg-orange-100 text-orange-700 rounded-full h-6 w-6 flex items-center justify-center mr-3 flex-shrink-0">
+                            {index + 1}
+                          </div>
+                          <span className="text-sm text-gray-700">{instruction}</span>
+                        </li>
                       ))}
                     </ol>
                   </div>
 
                   {selectedMethodData.qrCode && (
-                    <div className="text-center">
-                      <Label className="text-sm font-medium">Scan QR Code</Label>
-                      <div className="mt-2 p-4 bg-white rounded-lg">
-                        <QrCode className="h-24 w-24 mx-auto text-gray-400" />
-                        <p className="text-xs text-gray-500 mt-2">QR Code Placeholder</p>
+                    <div className="text-center pt-4">
+                      <Label className="text-sm font-medium block mb-3">Scan QR Code</Label>
+                      <div className="p-4 bg-white rounded-xl border border-orange-200 inline-block">
+                        <div className="bg-orange-100 p-4 rounded-lg">
+                          <QrCode className="h-32 w-32 mx-auto text-gray-700" />
+                        </div>
+                        <p className="text-xs text-gray-500 mt-2">Scan with your payment app</p>
                       </div>
                     </div>
                   )}
                 </CardContent>
               </Card>
+            ) : (
+              <Card className="shadow-lg border-orange-200 rounded-2xl">
+                <CardHeader className="bg-orange-50 py-4">
+                  <CardTitle className="flex items-center gap-2 text-orange-700">
+                    <Sparkles className="h-5 w-5" />
+                    How to Donate
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-6">
+                  <p className="text-sm text-gray-700 mb-4">
+                    Select a payment method to see specific instructions. We offer multiple convenient ways to support our church.
+                  </p>
+                  <div className="bg-orange-50 p-3 rounded-lg">
+                    <p className="text-xs text-orange-700 font-medium">
+                      All donations are tax-deductible and you will receive a receipt for your records.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
             )}
 
             {/* Impact Card */}
-            <Card className="shadow-lg bg-gradient-to-br from-green-50 to-emerald-100 border-green-200">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-green-700">
+            <Card className="shadow-lg bg-gradient-to-br from-orange-50 to-amber-100 border-orange-200 rounded-2xl">
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-orange-700">
                   <Users className="h-5 w-5" />
                   Your Impact
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-green-700">Community Programs</span>
-                  <span className="text-sm font-medium text-green-800">40%</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-green-700">Facility Maintenance</span>
-                  <span className="text-sm font-medium text-green-800">30%</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-green-700">Outreach Missions</span>
-                  <span className="text-sm font-medium text-green-800">20%</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-green-700">Administrative</span>
-                  <span className="text-sm font-medium text-green-800">10%</span>
-                </div>
+              <CardContent className="space-y-4">
+                {[
+                  { program: 'Community Programs', percentage: 40, color: 'bg-orange-500' },
+                  { program: 'Facility Maintenance', percentage: 30, color: 'bg-orange-400' },
+                  { program: 'Outreach Missions', percentage: 20, color: 'bg-orange-300' },
+                  { program: 'Administrative', percentage: 10, color: 'bg-orange-200' }
+                ].map((item, index) => (
+                  <div key={index}>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span className="text-orange-800">{item.program}</span>
+                      <span className="font-medium text-orange-900">{item.percentage}%</span>
+                    </div>
+                    <div className="h-2 bg-orange-100 rounded-full overflow-hidden">
+                      <div 
+                        className={`h-full ${item.color} rounded-full`} 
+                        style={{ width: `${item.percentage}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                ))}
+                <p className="text-xs text-orange-700 mt-3">
+                  Your donation directly supports these areas of our ministry
+                </p>
               </CardContent>
             </Card>
 
             {/* Contact Info */}
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-blue-600">
+            <Card className="shadow-lg border-orange-100 rounded-2xl">
+              <CardHeader className="py-4">
+                <CardTitle className="flex items-center gap-2 text-orange-700">
                   <Church className="h-5 w-5" />
                   Need Help?
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <p className="text-sm text-gray-600">
+              <CardContent className="space-y-4">
+                <p className="text-sm text-gray-700">
                   If you have any questions about donations or need assistance, 
                   please contact our finance team.
                 </p>
-                <Button variant="outline" className="w-full">
+                <Button 
+                  variant="outline" 
+                  className="w-full border-orange-300 text-orange-600 hover:bg-orange-50"
+                >
                   <ExternalLink className="h-4 w-4 mr-2" />
                   Contact Finance Team
                 </Button>
@@ -300,4 +532,4 @@ export default function DonatePage() {
       </div>
     </div>
   );
-} 
+}

@@ -4,7 +4,7 @@ export default function AboutHero() {
   return (
     <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
       <Image
-        src="/yougonew.jpg"
+        src="/newyear.jpg"
         alt="Church background"
         layout="fill"
         objectFit="cover"
