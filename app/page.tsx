@@ -133,19 +133,18 @@ export default function HomePage() {
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             {!isAuthenticated ? (
               <>
-                <Link href="/login">
+                {/* <Link href="/login">
                   <Button
                     size="lg"
                     className="bg-[#379AFE] hover:bg-[#49A3EF] text-lg px-8 py-3 rounded-2xl shadow-xl"
                   >
                     Sign In
                   </Button>
-                </Link>
+                </Link> */}
                 <Link href="/sign-up">
                   <Button
                     size="lg"
-                    variant="outline"
-                    className="text-[#379AFE] border-[#379AFE] hover:bg-[#379AFE] hover:text-white text-lg px-8 py-3 rounded-2xl shadow-xl"
+                    className="text-black bg-[#F09F2C] hover:text-xl border-amber-400  hover:bg-[#f59207]  text-lg px-8 py-3 rounded-2xl shadow-xl"
                   >
                     Join Us
                   </Button>

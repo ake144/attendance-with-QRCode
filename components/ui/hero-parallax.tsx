@@ -106,7 +106,7 @@ export const Header = () => {
        NO ONE SHOULD GO <br/>
        THROUGH THE VALLEY ALONE
       </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 text-gray-800">
+      <p className="max-w-2xl text-base md:text-2xl mt-8 font-semibold text-gray-800">
         Find Your People. Grow in Faith. Do Life Together.
       </p>
     </div>
