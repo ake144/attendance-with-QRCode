@@ -42,7 +42,7 @@ export const products = [
     title: "yougo city church",
     link: "https://app.pixelperfect.quest",
     thumbnail:
-      "/fam6.jpg",
+      "/fam11.jpg",
   },
 
   {

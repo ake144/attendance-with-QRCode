@@ -34,9 +34,9 @@ export function Navbar() {
               alt="YouGO City Church"
               width={90}
               height={40}
-              className="rounded-xl shadow-md h-[60px] w-[90px]  object-cover"
+              className="rounded-xl shadow-md h-[50px] md:h-[70px] w-[100px]  object-cover"
             />
-            <span className="hidden md:block text-xl font-bold text-amber-900 tracking-wide">
+            <span className="hidden md:block text-2xl font-bold text-amber-900 tracking-wide">
               YouGO City Church
             </span>
           </Link>

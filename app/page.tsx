@@ -201,7 +201,7 @@ export default function HomePage() {
             ].map((feature, index) => (
               <div
                 key={index}
-                className="bg-white rounded-2xl shadow-lg p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-amber-200"
+                className="bg-white rounded-2xl shadow-lg hover:shadow-amber-400 p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-amber-200"
               >
                 <div className="flex items-center mb-5">
                   <feature.icon className="h-10 w-10 text-amber-600" />
