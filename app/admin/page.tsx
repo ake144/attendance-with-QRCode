@@ -28,11 +28,11 @@ import { useToast } from '../../hooks/use-toast';
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState<UserInfo[]>([]);
+  const [prayerRequests, setPrayerRequests] = useState<{total: number}>({total: 0});
   const [selectedUser, setSelectedUser] = useState<UserInfo | null>(null);
   const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [attendance, setAttendance] = useState<AttendanceRecord[]>([]);
   const [showQRCode, setShowQRCode] = useState(false);
   const { user, isAuthenticated, loading: authLoading } = useAuthStore();
   const { toast } = useToast();
@@ -61,8 +61,11 @@ export default function AdminDashboard() {
       setLoading(true);
       const members = await apiClient.getUsers();
       const adminInfo = await apiClient.getUser(user!.id);
-      const attendanceHistory = await apiClient.getAttendance(user!.id);
-     
+      const prayerRequests = await apiClient.getPrayerRequestsCount();
+
+
+      setPrayerRequests(typeof prayerRequests?.total === 'number' ? { total: prayerRequests.total } : { total: 0 });
+
       setUsers((members || []).map(user => ({
         ...user,
         role: user.role as 'ADMIN' | 'USER'
@@ -71,7 +74,6 @@ export default function AdminDashboard() {
         ...adminInfo,
         role: adminInfo.role as 'ADMIN' | 'USER'
       });
-      if (attendanceHistory) setAttendance(attendanceHistory);
     } catch (error) {
       console.error("Error fetching data:", error);
       toast({ 
@@ -152,67 +154,9 @@ export default function AdminDashboard() {
     }
   };
 
-  const downloadQRCode = async (user: UserInfo) => {
-    const element = document.getElementById(`qr-code-${user.id}`);
-    if (element) {
-      try {
-        const canvas = await html2canvas(element, { scale: 3 });
-        const imgData = canvas.toDataURL("image/png");
-        const link = document.createElement("a");
-        link.href = imgData;
-        link.download = `${user.name}-qr-code.png`;
-        link.click();
-        toast({
-          title: "QR Code Downloaded",
-          description: "QR code has been saved to your device."
-        });
-      } catch (error) {
-        console.error("Error capturing QR code:", error);
-        toast({ 
-          title: "Failed to download QR code", 
-          description: "Please try again later.",
-          variant: "destructive" 
-        });
-      }
-    } else {
-      toast({ 
-        title: "QR code not found", 
-        description: "Please try refreshing the page.",
-        variant: "destructive" 
-      });
-    }
-  };
+  
 
-  const handleDownloadAttendance = () => {
-    if (attendance.length === 0) {
-      toast({
-        title: "No attendance data",
-        description: "There's no attendance data to download.",
-        variant: "destructive"
-      });
-      return;
-    }
 
-    const attendanceText = attendance.map((record) =>
-      `Date: ${record.date}, Present: ${record.isPresent ? 'Yes' : 'No'}`
-    ).join('\n');
-
-    const blob = new Blob([attendanceText], { type: 'text/plain' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'attendance.txt';
-    link.click();
-    
-    toast({
-      title: "Attendance Downloaded",
-      description: "Attendance data has been saved to your device."
-    });
-  };
-
-  const toggleQRCodeVisibility = (user: UserInfo) => {
-    setSelectedUser(user);
-    setShowQRCode(true);
-  };
 
   // Loading state
   if (authLoading || loading) {
@@ -258,8 +202,19 @@ export default function AdminDashboard() {
     <div className="container mx-auto py-10 px-4">
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-800 mb-2">Admin Dashboard</h1>
+        <h1 className="text-4xl font-bold text-amber-800 mb-2">Admin Dashboard</h1>
         <p className="text-gray-600">Manage members, attendance, and church operations</p>
+      </div>
+
+       <div className="mb-6 flex justify-end space-x-4">
+        <Button 
+          variant="outline" 
+          onClick={() => router.push('/admin/prayer-request')}
+          className="flex items-center space-x-2"
+        >
+          <Users className="w-4 h-4" />
+          <span>Manage Prayer Requests</span>
+        </Button>
       </div>
 
       {/* Stats Cards */}
@@ -271,7 +226,7 @@ export default function AdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{users.length}</div>
-            <p className="text-xs text-gray-600">Registered church members</p>
+            <p className="text-xs text-gray-600">Newly Registered church members</p>
           </CardContent>
         </Card>
 
@@ -281,8 +236,8 @@ export default function AdminDashboard() {
             <Calendar className="h-4 w-4 text-green-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{attendance.length}</div>
-            <p className="text-xs text-gray-600">Total attendance entries</p>
+            <div className="text-2xl font-bold">{prayerRequests?.total}</div>
+            <p className="text-xs text-gray-600">Total prayer requests</p>
           </CardContent>
         </Card>
 
@@ -295,29 +250,12 @@ export default function AdminDashboard() {
             <div className="text-2xl font-bold">{currentUser?.name}</div>
             <p className="text-xs text-gray-600">Current admin user</p>
           </CardContent>
+              
         </Card>
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold text-gray-800">Membership Management</h2>
-        <div className="flex space-x-3">
-          <Link href="/admin/attendance">
-            <Button variant="outline" className="flex items-center space-x-2">
-              <Calendar className="h-4 w-4" />
-              <span>Manage Attendance</span>
-            </Button>
-          </Link>
-          <Button 
-            onClick={handleDownloadAttendance}
-            variant="outline"
-            className="flex items-center space-x-2"
-          >
-            <Download className="h-4 w-4" />
-            <span>Export Attendance</span>
-          </Button>
-        </div>
-      </div>
+      
 
       {/* Members Table */}
       <Card className="overflow-hidden shadow-lg">
@@ -329,7 +267,6 @@ export default function AdminDashboard() {
                 <TableHead className="font-semibold">Email</TableHead>
                 <TableHead className="font-semibold">Phone</TableHead>
                 <TableHead className="font-semibold">Role</TableHead>
-                <TableHead className="font-semibold">QR Code</TableHead>
                 <TableHead className="font-semibold">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -347,15 +284,6 @@ export default function AdminDashboard() {
                     }`}>
                       {user.role}
                     </span>
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => toggleQRCodeVisibility(user)}
-                    >
-                      <QrCode className="w-4 h-4 mr-2" /> View QR
-                    </Button>
                   </TableCell>
                   <TableCell>
                     <div className="flex space-x-2">
@@ -555,14 +483,7 @@ export default function AdminDashboard() {
                   <p className="text-xs text-gray-500 mt-1">Generated on {new Date().toLocaleDateString()}</p>
                 </div>
               </div>
-              <Button
-                variant="outline"
-                size="sm"
-                className="mt-4"
-                onClick={() => downloadQRCode(selectedUser)}
-              >
-                <Download className="w-4 h-4 mr-2" /> Download QR Code
-              </Button>
+              
             </div>
           )}
         </SheetContent>

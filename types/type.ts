@@ -6,7 +6,6 @@ export interface UserInfo {
   name: string;
   email: string;
   phone?: string;
-  qrCode?: string;
   profilePic?: string;
   age?: number;
   maritalStatus?: string;

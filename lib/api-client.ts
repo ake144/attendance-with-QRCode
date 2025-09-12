@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
 
 interface User {
   id: string;
@@ -124,29 +124,7 @@ class ApiClient {
   }
 
   // Attendance endpoints
-  async getAttendance(userId: string): Promise<AttendanceRecord[]> {
-    return this.request<AttendanceRecord[]>(`/attendance?userId=${userId}`);
-  }
-
-  async markAttendance(userId: string, date: string): Promise<{ message: string }> {
-    return this.request<{ message: string }>(`/attendance/mark?userId=${userId}&date=${date}`, {
-      method: 'POST',
-    });
-  }
-
-  async getAttendanceStats(userId: string): Promise<any> {
-    return this.request<any>(`/attendance/stats/${userId}`);
-  }
-
-  async getAttendanceByDateRange(userId: string, startDate: string, endDate: string): Promise<AttendanceRecord[]> {
-    return this.request<AttendanceRecord[]>(`/attendance/range/${userId}?startDate=${startDate}&endDate=${endDate}`);
-  }
-
-  // Admin-specific methods
-  async getAttendanceHistory(userId: string): Promise<AttendanceRecord[]> {
-    return this.request<AttendanceRecord[]>(`/attendance?userId=${userId}`);
-  }
-
+  
   async getMemberInfo(userId: string): Promise<User | null> {
     try {
       return await this.request<User>(`/users/${userId}`);
@@ -155,6 +133,38 @@ class ApiClient {
     }
   }
 
+  async getPrayerRequests(): Promise<any[]> {
+      try{
+        return await this.request<any[]>('/prayer-requests');
+      }
+      catch(error){
+        console.error("Error fetching prayer requests:", error);
+        return [];
+      }
+  }
+
+  async getPrayerRequestsCount(): Promise<{ total: number }> {
+    return this.request<{ total: number }>('/prayer-requests/stats');
+  }
+
+  async submitPrayerRequest(data: { name: string; email?: string; phone?: string; prayerRequest: string; isAnonymous: boolean }): Promise<any> {
+    return this.request<any>('/prayer-requests', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+  
+  async getPrayerRequest(id: string): Promise<any> { 
+    return this.request<any>(`/prayer-requests/${id}`);
+  }
+  
+  async deletePrayerRequest(id: string): Promise<{ message: string }> {
+    return this.request<{ message: string }>(`/prayer-requests/${id}`, {
+      method: 'DELETE',
+    });
+  }
+  
+  
   // Health check
   async health(): Promise<{ status: string }> {
     return this.request<{ status: string }>('/health');

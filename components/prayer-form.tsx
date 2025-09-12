@@ -8,13 +8,14 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Heart, Send, CheckCircle } from "lucide-react";
+import { apiClient } from "@/lib/api-client";
 
 interface PrayerFormData {
   name: string;
   email?: string;
   phone?: string;
   prayerRequest: string;
-  anonymous: boolean;
+  isAnonymous: boolean;
 }
 
 export const PrayerRequestForm = () => {
@@ -23,7 +24,7 @@ export const PrayerRequestForm = () => {
     phone: "",
     email: "",
     prayerRequest: "",
-    anonymous: false,
+    isAnonymous: false,
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,13 +44,19 @@ export const PrayerRequestForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    toast({
-      title: "Prayer Request Submitted",
-      description: "Your prayer request has been received. May God bless you.",
-    });
+       try{
+         const response = await apiClient.submitPrayerRequest(formData);
+         toast({
+           title: "Prayer Request Submitted",
+           description: "Your prayer request has been received. May God bless you.",
+         });
+       } catch (error) {
+         toast({
+           title: "Error Submitting Prayer Request",
+           className: "bg-red-600 text-white",
+           description: "There was an error submitting your prayer request. Please try again later.",
+         });
+       }
 
     setIsSubmitted(true);
     setIsSubmitting(false);
@@ -78,7 +85,7 @@ export const PrayerRequestForm = () => {
                 email: "",
                 phone: "",
                 prayerRequest: "",
-                anonymous: false,
+                isAnonymous: false,
               });
             }}
           >
@@ -128,7 +135,7 @@ export const PrayerRequestForm = () => {
                 value={formData.phone}
                 onChange={handleInputChange}
                 placeholder="Enter your phone number"
-                required
+              
                 className="bg-background/80 border-spiritual/30 focus:border-spiritual transition-colors"
               />
             </div>
@@ -143,7 +150,7 @@ export const PrayerRequestForm = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="your.email@example.com"
-                required
+              
                 className="bg-background/80 border-spiritual/30 focus:border-spiritual transition-colors"
               />
             </div>

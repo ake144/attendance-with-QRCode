@@ -16,8 +16,6 @@ export default function SignUpPage() {
     name: '',
     email: '',
     phone: '',
-    password: '',
-    confirmPassword: '',
     age: '',
     maritalStatus: '',
     sex: '',
@@ -95,32 +93,7 @@ export default function SignUpPage() {
       return;
     }
 
-    if (!formData.password) {
-      toast({
-        title: 'Error',
-        description: 'Please enter a password',
-        variant: 'destructive',
-      });
-      return;
-    }
-
-    if (!isValidPassword(formData.password)) {
-      toast({
-        title: 'Error',
-        description: 'Password must be at least 6 characters long',
-        variant: 'destructive',
-      });
-      return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      toast({
-        title: 'Error',
-        description: 'Passwords do not match',
-        variant: 'destructive',
-      });
-      return;
-    }
+    
 
     setLoading(true);
     try {
@@ -289,62 +262,11 @@ export default function SignUpPage() {
               </div>
             </div>
 
-            {/* Password Fields */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="password" className="flex items-center gap-2">
-                  <Lock className="h-4 w-4" />
-                  Password *
-                </Label>
-                <div className="relative mt-2">
-                  <Input
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    value={formData.password}
-                    onChange={(e) => handleInputChange('password', e.target.value)}
-                    placeholder="Create password"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                  >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </button>
-                </div>
-                <p className="text-xs text-gray-500 mt-1">Must be at least 6 characters</p>
-              </div>
-              
-              <div>
-                <Label htmlFor="confirmPassword" className="flex items-center gap-2">
-                  <Lock className="h-4 w-4" />
-                  Confirm Password *
-                </Label>
-                <div className="relative mt-2">
-                  <Input
-                    id="confirmPassword"
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    value={formData.confirmPassword}
-                    onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                    placeholder="Confirm password"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                  >
-                    {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </button>
-                </div>
-              </div>
-            </div>
 
             {/* Submit Button */}
             <Button 
               type="submit" 
-              className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-3" 
+              className="w-full bg-amber-600 hover:bg-amber-700 text-lg py-3" 
               disabled={loading}
             >
               {loading ? 'Creating Account...' : 'Create Account'}
@@ -354,7 +276,7 @@ export default function SignUpPage() {
             <div className="text-center">
               <p className="text-gray-600">
                 Already have an account?{' '}
-                <Link href="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+                <Link href="/login" className="text-amber-600 hover:text-amber-700 font-medium">
                   Sign in here
                 </Link>
               </p>
