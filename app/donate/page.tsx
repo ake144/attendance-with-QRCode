@@ -63,7 +63,7 @@ const donationMethods: DonationMethod[] = [
     url: '/cbe.jpeg',
     details: 'Account: 1000285127107\nBranch: Addis Ababa Main',
     instructions: [
-      'Visit any CBE App or use CBE Birr app or visit a branch',
+      'use any CBE App or use CBE Birr app or visit a branch',
       'Provide the account number: 1000285127107',
       'Mention "YouGo Church Donation" as reference',
       'Complete the transfer'
@@ -357,7 +357,7 @@ export default function DonatePage() {
                   disabled={!selectedMethod || !amount}
                 >
                   <Heart className="h-5 w-5 mr-2" />
-                  Donate {amount && `${amount} ETB`}
+                  God Bless You
                 </Button>
                 
                 <div className="flex items-center text-sm text-gray-500">
@@ -367,34 +367,7 @@ export default function DonatePage() {
               </CardContent>
             </Card>
             
-            {/* Recent Donors Section (simulated) */}
-            <Card className="mt-6 shadow-lg border-orange-100 rounded-2xl">
-              <CardHeader className="py-4">
-                <CardTitle className="text-lg">Recent Donations</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {[
-                    { name: 'Anonymous', amount: '500 ETB', time: '2 hours ago' },
-                    { name: 'Daniel T.', amount: '1,000 ETB', time: '5 hours ago' },
-                    { name: 'Sarah M.', amount: '200 ETB', time: 'Yesterday' }
-                  ].map((donor, index) => (
-                    <div key={index} className="flex items-center justify-between p-2 rounded-lg bg-orange-50">
-                      <div className="flex items-center">
-                        <div className="bg-orange-100 h-8 w-8 rounded-full flex items-center justify-center mr-3">
-                          <Heart className="h-4 w-4 text-orange-600" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium">{donor.name}</p>
-                          <p className="text-xs text-gray-500">{donor.time}</p>
-                        </div>
-                      </div>
-                      <span className="text-orange-700 font-semibold">{donor.amount}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                  
           </div>
 
           {/* Payment Instructions Sidebar */}
@@ -508,6 +481,7 @@ export default function DonatePage() {
             {/* Contact Info */}
             <Card className="shadow-lg border-orange-100 rounded-2xl">
               <CardHeader className="py-4">
+
                 <CardTitle className="flex items-center gap-2 text-orange-700">
                   <Church className="h-5 w-5" />
                   Need Help?
