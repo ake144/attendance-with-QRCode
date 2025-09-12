@@ -42,7 +42,7 @@ const ServicesSection = () => {
         "Group Discussion",
         "Prayer Time",
       ],
-      image: "/com7.jpg", // <- Add Bible study image
+      image: "/fam9.jpg", // <- Add Bible study image
     },
   ];
 

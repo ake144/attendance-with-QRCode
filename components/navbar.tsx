@@ -47,8 +47,9 @@ export function Navbar() {
               { href: "/", label: "Home" },
               { href: "/events", label: "Events" },
               { href: "/about", label: "About" },
-              { href: "/prayer", label: "Prayer Request" },
               { href: "/donate", label: "Donate" },
+              { href: "/prayer", label: "Prayer Request" },
+              
             ].map((link) => (
               <Link
                 key={link.href}
