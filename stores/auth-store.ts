@@ -13,7 +13,7 @@ interface AuthState {
   user: User | null;
   loading: boolean;
   isAuthenticated: boolean;
-  login: (data: { email?: string; phone?: string; name?: string }) => Promise<void>;
+  login: (data: { email?: string; phone?: string; name?: string, password?: string }) => Promise<void>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
   setLoading: (loading: boolean) => void;
@@ -56,7 +56,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
-  login: async (data: { email?: string; phone?: string; name?: string }) => {
+  login: async (data: { email?: string; phone?: string; name?: string, password?: string }) => {
     set({ loading: true });
     try {
       console.log('Attempting login with data:', data);

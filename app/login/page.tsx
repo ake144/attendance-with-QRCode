@@ -14,6 +14,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuthStore();
   const router = useRouter();
@@ -35,23 +36,15 @@ export default function LoginPage() {
     e.preventDefault();
     
     // Validation
-    if (!email && !phone) {
+    if (!phone) {
       toast({
         title: 'Error',
-        description: 'Please provide either email or phone number',
+        description: 'Please provide a phone number',
         variant: 'destructive',
       });
       return;
     }
 
-    if (email && !isValidEmail(email)) {
-      toast({
-        title: 'Error',
-        description: 'Please enter a valid email address',
-        variant: 'destructive',
-      });
-      return;
-    }
 
     if (phone && !isValidPhone(phone)) {
       toast({
@@ -74,9 +67,9 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await login({ 
-        email: email || undefined, 
         phone: phone || undefined, 
-        name: name.trim() 
+        name: name.trim(),
+        password: password.trim()
       });
       
       toast({
@@ -108,7 +101,7 @@ export default function LoginPage() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="name">Name (Optional)</Label>
+              <Label htmlFor="name">Name (optional)</Label>
               <Input
                 id="name"
                 type="text"
@@ -118,7 +111,7 @@ export default function LoginPage() {
               />
             </div>
             
-            <div>
+            {/* <div>
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
@@ -127,10 +120,8 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
               />
-            </div>
-            
-            <div className="text-center text-sm text-gray-500">OR</div>
-            
+            </div> */}
+
             <div>
               <Label htmlFor="phone">Phone Number</Label>
               <Input
@@ -141,7 +132,18 @@ export default function LoginPage() {
                 placeholder="+1234567890"
               />
             </div>
-            
+
+            <div>
+              <Label htmlFor="password">Password(optional)</Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Your password"
+              />
+            </div>
+
             <div className="text-xs text-gray-500 text-center">
               * At least one contact method (email or phone) is required
             </div>
@@ -154,7 +156,7 @@ export default function LoginPage() {
             <div className="text-center">
               <p className="text-gray-600">
                 Don't have an account?{' '}
-                <Link href="/sign-up" className="text-blue-600 hover:text-blue-700 font-medium">
+                <Link href="/sign-up" className="text-amber-600 hover:text-amber-700 font-medium">
                   Create one here
                 </Link>
               </p>

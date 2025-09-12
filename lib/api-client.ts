@@ -77,7 +77,7 @@ class ApiClient {
   }
 
   // Auth endpoints
-  async login(data: { email?: string; phone?: string; name?: string }): Promise<LoginResponse> {
+  async login(data: { email?: string; phone?: string; name?: string , password?: string }): Promise<LoginResponse> {
     return this.request<LoginResponse>('/auth/login', {
       method: 'POST',
       body: JSON.stringify(data),
