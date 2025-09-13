@@ -186,6 +186,7 @@ const donationMethods: DonationMethod[] = [
 
 export default function DonatePage() {
   const [selectedMethod, setSelectedMethod] = useState<string>('');
+  const [openMobileDetails, setOpenMobileDetails] = useState<string | null>(null);
   const [amount, setAmount] = useState('');
   const [customAmount, setCustomAmount] = useState('');
   const { toast } = useToast();
@@ -304,7 +305,7 @@ export default function DonatePage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                              {/* Payment Method Selection */}
+                {/* Payment Method Selection */}
                 <div>
                   <Label className="text-base font-medium">Payment Method</Label>
                   <RadioGroup 
@@ -313,7 +314,7 @@ export default function DonatePage() {
                     className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3"
                   >
                     {donationMethods.map((method) => (
-                      <div key={method.id}>
+                      <div key={method.id} className="relative">
                         <RadioGroupItem 
                           value={method.id} 
                           id={method.id} 
@@ -326,6 +327,14 @@ export default function DonatePage() {
                               ? 'border-orange-500 bg-orange-50'
                               : 'border-gray-200 hover:border-orange-300'
                           }`}
+                          onClick={() => {
+                            // On mobile, toggle details popup for this card
+                            if (window.innerWidth < 1024) {
+                              setOpenMobileDetails(openMobileDetails === method.id ? null : method.id);
+                            } else {
+                              setSelectedMethod(method.id);
+                            }
+                          }}
                         >
                           <div className="bg-white p-2 rounded-lg shadow-sm mb-2">
                             <Image 
@@ -346,6 +355,49 @@ export default function DonatePage() {
                             }`} 
                           />
                         </Label>
+                        {/* Mobile: Show details below card if open */}
+                        <div className="block lg:hidden">
+                          {openMobileDetails === method.id && (
+                            <div className="absolute left-0 right-0 z-20 mt-2 bg-white border border-orange-200 rounded-xl shadow-lg p-4 animate-fade-in">
+                              <Label className="text-sm font-medium text-orange-800">Payment Details</Label>
+                              <div className="flex items-center justify-between mt-2">
+                                <code className="text-sm text-orange-700 whitespace-pre-wrap">{method.details}</code>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => handleCopyDetails(method.details)}
+                                  className="text-orange-600 hover:text-orange-700 hover:bg-orange-100"
+                                >
+                                  <Copy className="h-4 w-4" />
+                                </Button>
+                              </div>
+                              <div className="mt-4">
+                                <Label className="text-sm font-medium">How to donate:</Label>
+                                <ol className="mt-3 space-y-3">
+                                  {method.instructions.map((instruction, index) => (
+                                    <li key={index} className="flex items-start">
+                                      <div className="bg-orange-100 text-orange-700 rounded-full h-6 w-6 flex items-center justify-center mr-3 flex-shrink-0">
+                                        {index + 1}
+                                      </div>
+                                      <span className="text-sm text-gray-700">{instruction}</span>
+                                    </li>
+                                  ))}
+                                </ol>
+                              </div>
+                              {method.qrCode && (
+                                <div className="text-center pt-4">
+                                  <Label className="text-sm font-medium block mb-3">Scan QR Code</Label>
+                                  <div className="p-4 bg-white rounded-xl border border-orange-200 inline-block">
+                                    <div className="bg-orange-100 p-4 rounded-lg">
+                                      <QrCode className="h-32 w-32 mx-auto text-gray-700" />
+                                    </div>
+                                    <p className="text-xs text-gray-500 mt-2">Scan with your payment app</p>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     ))}
                   </RadioGroup>
@@ -366,12 +418,10 @@ export default function DonatePage() {
                 </div>
               </CardContent>
             </Card>
-            
-                  
           </div>
 
-          {/* Payment Instructions Sidebar */}
-          <div className="space-y-6">
+          {/* Payment Instructions Sidebar (hidden on small screens) */}
+          <div className="space-y-6 hidden lg:block">
             {selectedMethodData ? (
               <Card className="shadow-lg border-orange-200 rounded-2xl">
                 <CardHeader className="bg-orange-50 py-4">
