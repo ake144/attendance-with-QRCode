@@ -26,7 +26,6 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 
-
 interface DonationMethod {
   id: string;
   name: string;
@@ -39,31 +38,15 @@ interface DonationMethod {
 }
 
 const donationMethods: DonationMethod[] = [
-  // {
-  //   id: 'telebirr',
-  //   name: 'TeleBirr',
-  //   description: 'Fast and secure mobile money transfer',
-  //   icon: <Smartphone className="h-6 w-6" />,
-  //   url: '/telebirr.png',
-  //   details: '0912345678',
-  //   instructions: [
-  //     'Open your TeleBirr app',
-  //     'Scan the QR code or enter the number',
-  //     'Enter the amount you wish to donate',
-  //     'Add your name as reference',
-  //     'Confirm the transaction'
-  //   ],
-  //   qrCode: '/telebirr-qr.png'
-  // },
   {
     id: 'cbe',
     name: 'Commercial Bank of Ethiopia',
-    description: 'Direct bank transfer to church account',
+    description: 'Direct bank transfer to church account\nAccount: 1000285127107\nBranch: Addis Ababa Main',
     icon: <Building2 className="h-6 w-6" />,
     url: '/cbe.jpeg',
     details: 'Account: 1000285127107\nBranch: Addis Ababa Main',
     instructions: [
-      'use any CBE App or use CBE Birr app or visit a branch',
+      'Use any CBE App or use CBE Birr app or visit a branch',
       'Provide the account number: 1000285127107',
       'Mention "YouGo Church Donation" as reference',
       'Complete the transfer'
@@ -72,7 +55,7 @@ const donationMethods: DonationMethod[] = [
   {
     id: 'abyssinia',
     name: 'Abyssinia Bank',
-    description: 'Reliable bank transfer option',
+    description: 'Reliable bank transfer option\nAccount: 1287422972\nBranch: Addis Ababa',
     icon: <Building2 className="h-6 w-6" />,
     url: '/abysinia.png',
     details: 'Account: 1287422972\nBranch: Addis Ababa',
@@ -86,7 +69,7 @@ const donationMethods: DonationMethod[] = [
   {
     id: 'awash',
     name: 'Awash Bank',
-    description: 'Convenient bank transfer option',
+    description: 'Convenient bank transfer option\nAccount: 013521113121500\nBranch: Addis Ababa',
     icon: <Building2 className="h-6 w-6" />,
     url: '/awash.png',
     details: 'Account: 013521113121500\nBranch: Addis Ababa',
@@ -100,7 +83,7 @@ const donationMethods: DonationMethod[] = [
   {
     id: 'united',
     name: 'United Bank',
-    description: 'Direct transfer to United Bank account',
+    description: 'Direct transfer to United Bank account\nAccount: 1181810802589012\nBranch: Addis Ababa',
     icon: <Building2 className="h-6 w-6" />,
     url: '/united.jpg',
     details: 'Account: 1181810802589012\nBranch: Addis Ababa',
@@ -114,7 +97,7 @@ const donationMethods: DonationMethod[] = [
   {
     id: 'coop',
     name: 'Cooperative Bank',
-    description: 'Bank transfer option for donations',
+    description: 'Bank transfer option for donations\nAccount: 1011700167802\nBranch: Addis Ababa',
     icon: <Building2 className="h-6 w-6" />,
     url: '/coop.png',
     details: 'Account: 1011700167802\nBranch: Addis Ababa',
@@ -128,7 +111,7 @@ const donationMethods: DonationMethod[] = [
   {
     id: 'dashen',
     name: 'Dashen Bank',
-    description: 'Secure donation through Dashen Bank',
+    description: 'Secure donation through Dashen Bank\nAccount: 0076420596011\nBranch: Addis Ababa',
     icon: <Building2 className="h-6 w-6" />,
     url: '/dashn.jpg',
     details: 'Account: 0076420596011\nBranch: Addis Ababa',
@@ -142,7 +125,7 @@ const donationMethods: DonationMethod[] = [
   {
     id: 'berhan',
     name: 'Berhan Bank',
-    description: 'Easy transfer option',
+    description: 'Easy transfer option\nAccount: 260001001 5495\nBranch: Addis Ababa',
     icon: <Building2 className="h-6 w-6" />,
     url: '/berhan.png',
     details: 'Account: 260001001 5495\nBranch: Addis Ababa',
@@ -156,7 +139,7 @@ const donationMethods: DonationMethod[] = [
   {
     id: 'siinqee',
     name: 'Siinqee Bank',
-    description: 'Trustworthy bank transfer for donations',
+    description: 'Trustworthy bank transfer for donations\nAccount: 1608805851219\nBranch: Addis Ababa',
     icon: <Building2 className="h-6 w-6" />,
     url: '/siinqee.png',
     details: 'Account: 1608805851219\nBranch: Addis Ababa',
@@ -167,22 +150,7 @@ const donationMethods: DonationMethod[] = [
       'Complete the transfer'
     ]
   },
-    // {
-    //   id: 'cash',
-    //   name: 'Cash Donation',
-    //   description: 'Direct cash donation at church',
-    //   icon: <Gift className="h-6 w-6" />,
-    //   url: '/m-pesa.png',
-    //   details: 'Visit us during service hours',
-    //   instructions: [
-    //     'Visit YouGo Church during service hours',
-    //     'Speak with our ushers or pastors',
-    //     'Make your donation in person',
-    //     'Receive a donation receipt'
-    //   ]
-    // }
 ];
-
 
 export default function DonatePage() {
   const [selectedMethod, setSelectedMethod] = useState<string>('');
@@ -257,7 +225,7 @@ export default function DonatePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-orange-50 py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header with improved design */}
+        {/* Header */}
         <div className="text-center mb-12 relative">
           <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
             <Sparkles className="h-8 w-8 text-orange-300 animate-pulse" />
@@ -286,7 +254,7 @@ export default function DonatePage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Donation Form - Improved layout */}
+          {/* Donation Form */}
           <div className="lg:col-span-2">
             <Card className="shadow-xl border-orange-100 rounded-2xl overflow-hidden">
               <div className="bg-orange-600 py-2 text-center">
@@ -322,13 +290,12 @@ export default function DonatePage() {
                         />
                         <Label 
                           htmlFor={method.id} 
-                          className={`flex flex-col items-center p-4 border-2 rounded-xl cursor-pointer transition-all ${
+                          className={`flex flex-col p-4 border-2 rounded-xl cursor-pointer transition-all ${
                             selectedMethod === method.id
                               ? 'border-orange-500 bg-orange-50'
                               : 'border-gray-200 hover:border-orange-300'
                           }`}
                           onClick={() => {
-                            // On mobile, toggle details popup for this card
                             if (window.innerWidth < 1024) {
                               setOpenMobileDetails(openMobileDetails === method.id ? null : method.id);
                             } else {
@@ -336,26 +303,26 @@ export default function DonatePage() {
                             }
                           }}
                         >
-                          <div className="bg-white p-2 rounded-lg shadow-sm mb-2">
+                          <div className="bg-white p-2 rounded-lg shadow-sm mb-3">
                             <Image 
                               src={method.url} 
                               alt={method.name} 
-                              width={40} 
-                              height={40} 
+                              width={48} 
+                              height={48} 
                               className="object-contain"
                             />
                           </div>
-                          <span className="font-medium text-gray-900">{method.name}</span>
-                          <span className="text-xs text-gray-500 text-center mt-1">
-                            {method.description}
+                          <span className="font-medium text-gray-900 text-sm sm:text-base text-center">{method.name}</span>
+                          <span className="text-xs text-gray-600 text-center mt-2 whitespace-pre-wrap leading-relaxed">
+                            {method.details}
                           </span>
                           <ChevronRight 
-                            className={`h-4 w-4 mt-1 ${
+                            className={`h-4 w-4 mt-2 mx-auto ${
                               selectedMethod === method.id ? 'text-orange-600' : 'text-gray-400'
                             }`} 
                           />
                         </Label>
-                        {/* Mobile: Show details below card if open */}
+                        {/* Mobile: Additional details popup */}
                         <div className="block lg:hidden">
                           {openMobileDetails === method.id && (
                             <div className="absolute left-0 right-0 z-20 mt-2 bg-white border border-orange-200 rounded-xl shadow-lg p-4 animate-fade-in">
@@ -389,7 +356,7 @@ export default function DonatePage() {
                                   <Label className="text-sm font-medium block mb-3">Scan QR Code</Label>
                                   <div className="p-4 bg-white rounded-xl border border-orange-200 inline-block">
                                     <div className="bg-orange-100 p-4 rounded-lg">
-                                      <QrCode className="h-32 w-32 mx-auto text-gray-700" />
+                                      <QrCode className="h-24 w-24 mx-auto text-gray-700" />
                                     </div>
                                     <p className="text-xs text-gray-500 mt-2">Scan with your payment app</p>
                                   </div>
@@ -420,7 +387,7 @@ export default function DonatePage() {
             </Card>
           </div>
 
-          {/* Payment Instructions Sidebar (hidden on small screens) */}
+          {/* Payment Instructions Sidebar (Desktop) */}
           <div className="space-y-6 hidden lg:block">
             {selectedMethodData ? (
               <Card className="shadow-lg border-orange-200 rounded-2xl">
@@ -531,7 +498,6 @@ export default function DonatePage() {
             {/* Contact Info */}
             <Card className="shadow-lg border-orange-100 rounded-2xl">
               <CardHeader className="py-4">
-
                 <CardTitle className="flex items-center gap-2 text-orange-700">
                   <Church className="h-5 w-5" />
                   Need Help?
