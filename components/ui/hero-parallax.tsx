@@ -101,12 +101,12 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative flex flex-row md:flex-col  items-center justify-center  mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
-      <h1 className="text-2xl md:text-5xl font-bold text-amber-900">
+    <div className="max-w-7xl relative flex flex-col    items-center justify-center  mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
+      <h1 className="text-3xl md:text-5xl font-bold text-amber-900">
        NO ONE SHOULD GO <br/>
        THROUGH THE VALLEY ALONE
       </h1>
-      <p className="max-w-2xl text-base md:text-2xl mt-8 font-semibold text-gray-800">
+      <p className="max-w-2xl text-xl md:text-2xl mt-8 font-semibold text-gray-800">
         Find Your People. Grow in Faith. Do Life Together.
       </p>
     </div>

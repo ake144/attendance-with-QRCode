@@ -1,112 +1,104 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Clock, Users, BookOpen } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
+import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Clock, Users, Heart } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const ServicesSection = () => {
   const services = [
     {
-      title: "Sunday Morning Worship",
-      time: "9:00 AM",
-      description:
-        "Join us for inspiring worship, biblical teaching, and fellowship.",
-      audience: "All Ages Welcome",
-      features: [
-        "Contemporary Worship",
-        "Children's Ministry",
-        "Coffee & Fellowship",
-      ],
-      image: "/com7.jpg", // <- Add a nice worship image here
+      title: 'Wednesday Evening Worship',
+      time: '6:00 PM - 8:00 PM',
+      description: 'Join us for a powerful evening of worship, biblical teaching, and heartfelt prayer to deepen your faith.',
+      audience: 'All Ages Welcome',
+      features: ['Contemporary Worship', 'Biblical Teaching', 'Prayer Time'],
+      image: '/com7.jpg',
     },
     {
-      title: "Sunday Evening Service",
-      time: "6:00 PM",
-      description:
-        "A more intimate gathering focused on prayer and deeper study.",
-      audience: "Teens & Adults",
-      features: ["Prayer Focus", "Bible Study", "Small Group Discussion"],
-      image: "/com8.jpg", // <- Add evening church/prayer image
+      title: 'Friday Evening Worship',
+      time: '6:00 PM - 8:00 PM',
+      description: 'A vibrant gathering focused on worship, the Word of God, and community fellowship.',
+      audience: 'All Ages Welcome',
+      features: ['Worship Music', 'Sermon', 'Fellowship'],
+      image: '/com8.jpg',
     },
     {
-      title: "Wednesday Bible Study",
-      time: "7:00 PM",
-      description:
-        "Dive deeper into God's word with our midweek study groups.",
-      audience: "All Ages",
-      features: [
-        "Verse-by-Verse Study",
-        "Group Discussion",
-        "Prayer Time",
-      ],
-      image: "/fam9.jpg", // <- Add Bible study image
+      title: 'Sunday Morning Worship (First Shift)',
+      time: '8:00 AM - 10:00 AM',
+      description: 'Experience an uplifting morning service with dynamic worship, preaching, and community connection.',
+      audience: 'All Ages Welcome',
+      features: ['Contemporary Worship', 'Biblical Teaching', 'Community Time'],
+      image: '/fam9.jpg',
+    },
+    {
+      title: 'Sunday Morning Worship (Second Shift)',
+      time: '11:00 AM - 1:00 PM',
+      description: 'A second morning service offering vibrant worship, biblical teaching, and opportunities for fellowship.',
+      audience: 'All Ages Welcome',
+      features: ['Contemporary Worship','Biblical Teaching', 'Coffee & Fellowship'],
+      image: '/fam5.jpg',
     },
   ];
 
   return (
-    <section id="services" className="py-24 ">
+    <section id="services" className="py-24 bg-gradient-to-br from-gray-50 to-orange-50">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Title */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-amber-900 mb-6">
-            Service Times
+          <h2 className="text-4xl md:text-5xl font-bold text-orange-900 mb-6 tracking-tight">
+            Join Our Services
           </h2>
           <p className="max-w-3xl text-gray-700 mx-auto text-lg leading-relaxed">
-            Come as you are and experience the love of Christ in a welcoming
-            environment. We have services designed to meet you wherever you are
-            in your faith journey.
+            Experience the love of Christ in a warm and welcoming environment. Our services are designed to inspire, uplift, and connect you with our vibrant community.
           </p>
         </div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-10 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {services.map((service, index) => (
             <Card
               key={index}
-              className="border-0 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+              className="border-0 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden bg-white"
             >
               {/* Top Image */}
               {service.image && (
-                <div className="relative h-40 w-full">
+                <div className="relative h-48 w-full">
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-300 hover:scale-105"
                   />
                 </div>
               )}
 
               {/* Card Header */}
-              <CardHeader className="bg-amber-400 text-amber-900 p-6">
+              <CardHeader className="bg-orange-100 p-6">
                 <CardTitle className="flex items-center justify-between">
-                  <span className="text-xl font-semibold">{service.title}</span>
-                  <Clock className="h-5 w-5 text-amber-900" />
+                  <span className="text-xl font-semibold text-orange-900">{service.title}</span>
+                  <Clock className="h-5 w-5 text-orange-700" />
                 </CardTitle>
-                <div className="font-bold text-2xl mt-2">{service.time}</div>
+                <div className="font-bold text-2xl text-orange-800 mt-2">{service.time}</div>
               </CardHeader>
 
               {/* Card Content */}
-              <CardContent className="p-6 bg-white">
-                <p className="mb-4 text-gray-700 leading-relaxed">
+              <CardContent className="p-6">
+                <p className="mb-4 text-gray-700 leading-relaxed text-sm">
                   {service.description}
                 </p>
 
-                <div className="flex items-center gap-2 mb-4 text-sm font-medium text-amber-700">
+                <div className="flex items-center gap-2 mb-4 text-sm font-medium text-orange-700">
                   <Users className="h-4 w-4" />
                   {service.audience}
                 </div>
 
                 <div className="space-y-2 mb-4">
                   {service.features.map((feature, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-2 text-sm text-gray-600"
-                    >
-                      <div className="w-1.5 h-1.5 rounded-full bg-amber-400"></div>
+                    <div key={idx} className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="w-2 h-2 rounded-full bg-orange-400"></div>
                       {feature}
                     </div>
                   ))}
@@ -118,20 +110,24 @@ const ServicesSection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <div className="bg-white shadow-xl rounded-2xl p-10 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4 text-amber-900">
-              First Time Visiting?
+          <div className="bg-gradient-to-r from-orange-500 to-amber-400 rounded-2xl p-10 max-w-3xl mx-auto shadow-2xl transform transition-all duration-300 hover:scale-105">
+            <div className="flex justify-center mb-4">
+              <Heart className="h-12 w-12 text-white animate-pulse" />
+            </div>
+            <h3 className="text-3xl font-bold text-white mb-4">
+              New to YouGo Church?
             </h3>
-            <p className="mb-6 text-gray-700 leading-relaxed">
-              We'd love to meet you! Our greeters will help you find your way
-              around, and we have special seating reserved for first-time
-              guests.
+            <p className="mb-6 text-white text-opacity-90 leading-relaxed max-w-xl mx-auto">
+              We can’t wait to welcome you! Our friendly greeters will guide you, and we have special seating for first-time guests to make you feel at home.
             </p>
             <Link href="/sign-up">
-              <Button className="bg-amber-400 text-amber-900 hover:bg-amber-500 hover:text-white rounded-xl px-6 py-3 text-lg shadow-md transition-all">
-                Plan Your Visit
+              <Button className="bg-white text-orange-900 hover:bg-orange-100 hover:text-orange-800 rounded-full px-8 py-4 text-lg font-semibold shadow-md transition-all duration-300 hover:shadow-lg">
+                Plan Your Visit Now
               </Button>
             </Link>
+            <p className="mt-4 text-sm text-white text-opacity-80">
+              Join us and become part of our growing family in Christ!
+            </p>
           </div>
         </div>
       </div>
