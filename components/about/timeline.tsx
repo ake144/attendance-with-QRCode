@@ -1,36 +1,41 @@
 export default function Timeline() {
   const timelineEvents = [
     {
+      year: "1999",
+      title: "Vision to Plant a Church",
+      description: "In mid-1999, Molalign Adugna felt called by the Lord to plant a local church in Addis Ababa, Ethiopia, marking the beginning of the City of Refuge Church's journey.",
+    },
+    {
+      year: "2001",
+      title: "Church Planting Begins",
+      description: "Molalign Adugna moved to Ethiopia, rented a house in the Bole Homes area, and started a Bible study with childhood friends, leading to one-on-one evangelism and growth in new converts.",
+    },
+    {
+      year: "2002",
+      title: "New Meeting Hall Miracle",
+      description: "With the rented house overflowing, a nearby nightclub was shut down by God's grace, allowing the Bible study group to move into the larger former nightclub as their new meeting hall.",
+    },
+    {
+      year: "2003",
+      title: "Official Church Planting",
+      description: "On May 18, 2003, after affiliating with Sovereign Grace Ministries and attending their Pastor College in the US, the City of Refuge Church was officially planted in Addis Ababa.",
+    },
+    {
+      year: "2004",
+      title: "Government Recognition",
+      description: "In mid-October 2004, the church was officially recognized by the Ethiopian government, receiving a certificate from the Ministry of Justice to perform baptisms, weddings, and burials.",
+    },
+    {
       year: "2005",
-      title: "Founded",
-      description: "City of Refuge Church was established with a vision to serve the community and spread the love of Christ.",
-    },
-    {
-      year: "2010",
-      title: "Youth Ministry Launched",
-      description: "Our dynamic youth ministry began, focusing on empowering the next generation of believers.",
-    },
-    {
-      year: "2015",
-      title: "Community Outreach Expanded",
-      description: "We expanded our outreach programs, providing food, shelter, and support to those in need.",
-    },
-    {
-      year: "2020",
-      title: "Online Services Started",
-      description: "Adapted to the global pandemic by launching online services, reaching a wider audience.",
-    },
-    {
-      year: "2023",
-      title: "New Worship Center Opened",
-      description: "Opened our new state-of-the-art worship center to accommodate our growing congregation.",
+      title: "First Baptism Service",
+      description: "On February 5, 2005, the church held its first baptism service in the Yugo Club, transforming a former party venue into a place where lives were changed through the proclamation of Jesus Christ.",
     },
   ];
 
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-[#F09F2C]  text-center mb-12">Our Journey</h2>
+        <h2 className="text-3xl font-bold text-[#F09F2C] text-center mb-12">Our Journey</h2>
         <div className="relative border-l border-gray-200 dark:border-gray-700">
           {timelineEvents.map((event, index) => (
             <div key={index} className="mb-10 ml-6">
@@ -49,7 +54,7 @@ export default function Timeline() {
                 <time className="mb-1 text-sm font-normal text-gray-400 dark:text-gray-500">
                   {event.year}
                 </time>
-                <h3 className="text-lg font-semibold text-[#F09F2C]  dark:text-white">
+                <h3 className="text-lg font-semibold text-[#F09F2C] dark:text-white">
                   {event.title}
                 </h3>
                 <p className="mb-4 text-base font-normal text-gray-600 dark:text-gray-400">
