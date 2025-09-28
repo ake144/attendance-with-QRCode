@@ -1,3 +1,4 @@
+import MinistriesSection from "@/components/about/minstriesSection"
 import EventHero from "@/components/events/event-hero"
 import EventList from "@/components/events/event-list"
 import EventTop from "@/components/events/event-top"
@@ -12,7 +13,9 @@ export const metadata: Metadata = {
   
 const EventPage= () => {
     return(<>
+    
     <EventTop  />
+    <MinistriesSection />
      <EventHero  />
      <EventList />
 

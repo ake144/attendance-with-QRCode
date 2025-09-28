@@ -1,9 +1,11 @@
 import AboutHero from "@/components/about/about-hero"
 import {Community} from "@/components/about/community"
+import ConstructionCenter from "@/components/about/constructionCenter"
 import ContactCTA from "@/components/about/contact-cta"
 import Leadership from "@/components/about/leadership"
 import MissionVision from "@/components/about/mission-vision"
 import Timeline from "@/components/about/timeline"
+import { Construction } from "lucide-react"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -18,9 +20,11 @@ return(
    <div className="min-h-screen bg-background">
       <AboutHero />
       <MissionVision />
+       <ConstructionCenter />
       <Leadership />
       <Timeline />
       <Community />
+     
       <ContactCTA />
     </div>
   
