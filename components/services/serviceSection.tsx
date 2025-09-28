@@ -10,7 +10,7 @@ import Image from 'next/image';
 const ServicesSection = () => {
   const services = [
     {
-      title: 'Wednesday Evening Worship',
+      title: 'Wednesday Evening Worship (Bole Church)',
       time: '6:00 PM - 8:00 PM',
       description: 'Join us for a powerful evening of worship, biblical teaching, and heartfelt prayer to deepen your faith.',
       audience: 'All Ages Welcome',
@@ -18,7 +18,7 @@ const ServicesSection = () => {
       image: '/com7.jpg',
     },
     {
-      title: 'Friday Evening Worship',
+      title: 'Friday Evening Worship (Bole Church)',
       time: '6:00 PM - 8:00 PM',
       description: 'A vibrant gathering focused on worship, the Word of God, and community fellowship.',
       audience: 'All Ages Welcome',
@@ -26,20 +26,21 @@ const ServicesSection = () => {
       image: '/com8.jpg',
     },
     {
-      title: 'Sunday Morning Worship (First Shift)',
-      time: '8:00 AM - 10:00 AM',
+      title: 'Sunday Worship (Two Shift - Bole Church)',
+      time: '8 AM - 10 AM (1st)',
+      time2:'11 AM - 1:30 PM (2nd)',
       description: 'Experience an uplifting morning service with dynamic worship, preaching, and community connection.',
       audience: 'All Ages Welcome',
       features: ['Contemporary Worship', 'Biblical Teaching', 'Community Time'],
       image: '/fam9.jpg',
     },
     {
-      title: 'Sunday Morning Worship (Second Shift)',
-      time: '11:00 AM - 1:00 PM',
-      description: 'A second morning service offering vibrant worship, biblical teaching, and opportunities for fellowship.',
+      title: "Sunday's service (Virginia Church)",
+      time: '12:30 PM - 3:00 PM',
+      description: 'Weekly meeting times service offering vibrant worship, biblical teaching, and opportunities for fellowship.',
       audience: 'All Ages Welcome',
       features: ['Contemporary Worship','Biblical Teaching', 'Coffee & Fellowship'],
-      image: '/fam5.jpg',
+      image: '/com4.jpg',
     },
   ];
 
@@ -82,6 +83,7 @@ const ServicesSection = () => {
                   <Clock className="h-5 w-5 text-orange-700" />
                 </CardTitle>
                 <div className="font-bold text-2xl text-orange-800 mt-2">{service.time}</div>
+                {service.time2 && <div className="font-bold text-2xl text-orange-800 mt-1">{service.time2}</div>}
               </CardHeader>
 
               {/* Card Content */}
