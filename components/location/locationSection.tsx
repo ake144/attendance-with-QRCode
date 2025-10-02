@@ -33,10 +33,10 @@ const locations: Location[] = [
     parking: 'Free parking available in our main lot and street parking on Sundays.',
     accessibility: 'Wheelchair accessible with reserved seating and accessible restrooms.',
     serviceTimes: [
-      { day: 'Wednesday Evening Worship', time: '8:00 PM - 10:00 PM' },
-      { day: 'Friday Evening Worship', time: '8:00 PM - 10:00 PM' },
-      { day: 'Sunday Morning (First Shift)', time: '10:00 AM - 12:00 PM' },
-      { day: 'Sunday Morning (Second Shift)', time: '1:00 PM - 3:00 PM' },
+      { day: 'Wednesday Evening Worship', time: '6:00 PM - 8:00 PM' },
+      { day: 'Friday Evening Worship', time: '6:00 PM - 8:00 PM' },
+      { day: 'Sunday Morning Service', time: '8:30 AM - 10:30 AM' },
+      { day: 'Sunday Afternoon Service', time: '11:00 AM - 1:30 PM' },
     ],
   },
   {
@@ -49,12 +49,11 @@ const locations: Location[] = [
     parking: 'Free parking available in our main lot and street parking on Sundays.',
     accessibility: 'Wheelchair accessible with reserved seating and accessible restrooms.',
     serviceTimes: [
-      { day: 'Sunday Morning', time: '9:00 AM' }, // Placeholder; update if specific times available
-      { day: 'Sunday Evening', time: '6:00 PM' },
-      { day: 'Wednesday Bible Study', time: '7:00 PM' },
+      { day: 'Sunday Worship Service', time: '12:30 PM - 3:00 PM' },
     ],
   },
 ];
+
 
 const LocationSection = () => {
   return (

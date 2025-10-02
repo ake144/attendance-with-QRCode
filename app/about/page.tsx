@@ -3,6 +3,7 @@ import {Community} from "@/components/about/community"
 import ConstructionCenter from "@/components/about/constructionCenter"
 import ContactCTA from "@/components/about/contact-cta"
 import Leadership from "@/components/about/leadership"
+import { MinistryOverview } from "@/components/about/minstryOverview"
 import MissionVision from "@/components/about/mission-vision"
 import Timeline from "@/components/about/timeline"
 import { Construction } from "lucide-react"
@@ -21,6 +22,7 @@ return(
       <AboutHero />
       <MissionVision />
        <ConstructionCenter />
+       <MinistryOverview  />
       <Leadership />
       <Timeline />
       <Community />

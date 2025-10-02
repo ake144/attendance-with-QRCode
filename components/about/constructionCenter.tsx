@@ -30,13 +30,13 @@ export default function AyatChurchSection() {
       complete: true,
     },
     {
-      date: "Sep 2025",
+      date: "Nov 2025",
       title: "Framing Underway",
       description: "Walls and roof taking shape.",
       complete: true,
     },
     {
-      date: "Dec 2025",
+      date: "Jan 2026",
       title: "Interior Work Begins",
       description: "Plumbing, electrical, and worship space setup.",
       complete: false,
@@ -128,14 +128,14 @@ export default function AyatChurchSection() {
                     Donate Now
                   </Button>
                 </Link>
-                <Link href="/prayer">
+                {/* <Link href="/prayer">
                   <Button
                     variant="outline"
                     className="text-[#F09F2C] border-[#F09F2C] hover:bg-[#F09F2C] hover:text-white transition-all"
                   >
                     Submit a Prayer Request
                   </Button>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>

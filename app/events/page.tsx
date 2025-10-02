@@ -2,6 +2,7 @@ import MinistriesSection from "@/components/about/minstriesSection"
 import EventHero from "@/components/events/event-hero"
 import EventList from "@/components/events/event-list"
 import EventTop from "@/components/events/event-top"
+import ScheduleCards from "@/components/events/scheduled"
 import { Metadata } from "next"
 
 
@@ -15,7 +16,8 @@ const EventPage= () => {
     return(<>
     
     <EventTop  />
-    <MinistriesSection />
+    <ScheduleCards  />
+    {/* <MinistriesSection /> */}
      <EventHero  />
      <EventList />
 

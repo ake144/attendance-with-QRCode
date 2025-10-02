@@ -91,10 +91,10 @@ const MinistryCard = ({
           <span className="rounded-full w-56 h-56 object-cover border-2">{icon}</span>
         </div>
         <div className="space-y-2">
-          <figcaption className="text-lg font-bold text-[#F09F2C]">
+          <figcaption className="text-2xl font-bold text-[#F09F2C]">
             {title}
           </figcaption>
-          <blockquote className="text-sm text-gray-600 leading-relaxed">{body}</blockquote>
+          <blockquote className="text-lg text-gray-600 leading-relaxed">{body}</blockquote>
         </div>
         <Link href="/about#ministries">
           <Button
