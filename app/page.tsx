@@ -30,6 +30,8 @@ import LocationSection from "@/components/location/locationSection";
 import ServicesSection from "@/components/services/serviceSection";
 import { FlipWords } from "@/components/ui/flip-words";
 import { HeroImages } from "@/components/landingImages";
+import { InfiniteMovingCardsDemo } from "@/components/infiniteCards";
+import { MinistryMarquee } from "@/components/Churchstats";
 
 export default function HomePage() {
   const { user, isAuthenticated } = useAuthStore();
@@ -381,20 +383,37 @@ const words = [
       </section>
 
       <section className="py-20 bg-church-warm">
-        <LocationSection  />
+        {/* <LocationSection  /> */}
       </section>
-      <section className="bg-white py-12">
-        
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold text-[#F09F2C] mb-6">Discover Our Ministries</h2>
-        <p className="text-gray-600 mb-8">From salvation classes to prayer meetings, find your place to serve and grow.</p>
-        <Link href="/about#ministries">
-          <Button size="lg" className="bg-[#F09F2C] text-white hover:bg-amber-600">
-            Explore Ministries
-          </Button>
-        </Link>
-      </div>
-    </section>
+
+     <section className="py-20 bg-gradient-to-br from-white to-amber-50">
+        {/* <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-[#F09F2C] mb-12 text-center">
+            Our Impact at a Glance
+          </h2>
+          <div className="relative">
+            <InfiniteMovingCardsDemo /> 
+          </div>
+          <div className="text-center mt-8">
+            <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
+              From baptisms to community care, we're transforming lives through faith and service.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/events">
+                <Button size="lg" className="bg-[#F09F2C] text-white hover:bg-amber-600">
+                  Explore Events
+                </Button>
+              </Link>
+              <Link href="/about">
+                <Button variant="outline" className="text-[#F09F2C] border-[#F09F2C] hover:bg-[#F09F2C] hover:text-white">
+                  Learn About Our Ministries
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div> */}
+        <MinistryMarquee  />
+      </section>
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-amber-400 to-amber-400">

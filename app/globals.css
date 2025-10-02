@@ -5,7 +5,8 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
-
+/* 
+@import "tailwindcss"; */
 
 .leaflet-pane,
 .leaflet-control {
@@ -16,7 +17,6 @@ body {
 .leaflet-bottom {
   z-index: 0 !important;
 }
-
 
 @layer base {
   :root {
@@ -72,6 +72,10 @@ body {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+  .theme {
+    --animate-marquee: marquee var(--duration) infinite linear;
+    --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  }
 }
 
 @layer base {
@@ -80,5 +84,27 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* 
+---break--- */
+
+@theme inline {
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+    }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+    }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+    }
   }
 }

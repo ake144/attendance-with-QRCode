@@ -12,6 +12,9 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
+			animation: {
+				scroll: "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -61,12 +64,28 @@ const config: Config = {
   	},
 	  animation: {
         pulse: "pulse var(--duration) ease-out infinite",
+		 marquee: "marquee var(--duration) linear infinite",
+         "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
       },
       keyframes: {
         pulse: {
           "0%, 100%": { boxShadow: "0 0 0 0 var(--pulse-color)" },
           "50%": { boxShadow: "0 0 0 8px var(--pulse-color)" },
         },
+		 scroll: {
+          to: {
+            transform: "translate(calc(-50% - 0.5rem))",
+          },
+        },
+		  marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+        "marquee-vertical": {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(calc(-100% - var(--gap)))" },
+        },
+
       },
   },
   plugins: [require("tailwindcss-animate")],
