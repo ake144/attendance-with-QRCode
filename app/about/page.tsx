@@ -6,7 +6,6 @@ import Leadership from "@/components/about/leadership"
 import { MinistryOverview } from "@/components/about/minstryOverview"
 import MissionVision from "@/components/about/mission-vision"
 import Timeline from "@/components/about/timeline"
-import { Construction } from "lucide-react"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
