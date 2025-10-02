@@ -65,11 +65,11 @@ const Index = () => {
                 </div>
                 <p className="text-gray-700 mb-4">
                   Our dedicated team of prayer warriors is committed to lifting up your requests 
-                  before God each week.
+                  before God each week. 3 Times a year a 40 days Fast and Prayer is held.
                 </p>
                 <div className="bg-orange-50 p-3 rounded-lg">
                   <p className="text-sm text-orange-800">
-                    <span className="font-semibold">Meeting Times:</span> within a week
+                    <span className="font-semibold">Meeting Times:</span> Monday nights 6:00pm and morning on WhatsApp and zoom at 5:30pm. Friday from 6:00pm - 8:00pm
                   </p>
                 </div>
               </CardContent>
@@ -85,7 +85,7 @@ const Index = () => {
                   <h3 className="text-xl font-semibold text-gray-900">Response Time</h3>
                 </div>
                 <p className="text-gray-700 mb-2">
-                  We strive to acknowledge all prayer requests within 24 hours and add them to 
+                  We strive to acknowledge all prayer requests within a short period and add them to
                   our prayer list immediately.
                 </p>
                 <div className="mt-3 bg-gradient-to-r from-orange-50 to-amber-50 p-3 rounded-lg border border-orange-200">
