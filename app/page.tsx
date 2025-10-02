@@ -383,7 +383,7 @@ const words = [
       </section>
 
       <section className="py-20 bg-church-warm">
-        {/* <LocationSection  /> */}
+        <LocationSection  />
       </section>
 
      <section className="py-20 bg-gradient-to-br from-white to-amber-50">
