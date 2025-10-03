@@ -123,12 +123,14 @@ export function MinistryMarquee() {
           </p>
         </div>
         <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
-          <Marquee pauseOnHover className="[--duration:25s] [mask-image:linear-gradient(to_right,transparent_0,white_20%,white_80%,transparent_100%)]">
+          <Marquee pauseOnHover  overflow-hidden >
+            {/* className="[--duration:25s] [mask-image:linear-gradient(to_right,transparent_0,white_20%,white_80%,transparent_100%)]" */}
             {firstRow.map((ministry) => (
               <MinistryCard key={ministry.title} {...ministry} />
             ))}
           </Marquee>
-          <Marquee reverse pauseOnHover className="[--duration:25s] [mask-image:linear-gradient(to_right,transparent_0,white_20%,white_80%,transparent_100%)]">
+          <Marquee reverse pauseOnHover overflow-hidden>
+            {/* className="[--duration:25s] [mask-image:linear-gradient(to_right,transparent_0,white_20%,white_80%,transparent_100%)]" */}
             {secondRow.map((ministry) => (
               <MinistryCard key={ministry.title} {...ministry} />
             ))}
