@@ -29,6 +29,8 @@ const ServicesSection = () => {
       title: 'Sunday Worship (Two Shift - Bole Church)',
       time: '8 AM - 10 AM &',
       time2:'11 AM - 1:30 PM',
+      time: '8 AM - 10 AM &',
+      time2:'11 AM - 1:30 PM ',
       description: 'Experience an uplifting morning service with dynamic worship, preaching, and community connection.',
       audience: 'All Ages Welcome',
       features: ['Contemporary Worship', 'Biblical Teaching', 'Community Time'],

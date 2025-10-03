@@ -65,6 +65,7 @@ const config: Config = {
 	  animation: {
         pulse: "pulse var(--duration) ease-out infinite",
 		 marquee: "marquee var(--duration) linear infinite",
+
          "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
       },
       keyframes: {
@@ -83,7 +84,8 @@ const config: Config = {
         },
         "marquee-vertical": {
           from: { transform: "translateY(0)" },
-          to: { transform: "translateY(calc(-100% - var(--gap)))" },
+          to: { transform: "translateY(calc(-100% - var(--gap)))" 
+		  },
         },
 
       },
