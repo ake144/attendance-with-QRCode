@@ -224,45 +224,7 @@ const words = [
         </div>
       </section>
 
-      {/* Features Section */}
-      {/* <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
-            What We Offer
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="text-center p-6 hover:shadow-lg transition-shadow">
-              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8 text-[#379AFE]" />
-              </div>
-              <CardTitle className="text-xl mb-2">Community</CardTitle>
-              <CardDescription>
-                Connect with fellow believers in a warm, welcoming environment
-              </CardDescription>
-            </Card>
-
-            <Card className="text-center p-6 hover:shadow-lg transition-shadow">
-              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Calendar className="h-8 w-8 text-green-600" />
-              </div>
-              <CardTitle className="text-xl mb-2">Events</CardTitle>
-              <CardDescription>
-                Participate in various church activities and special events
-              </CardDescription>
-            </Card>
-
-            <Card className="text-center p-6 hover:shadow-lg transition-shadow">
-              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <BookOpen className="h-8 w-8 text-purple-600" />
-              </div>
-              <CardTitle className="text-xl mb-2">Spiritual Growth</CardTitle>
-              <CardDescription>
-                Grow in your faith through Bible study and spiritual guidance
-              </CardDescription>
-            </Card>
-          </div>
-        </div>
-      </section> */}
+ 
 
       {/* Donation Section */}
       <section className="py-20 ">
