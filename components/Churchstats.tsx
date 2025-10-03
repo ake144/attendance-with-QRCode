@@ -9,7 +9,7 @@ const ministries = [
     title: "Salvation Classes",
     icon: "📖",
     body: "Deepen your faith—over 6,000 baptized! Tuesdays 6-7:30pm & Sundays 7:30-9am.",
-    img: "/ministry-salvation.jpg", // Placeholder; replace with actual image
+    img: "/ministry-salvation.jpg",
   },
   {
     title: "Care Groups",
