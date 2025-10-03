@@ -77,6 +77,21 @@ body {
   } */
 }
 
+@keyframes scroll-vertical {
+          0% {
+            transform: translateY(0);
+          }
+          100% {
+            transform: translateY(-50%); /* Half height since duplicated */
+          }
+        }
+        .animate-scroll-vertical {
+          animation: scroll-vertical 40s linear infinite;
+        }
+        .animate-scroll-vertical:hover {
+          animation-play-state: paused; /* Pause on hover for better UX */
+        }
+
 @layer base {
   * {
     @apply border-border;
