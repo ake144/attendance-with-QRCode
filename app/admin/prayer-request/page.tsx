@@ -13,6 +13,7 @@ interface PrayerRequest {
   phone?: string;
   prayerRequest: string;
   isAnonymous?: boolean;
+  status: "Pending" | "Answered" | "In Progress" | "Closed";
   createdAt: string;
 }
 
@@ -111,6 +112,7 @@ const PrayerRequestsAdminPage: NextPage = () => {
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prayer Request</th>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Anonymous</th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                   </tr>
@@ -132,6 +134,17 @@ const PrayerRequestsAdminPage: NextPage = () => {
                       </td>
                       <td className="px-4 py-4 whitespace-nowrap">
                         {request.isAnonymous ? 'Yes' : 'No'}
+                      </td>
+                      <td className="px-4 py-4">
+                        <div className="inline-block px-2 py-1 text-sm font-semibold rounded-full
+                          {request.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
+                           request.status === 'Answered' ? 'bg-green-100 text-green-800' :
+                           request.status === 'In Progress' ? 'bg-blue-100 text-blue-800' :
+                           request.status === 'Closed' ? 'bg-gray-100 text-gray-800' : ''
+                          }"
+                        >
+                          {request.status}
+                        </div>
                       </td>
                       <td className="px-4 py-4 whitespace-nowrap">
                         {formatDate(request.createdAt)}
