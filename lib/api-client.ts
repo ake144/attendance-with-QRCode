@@ -46,7 +46,7 @@ class ApiClient {
     const url = `${this.baseUrl}${endpoint}`;
     const config: RequestInit = {
       ...options,
-      credentials: 'include', // Include cookies
+      credentials: 'include', 
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,
@@ -76,7 +76,7 @@ class ApiClient {
     }
   }
 
-  // Auth endpoints
+ 
   async login(data: { email?: string; phone?: string; name?: string , password?: string }): Promise<LoginResponse> {
     return this.request<LoginResponse>('/auth/login', {
       method: 'POST',
